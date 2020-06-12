@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div onclick="serchAdmin()">
+      hello ai
+    </div>
+    <img src="./v2-500.jpg" style="width: 100px;" />
+    <form method="POST" action="/addAdmin">
+      <input type="text" name="name" placeholder="学号" />
+      <input type="text" name="jurisdiction" placeholder="学号" />
+      <input type="password" name="password" placeholder="密码" />
+      <input type="submit" value="提交"">
+    </form>
+    <script>
+      function addAdmin() {
+        let stunum = document.getElementById("stunum").value;
+        let pwd = document.getElementById("pwd").value;
+        let params = {name:'1',jurisdiction:'0',pwd:'123'}
+        // "name=" + stunum + "&jurisdiction=" + jurisdiction+"pwd="+password;
+
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("POST", "/addAdmin", true);
+        xmlhttp.send(params);
+        xmlhttp.onreadystatechange = () => {
+          if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            // console.log(xmlhttp.responseText);
+            // console.log(typeof xmlhttp.responseText);
+            if (xmlhttp.responseText == "ok") {
+              alert("成功");
+            } else {
+              alert("失败");
+            }
+          }
+        };
+      }
+      function serchAdmin() {
+        // let stunum = document.getElementById("stunum").value;
+        // let pwd = document.getElementById("pwd").value;
+        // let params = "stuNum="+stunum+"&password="+pwd
+
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("GET", "/serchAdmin", true);
+        xmlhttp.send();
+        xmlhttp.onreadystatechange = () => {
+          if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            console.log(xmlhttp.responseText);
+            console.log(typeof xmlhttp.responseText);
+            if (xmlhttp.responseText == "ok") {
+              alert("成功");
+            } else {
+              alert("失败");
+            }
+          }
+        };
+      }
+    </script>
+  </body>
+</html>
