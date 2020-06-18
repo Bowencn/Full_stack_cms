@@ -34,6 +34,8 @@ app.all("*", function (req, res, next) {
 //个人信息
 app.post(`/addPersonalInfo`,loader.get(`/addPersonalInfo`))
 app.get(`/searchPersonalInfo`,loader.get(`/searchPersonalInfo`))
+//分类标签
+app.post(`/addTags`,loader.get(`/addTags`))
 //文章列表
 app.post(`/addArticleInfo`,loader.get(`/addArticleInfo`))
 app.get(`/searchArticleInfo`,loader.get(`/searchArticleInfo`))

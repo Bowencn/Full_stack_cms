@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
+
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 import {
   Layout,
   Affix,
@@ -11,39 +18,42 @@ import {
   Card,
   Anchor,
 } from "antd";
-import CardTemplate from "./components/CardTemplate";
 import axios from "axios";
+import HomeArticle from "./components/HomeArticle";
+import Archives from "./Views/Archives";
+import UserInfo from "./components/UserInfo";
 const { Content, Footer } = Layout;
 const { Link } = Anchor;
 const { Text } = Typography;
 const localhost = "http://localhost:10086/";
-function App() {
-  const [articleList, setArticleList] = useState();
+function App(props) {
+  // const [articleList, setArticleList] = useState();
   const [userInfo, setUserInfo] = useState();
   useEffect(() => {
-    const getArticle = async () => {
-      const res = await axios.get(`${localhost}searchArticleInfo`);
-      let data = res.data.reverse();
-      data.forEach((item, index) => {
-        item.key = index;
-      });
-      console.log(data);
-      setArticleList(data);
-    };
+    // const getArticle = async () => {
+    //   const res = await axios.get(`${localhost}searchArticleInfo`);
+    //   let data = res.data.reverse();
+    //   data.forEach((item, index) => {
+    //     item.key = index;
+    //   });
+    //   console.log(data);
+    //   setArticleList(data);
+    // };
     const getUserInfo = async () => {
       const res = await axios.get(`${localhost}searchPersonalInfo`);
       setUserInfo(res.data[0]);
       console.log(res.data);
     };
-    getArticle();
+    // getArticle();
     getUserInfo();
   }, []);
   const headerList = [
     { name: "前端" },
     { name: "运营" },
     { name: "实验室", subclass: [{ name: "React" }, { name: "Nodejs" }] },
-    { name: "归档" },
+    { name: "归档", herf: "/archives" },
   ];
+  console.log(props);
   return (
     <Layout className="layout">
       {/* <header style={{ height: 500, position: "relative", overflow: "hidden" }}>
@@ -106,83 +116,19 @@ function App() {
       <Content style={{ padding: "30px 0" }}>
         <Row>
           <Col
-            xxl={{ offset: 4 }}
+            xxl={{ offset: 5 }}
             xl={{ offset: 3 }}
             lg={{ offset: 0 }}
             style={{ width: "772px", minWidth: "700px" }}
           >
-            {articleList &&
-              articleList.map((item, index) => (
-                <CardTemplate homePage data={item} key={index} />
-              ))}
+            <HomeArticle />
           </Col>
           <Col
             style={{ width: "320px", position: "absolute", left: "802px" }}
-            xxl={{ offset: 4 }}
+            xxl={{ offset: 5 }}
             xl={{ offset: 3 }}
           >
-            <Affix offsetTop={30}>
-              <div>
-                <Card hoverable style={{ padding: "16px 20px" }}>
-                  <div
-                    style={{
-                      textAlign: "center",
-                      display: "flex",
-                      flexDirection: "row ",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <img
-                      alt="example"
-                      src={userInfo && localhost + userInfo.user_image}
-                      style={{
-                        borderRadius: "100%",
-                        border: "2px dashed #000",
-                        padding: "5px",
-                        width: "100px",
-                        height: "100px",
-                      }}
-                      className={"App-logo"}
-                    />
-                    <Text strong style={{ writingMode: "vertical-lr" }}>
-                      •
-                    </Text>
-                    <Text
-                      strong
-                      style={{
-                        writingMode: "vertical-lr",
-                        letterSpacing: "1px",
-                      }}
-                    >
-                      {userInfo && userInfo.autograph}
-                    </Text>
-                  </div>
-                  <Divider />
-                  <div style={{ textAlign: "center" }}>
-                    <Text strong>{userInfo && userInfo.name}</Text>
-                  </div>
-                </Card>
-                <Card
-                  hoverable
-                  style={{ padding: "16px 20px", marginTop: "20px" }}
-                >
-                  <Anchor affix={false}>
-                    <Link href="/" title="首页" />
-                    {headerList.map((item, index) => {
-                      return item.subclass ? (
-                        <Link title={item.name} key={index}>
-                          {item.subclass.map((item2, index2) => (
-                            <Link title={"- " + item2.name} key={index2} />
-                          ))}
-                        </Link>
-                      ) : (
-                        <Link title={item.name} key={index} />
-                      );
-                    })}
-                  </Anchor>
-                </Card>
-              </div>
-            </Affix>
+            <UserInfo />
           </Col>
         </Row>
       </Content>
@@ -202,9 +148,9 @@ function App() {
           Back
         </div>
       </BackTop>
-      <Footer style={{ textAlign: "center" }}>
-        Ant Design ©2018 Created by Ant UED
-      </Footer>
+      {/* <Footer style={{ textAlign: "center" }}>
+          Ant Design ©2018 Created by Ant UED
+        </Footer> */}
     </Layout>
   );
 }

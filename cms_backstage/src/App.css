@@ -43,7 +43,9 @@
   margin: 16px 28px 16px 0;
   float: left;
 }
-
+.navFont{
+  color: #fff;
+}
 .site-layout-background {
   background: #fff;
 }

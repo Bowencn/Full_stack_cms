@@ -51,7 +51,9 @@ p {
 a {
   /* color: #ab3300 !important; */
 }
-
+.layout{
+  min-height: 969px;
+}
 .site-layout-content {
   background: #fff;
   padding: 24px;
@@ -83,4 +85,7 @@ a {
 
 .ant-card-body .image-wrap img{
   width: 100%;
+}
+.example {
+  text-align: center;
 }

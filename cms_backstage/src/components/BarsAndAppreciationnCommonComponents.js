@@ -8,6 +8,7 @@ import {
   Modal,
   Select,
   Divider,
+  Tag,
   message,
 } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
@@ -30,7 +31,6 @@ BraftEditor.use(HeaderId(options));
 BraftEditor.use(CodeHighlighter(options));
 export default function BarsAndAppreciationnCommonComponents(props) {
   const [name] = useState("");
-  const [items] = useState(["React", "Nodejs"]);
   const [appreciateInfo, setAppreciateInfo] = useState({});
   const [editorState, setEditorState] = useState(
     BraftEditor.createEditorState(null)
@@ -39,7 +39,14 @@ export default function BarsAndAppreciationnCommonComponents(props) {
   const [visible, setVisible] = useState(false);
 
   const [userInfo, setUserInfo] = useState();
-  const { Option } = Select;
+  // const { Option } = Select;
+  
+const selectOptions = [
+  { label: "首页",value:'gold' },
+  { label: "前端",value:'#f40' },
+  { label: "React",value:'blue' },
+  { label: "Nodejs",value:'green' },
+];
   const [form] = Form.useForm();
   const localhost = "http://localhost:10086/";
   const controls = [
@@ -192,8 +199,19 @@ export default function BarsAndAppreciationnCommonComponents(props) {
       name: "",
     });
   }
-
-
+  function tagRender(props) {
+    const { label, value, closable, onClose } = props;
+    return (
+      <Tag
+        color={value}
+        closable={closable}
+        onClose={onClose}
+        style={{ marginRight: 3 }}
+      >
+        {label}
+      </Tag>
+    );
+  }
   const preview = () => {
     if (visible) {
       setVisible(false);
@@ -214,11 +232,7 @@ export default function BarsAndAppreciationnCommonComponents(props) {
     },
   ];
   return (
-    <Form
-      name="bacc"
-      form={form}
-      {...layout}
-    >
+    <Form name="bacc" form={form} {...layout}>
       <Modal visible={visible} onCancel={handleCancel} footer={null}>
         <div
           className="braft-output-content"
@@ -270,6 +284,13 @@ export default function BarsAndAppreciationnCommonComponents(props) {
         //   >
         <Form.Item label={CategoryBar} required={true} name="tags">
           <Select
+            mode="multiple"
+            tagRender={tagRender}
+            // defaultValue={[{label:"首页",value:'gold'}]}
+            style={{ width: "100%" }}
+            options={selectOptions}
+          />
+          {/* <Select
             style={{ width: 240 }}
             // placeholder="custom dropdown render"
             dropdownRender={(menu) => (
@@ -307,7 +328,7 @@ export default function BarsAndAppreciationnCommonComponents(props) {
             {items.map((item) => (
               <Option key={item}>{item}</Option>
             ))}
-          </Select>
+          </Select> */}
         </Form.Item>
         //    </Col>
         // </Row>

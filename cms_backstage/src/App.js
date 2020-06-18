@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import { Layout, Menu } from "antd";
-import { FileOutlined, HomeOutlined,FileTextOutlined,LikeOutlined,PictureOutlined,FundProjectionScreenOutlined } from "@ant-design/icons";
+import {
+  TeamOutlined,
+  HomeOutlined,
+  FileTextOutlined,
+  LikeOutlined,
+  PictureOutlined,
+  FundProjectionScreenOutlined,
+  PlaySquareOutlined,
+} from "@ant-design/icons";
 import Icon from "@ant-design/icons";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
@@ -15,9 +23,9 @@ import AddArticle from "./views/AddArticle";
 import PictureLibrary from "./views/PictureLibrary";
 import WebsiteStatistics from "./views/WebsiteStatistics";
 import Administrators from "./views/Administrators";
-import HomePage from "./views/HomePage"
+import HomePage from "./views/HomePage";
 const { SubMenu } = Menu;
-const {  Content, Footer, Sider } = Layout;
+const { Content, Footer, Sider } = Layout;
 function App() {
   const [collapsed, setCollapsed] = useState(false);
   const onCollapse = (collapsed) => {
@@ -53,35 +61,57 @@ function App() {
               <SubMenu
                 key="sub1"
                 icon={<HomeOutlined />}
-                title={<Link to="/">home page</Link>}
+                title={
+                  <Link to="/" className="navFont">
+                    home page
+                  </Link>
+                }
               >
                 <Menu.Item key="1">
-                  <Link to="/CustomHead">Header</Link>
+                  <Link to="/CustomHead" className="navFont">
+                    Header
+                  </Link>
                 </Menu.Item>
                 <Menu.Item key="2">
-                  <Link to="/BannerBar">Banner</Link>
+                  <Link to="/BannerBar" className="navFont">
+                    Banner
+                  </Link>
                 </Menu.Item>
                 <Menu.Item key="3">
-                  <Link to="/SideInformation">个人信息</Link>
+                  <Link to="/SideInformation" className="navFont">
+                    个人信息
+                  </Link>
                 </Menu.Item>
               </SubMenu>
               <Menu.Item key="4" icon={<FileTextOutlined />}>
-                <Link to="/ArticleList">文章列表</Link>
+                <Link to="/ArticleList" className="navFont">
+                  文章列表
+                </Link>
               </Menu.Item>
               <Menu.Item key="5" icon={<LikeOutlined />}>
-                <Link to="/AppreciatonSettings">赞赏设置</Link>
+                <Link to="/AppreciatonSettings" className="navFont">
+                  赞赏设置
+                </Link>
               </Menu.Item>
               <Menu.Item key="6" icon={<PictureOutlined />}>
-                <Link to="/PictureLibrary">图片管理</Link>
+                <Link to="/PictureLibrary" className="navFont">
+                  图片管理
+                </Link>
               </Menu.Item>
-              <Menu.Item key="7" icon={<FileOutlined />}>
-                <Link to="/PictureLibrary">视频管理</Link>
-              </Menu.Item>
+              {/* <Menu.Item key="7" icon={<PlaySquareOutlined />}>
+                <Link to="/PictureLibrary" className="navFont">
+                  视频管理
+                </Link>
+              </Menu.Item> */}
               <Menu.Item key="8" icon={<FundProjectionScreenOutlined />}>
-                <Link to="/WebsiteStatistics">网站统计</Link>
+                <Link to="/WebsiteStatistics" className="navFont">
+                  网站统计
+                </Link>
               </Menu.Item>
-              <Menu.Item key="9" icon={<FileOutlined />}>
-                <Link to="/Administrators">管理员</Link>
+              <Menu.Item key="9" icon={<TeamOutlined />}>
+                <Link to="/Administrators" className="navFont">
+                  管理员
+                </Link>
               </Menu.Item>
             </Menu>
           </Sider>
@@ -100,9 +130,9 @@ function App() {
             <Content style={{ margin: "20px 16px" }}>
               <div
                 className="site-layout-background"
-                style={{ padding: 24, minHeight: 360 }}
+                style={{ padding: 24}}
               >
-                <Route path="/" exact component={HomePage}/>
+                <Route path="/" exact component={HomePage} />
                 <Route path="/CustomHead" component={CustomHead} />
                 <Route path="/BannerBar" component={BannerBar} />
                 <Route path="/SideInformation" component={SideInformation} />

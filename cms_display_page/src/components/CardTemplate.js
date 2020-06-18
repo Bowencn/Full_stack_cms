@@ -50,7 +50,7 @@ export default function CardTemplate(props) {
   return (
     <Card
       hoverable
-      style={{ padding: "40px", marginBottom: "30px" }}
+      style={{ padding: "40px", marginBottom: "30px" ,textAlign:'left'}}
       bodyStyle={{ padding: "0" }}
     >
       {cardHeader}
