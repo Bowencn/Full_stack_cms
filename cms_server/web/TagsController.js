@@ -2,45 +2,80 @@ const tagsService = require("../service/TagsService");
 let path = new Map();
 addTags = (request, response) => {
   let data = request.body;
-  console.log(request.body);
-  let nameList = [];
+  // console.log(request.body);
   for (let index = 0; index < data.length; index++) {
+    const childrenData = data[index];
     const name = data[index].name;
-    nameList.push(name);
-  }
-  tagsService.addTags(nameList, (result) => {
-    console.log("controller:", result);
+    tagsService.searchTagsNameIsTrue(name, (result) => {
+      // console.log(!result[0].count,childrenData)
+      if (!result[0].count) {
+        console.log(name);
+        tagsService.addTags(name, (result) => {
+          console.log("controller:", result);
+          if (result && childrenData.subclass) {
+            //查询id
+            console.log(childrenData.subclass);
+            let subclass = childrenData.subclass;
+            tagsService.searchTagsIdWithName(childrenData.name, (result) => {
+              console.log("select_subclass:", result[0].id);
+              // response.end();
+              if (result) {
+                for (let index = 0; index < subclass.length; index++) {
+                  console.log(subclass[index].name, result[0].id);
 
-    if (result) {
-      //查询id
-      for (let index = 0; index < data.length; index++) {
-        let subclass = data[index].subclass;
-        if (subclass) {
-          tagsService.searchTags(data[index].name, (result) => {
-            console.log("select_subclass:", result[0].id);
-            // response.end();
-            if (result) {
-              let list = [];
-              for (let index = 0; index < subclass.length; index++) {
-                //   console.log(subclass[index].name)
-                list.push(subclass[index].name);
-                // list.push(result[0].id)
+                  tagsService.addChildrenTags(
+                    subclass[index].name,
+                    result[0].id,
+                    (result) => {
+                      console.log("success");
+                    }
+                  );
+                  // list.push(subclass[index].name);
+                  // list.push(result[0].id)
+                }
               }
-              tagsService.addChildrenTags(list,result[0].id, (result) => {
-                console.log("success");
-              });
+            });
+          }
+          response.end();
+        });
+      } else if (childrenData.subclass) {
+        console.log(name);
+        let subclass = childrenData.subclass;
+
+        tagsService.searchTagsIdWithName(childrenData.name, (result) => {
+          console.log("select_subclass:", result[0].id);
+          // response.end();
+          if (result) {
+            // let list = [];
+            for (let index = 0; index < subclass.length; index++) {
+              //   console.log(subclass[index].name)
+              let resultId = result[0].id
+              console.log(subclass[index].name, result[0].id);
+              tagsService.searchChildrenTagsNameIsTrue(
+                subclass[index].name,
+                (result) => {
+                  if (!result[0].count) {
+                    tagsService.addChildrenTags(
+                      subclass[index].name,
+                      resultId,
+                      (result) => {
+                        console.log("success");
+                      }
+                    );
+                  }
+                }
+              );
+              // list.push(result[0].id)
             }
-          });
-        }
+          }
+        });
       }
-    }
-    response.end();
-  });
-  console.log(nameList);
+    });
+  }
 };
 path.set("/addTags", addTags);
 searchTags = (request, response) => {
-  tagsService.searchTags(name, (result) => {
+  tagsService.searchTagsIdWithName(name, (result) => {
     console.log("controller:", result);
     response.end();
   });

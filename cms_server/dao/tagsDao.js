@@ -1,15 +1,14 @@
 const dbutil = require("./dbutil");
 let connection;
-function addTags(nameList, success) {
+function addTags(name, success) {
   connection = dbutil.createConnection();
-  let data = "";
-  for (let index = 0; index < nameList.length; index++) {
-    index === nameList.length - 1 ? (data += "(?)") : (data += "(?),");
-  }
-  let querySql = `insert into category_navigation (tags_name) values ${data};`;
-  console.log(querySql);
+  // let data = "";
+  // for (let index = 0; index < nameList.length; index++) {
+  //   index === nameList.length - 1 ? (data += "(?)") : (data += "(?),");
+  // }
+  let querySql = `insert into category_navigation (tags_name) values (?);`;
   connection.connect();
-  let queryParams = nameList;
+  let queryParams = [name];
   connection.query(querySql, queryParams, (error, result) => {
     if (error == null) {
       success(result);
@@ -19,7 +18,7 @@ function addTags(nameList, success) {
     // connection.end();
   });
 }
-function searchTags(name, success) {
+function searchTagsIdWithName(name, success) {
   connection = dbutil.createConnection();
 
   let querySql = `select id from category_navigation where tags_name = ?;`;
@@ -35,18 +34,58 @@ function searchTags(name, success) {
     // connection.end();
   });
 }
-function addChildrenTags(list, pid, success) {
+function searchTagsNameIsTrue(name, success) {
   connection = dbutil.createConnection();
-  let data = "";
-  for (let index = 0; index < list.length; index++) {
-    index === list.length - 1
-      ? (data += "(?," + pid + ")")
-      : (data += "(?," + pid + "),");
-  }
-  let querySql = `insert into category_children_nav (children_tags_name,father_id) values ${data};`;
+
+  let querySql = `select count(1) as count from category_navigation where tags_name = ?;`;
   //   console.log(querySql);
-  //   connection.connect();
-  let queryParams = list;
+    connection.connect();
+  let queryParams = [name];
+  connection.query(querySql, queryParams, (error, result) => {
+    if (error == null) {
+      success(result);
+    } else {
+      console.log("dao:", error);
+    }
+    // connection.end();
+  });
+}
+function searchChildrenTagsNameIsTrue(name, success) {
+  connection = dbutil.createConnection();
+
+  let querySql = `select count(1) as count from category_children_nav where children_tags_name = ?;`;
+  //   console.log(querySql);
+    connection.connect();
+  let queryParams = [name];
+  connection.query(querySql, queryParams, (error, result) => {
+    if (error == null) {
+      success(result);
+    } else {
+      console.log("dao:", error);
+    }
+    // connection.end();
+  });
+}
+function addChildrenTags(name, pid, success) {
+  connection = dbutil.createConnection();
+  let data = "(?," + pid + ")";
+  let querySql = `insert into category_children_nav (children_tags_name,father_id) values ${data};`;
+  let queryParams = name;
+  connection.query(querySql,queryParams, (error, result) => {
+    if (error == null) {
+      success(result);
+    } else {
+      console.log("dao:", error);
+    }
+  });
+}
+function searchAllTags(name, success) {
+  connection = dbutil.createConnection();
+
+  let querySql = `select tags_name from category_navigation ;`;
+  //   console.log(querySql);
+    connection.connect();
+  let queryParams = [name];
   connection.query(querySql, queryParams, (error, result) => {
     if (error == null) {
       success(result);
@@ -58,6 +97,8 @@ function addChildrenTags(list, pid, success) {
 }
 module.exports = {
   addTags: addTags,
-  searchTags: searchTags,
+  searchTagsIdWithName: searchTagsIdWithName,
   addChildrenTags: addChildrenTags,
+  searchTagsNameIsTrue:searchTagsNameIsTrue,
+  searchChildrenTagsNameIsTrue:searchChildrenTagsNameIsTrue
 };
