@@ -90,7 +90,6 @@ searchTags = (request, response) => {
           }
         }
       }
-      
       response.write(JSON.stringify(data.reverse()));
       response.end();
     });

@@ -82,7 +82,7 @@ function addChildrenTags(name, pid, success) {
 function searchTags(success) {
   connection = dbutil.createConnection();
 
-  let querySql = `select id,tags_name from category_navigation;`;
+  let querySql = `select id,tags_name as name from category_navigation;`;
   connection.connect();
   connection.query(querySql, (error, result) => {
     if (error == null) {

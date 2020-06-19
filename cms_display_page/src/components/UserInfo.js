@@ -18,17 +18,20 @@ const { Text } = Typography;
 const localhost = "http://localhost:10086/";
 export default function UserInfo() {
   const [userInfo, setUserInfo] = useState();
+
+  const [tags, settags] = useState([{ name: "首页" }]);
   useEffect(() => {
-    const GetSearchTags = async () => {
+    const GetTags = async () => {
       const res = await axios.get(`${localhost}searchTags`);
       console.log(res);
+      settags(res.data);
     };
     const getUserInfo = async () => {
       const res = await axios.get(`${localhost}searchPersonalInfo`);
       setUserInfo(res.data[0]);
       console.log(res.data);
     };
-    GetSearchTags();
+    GetTags();
     getUserInfo();
   }, []);
   const headerList = [
@@ -86,9 +89,8 @@ export default function UserInfo() {
           </div>
         </Card>
         <Card hoverable style={{ padding: "16px 20px", marginTop: "20px" }}>
-          <Anchor affix={false}>
-            <Link href="/" title="首页" />
-            {headerList.map((item, index) => {
+          <Anchor affix={false}></Anchor>
+            {tags.map((item, index) => {
               return item.subclass ? (
                 <Link title={item.name} key={index}>
                   {item.subclass.map((item2, index2) => (

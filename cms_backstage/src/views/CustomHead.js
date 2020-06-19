@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   Tag,
   Tooltip,
@@ -11,7 +11,7 @@ import {
   Dropdown,
 } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-import axios from 'axios'
+import axios from "axios";
 
 const localhost = "http://localhost:10086/";
 // import UploadImage from "../components/UploadImage";
@@ -28,6 +28,14 @@ export default function CustomHead() {
   ]);
   const inputRef = useRef();
   const childrenInputRef = useRef();
+  useEffect(() => {
+    const GetTags = async () => {
+      const res = await axios.get(`${localhost}searchTags`);
+      console.log(res);
+      settags(res.data)
+    };
+    GetTags();
+  }, []);
   const showInput = async () => {
     await setinputVisible(true);
     inputRef.current.focus();
@@ -70,10 +78,10 @@ export default function CustomHead() {
     setchildrenInputIndex(-1);
     setchildrenInputValue("");
   };
-  const submit = async() => {
+  const submit = async () => {
     console.log(tags);
-    const res = await axios.post(`${localhost}addTags`,tags)
-    console.log(res)
+    const res = await axios.post(`${localhost}addTags`, tags);
+    console.log(res);
   };
   const menu = (data) => {
     return (
