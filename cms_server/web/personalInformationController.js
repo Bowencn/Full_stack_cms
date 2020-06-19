@@ -40,9 +40,9 @@ addPersonalInfo = async (request, response) => {
 path.set("/addPersonalInfo", addPersonalInfo);
 
 searchPersonalInfo = (request, response) => {
-  console.log("searchPersonalInfo");
+  // console.log("searchPersonalInfo");
   personalInformationService.searchPersonalInfo((result) => {
-    console.log(result);
+    // console.log(result);
     response.write(JSON.stringify(result));
     response.end();
   });
@@ -50,14 +50,14 @@ searchPersonalInfo = (request, response) => {
 path.set("/searchPersonalInfo", searchPersonalInfo);
 editPersonalInfo = (request, response) => {
   let dataList = request.body;
-  console.log(dataList);
+  // console.log(dataList);
   personalInformationService.editPersonalInfo(
     name,
     autograph,
     user_image,
     historyName,
     (result) => {
-      console.log(result);
+      // console.log(result);
       response.write(JSON.stringify(result));
       response.end();
     }

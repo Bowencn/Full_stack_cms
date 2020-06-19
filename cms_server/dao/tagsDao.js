@@ -39,7 +39,7 @@ function searchTagsNameIsTrue(name, success) {
 
   let querySql = `select count(1) as count from category_navigation where tags_name = ?;`;
   //   console.log(querySql);
-    connection.connect();
+  connection.connect();
   let queryParams = [name];
   connection.query(querySql, queryParams, (error, result) => {
     if (error == null) {
@@ -55,7 +55,7 @@ function searchChildrenTagsNameIsTrue(name, success) {
 
   let querySql = `select count(1) as count from category_children_nav where children_tags_name = ?;`;
   //   console.log(querySql);
-    connection.connect();
+  connection.connect();
   let queryParams = [name];
   connection.query(querySql, queryParams, (error, result) => {
     if (error == null) {
@@ -71,7 +71,7 @@ function addChildrenTags(name, pid, success) {
   let data = "(?," + pid + ")";
   let querySql = `insert into category_children_nav (children_tags_name,father_id) values ${data};`;
   let queryParams = name;
-  connection.query(querySql,queryParams, (error, result) => {
+  connection.query(querySql, queryParams, (error, result) => {
     if (error == null) {
       success(result);
     } else {
@@ -79,14 +79,12 @@ function addChildrenTags(name, pid, success) {
     }
   });
 }
-function searchAllTags(name, success) {
+function searchTags(success) {
   connection = dbutil.createConnection();
 
-  let querySql = `select tags_name from category_navigation ;`;
-  //   console.log(querySql);
-    connection.connect();
-  let queryParams = [name];
-  connection.query(querySql, queryParams, (error, result) => {
+  let querySql = `select id,tags_name from category_navigation;`;
+  connection.connect();
+  connection.query(querySql, (error, result) => {
     if (error == null) {
       success(result);
     } else {
@@ -95,10 +93,25 @@ function searchAllTags(name, success) {
     // connection.end();
   });
 }
+function searchChildrenTags(success) {
+  connection = dbutil.createConnection();
+  let querySql = `select father_id,children_tags_name from category_children_nav`;
+  connection.connect();
+  connection.query(querySql, (error, result) => {
+    if (error == null) {
+      success(result);
+    } else {
+      console.log("dao:", error);
+    }
+    connection.end();
+  });
+}
 module.exports = {
   addTags: addTags,
+  searchTags: searchTags,
+  searchChildrenTags:searchChildrenTags,
   searchTagsIdWithName: searchTagsIdWithName,
   addChildrenTags: addChildrenTags,
-  searchTagsNameIsTrue:searchTagsNameIsTrue,
-  searchChildrenTagsNameIsTrue:searchChildrenTagsNameIsTrue
+  searchTagsNameIsTrue: searchTagsNameIsTrue,
+  searchChildrenTagsNameIsTrue: searchChildrenTagsNameIsTrue,
 };

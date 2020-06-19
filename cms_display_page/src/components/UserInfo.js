@@ -19,21 +19,16 @@ const localhost = "http://localhost:10086/";
 export default function UserInfo() {
   const [userInfo, setUserInfo] = useState();
   useEffect(() => {
-    // const getArticle = async () => {
-    //   const res = await axios.get(`${localhost}searchArticleInfo`);
-    //   let data = res.data.reverse();
-    //   data.forEach((item, index) => {
-    //     item.key = index;
-    //   });
-    //   console.log(data);
-    //   setArticleList(data);
-    // };
+    const GetSearchTags = async () => {
+      const res = await axios.get(`${localhost}searchTags`);
+      console.log(res);
+    };
     const getUserInfo = async () => {
       const res = await axios.get(`${localhost}searchPersonalInfo`);
       setUserInfo(res.data[0]);
       console.log(res.data);
     };
-    // getArticle();
+    GetSearchTags();
     getUserInfo();
   }, []);
   const headerList = [
