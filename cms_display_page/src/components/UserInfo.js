@@ -89,7 +89,7 @@ export default function UserInfo() {
           </div>
         </Card>
         <Card hoverable style={{ padding: "16px 20px", marginTop: "20px" }}>
-          <Anchor affix={false}></Anchor>
+          <Anchor affix={false}>
             {tags.map((item, index) => {
               return item.subclass ? (
                 <Link title={item.name} key={index}>
