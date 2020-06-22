@@ -148,6 +148,7 @@ const selectOptions = [
   };
   const submitInfo = async () => {
     let editorData = form.getFieldsValue().articleContent;
+    console.log(editorData.toHTML())
     let uploads = form.getFieldsValue();
     if (headerName === "个人信息") {
       const res = await axios.post(`${localhost}addPersonalInfo`, uploads);

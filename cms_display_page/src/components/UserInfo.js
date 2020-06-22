@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import { Link } from "react-router-dom";
 import {
   Layout,
   Affix,
@@ -13,7 +13,7 @@ import {
 } from "antd";
 import axios from "axios";
 const { Content, Footer } = Layout;
-const { Link } = Anchor;
+// const { Link } = Anchor;
 const { Text } = Typography;
 const localhost = "http://localhost:10086/";
 export default function UserInfo() {
@@ -89,18 +89,21 @@ export default function UserInfo() {
           </div>
         </Card>
         <Card hoverable style={{ padding: "16px 20px", marginTop: "20px" }}>
-          <Anchor affix={false}>
-            {tags.map((item, index) => {
-              return item.subclass ? (
-                <Link title={item.name} key={index}>
-                  {item.subclass.map((item2, index2) => (
-                    <Link title={"- " + item2.name} key={index2} />
-                  ))}
-                </Link>
-              ) : (
-                <Link href={item.herf} title={item.name} key={index} />
-              );
-            })}
+          <Anchor affix={false} style={{display:'flex',flexDirection:'column'}}>
+          {tags.map((item, index) => {
+            return item.subclass ? (
+              <Link key={index} style={{display:'flex',flexDirection:'column',marginLeft:'10px',marginBottom:'5px',color:'#555'}}>
+                {item.name}
+                {item.subclass.map((item2, index2) => (
+                  <Link key={index2} style={{marginLeft:'10px',color:'#555'}}>{"- " + item2.name}</Link>
+                ))}
+              </Link>
+            ) : (
+              <Link to={{ pathname: "/midviews", state: {} }} key={index} style={{marginLeft:'10px',marginBottom:'5px',display:'flex',color:'#555'}}>
+                {item.name}
+              </Link>
+            );
+          })}
           </Anchor>
         </Card>
       </div>

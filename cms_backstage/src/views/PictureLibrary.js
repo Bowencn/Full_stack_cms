@@ -69,7 +69,7 @@ export default function PictureLibrary() {
           i: index.toString(),
         });
   
-        console.log(index, layout[index]);
+        // console.log(index, layout[index]);
         return true;
       });
       return layout;

@@ -61,7 +61,7 @@ export default function ArticlePage(props) {
               <Text strong>瓜瓜瓜大魔王</Text>
             </div>
           </Card>
-          <div style={{ marginTop: "20px" }}>
+          {/* <div style={{ marginTop: "20px" }}>
             <Text strong style={{ marginLeft: "15px" }}>
               目录
             </Text>
@@ -76,7 +76,7 @@ export default function ArticlePage(props) {
                 <Link href="/" title="设计资源" />
               </Link>
             </Anchor>
-          </div>
+          </div> */}
           </Affix>
         </Col>
       </Row>

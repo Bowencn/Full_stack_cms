@@ -10,6 +10,8 @@ import ArtclePage from "./Views/ArticlePage";
 import HomeArticle from "./components/HomeArticle";
 import Archives from "./Views/Archives";
 import UserInfo from './components/UserInfo'
+import MidViews from './Views/MidViews'
+import NotFound from './Views/NotFound'
 export default function AppRouter() {
   return (
     <Router>
@@ -17,7 +19,9 @@ export default function AppRouter() {
         <Route exact path="/" component={App}/>
         <Route exact path="/archives" component={Archives} />
         <Route exact path="/artclePage" component={ArtclePage} />
-        <Redirect to="/" />
+        <Route exact path="/midViews" component={MidViews}/>
+        <Route exact path="/notFound" component={NotFound}/>
+        <Redirect to="/notFound"/>
       </Switch>
     </Router>
   );
