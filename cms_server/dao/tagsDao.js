@@ -82,7 +82,7 @@ function addChildrenTags(name, pid, success) {
 function searchTags(success) {
   connection = dbutil.createConnection();
 
-  let querySql = `select id,tags_name as name from category_navigation;`;
+  let querySql = `select id,tags_name as name,tags_herf as herf from category_navigation;`;
   connection.connect();
   connection.query(querySql, (error, result) => {
     if (error == null) {
@@ -95,7 +95,7 @@ function searchTags(success) {
 }
 function searchChildrenTags(success) {
   connection = dbutil.createConnection();
-  let querySql = `select father_id,children_tags_name from category_children_nav`;
+  let querySql = `select father_id,children_tags_name,tags_c_herf as herf from category_children_nav`;
   connection.connect();
   connection.query(querySql, (error, result) => {
     if (error == null) {

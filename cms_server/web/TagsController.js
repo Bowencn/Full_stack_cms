@@ -85,12 +85,13 @@ searchTags = (request, response) => {
             if (data[index].id === resultC[i].father_id) {
               data[index].subclass.push({
                 name: resultC[i].children_tags_name,
+                herf: resultC[i].herf,
               });
             }
           }
         }
       }
-      response.write(JSON.stringify(data.reverse()));
+      response.write(JSON.stringify(data));
       response.end();
     });
   });
