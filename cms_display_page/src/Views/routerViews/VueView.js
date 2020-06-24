@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function MidViews() {
+export default function VueViews() {
     return (
         <div>
-            
+            VueViews
         </div>
     )
 }

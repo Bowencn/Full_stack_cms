@@ -1,14 +1,14 @@
 const dbutil = require("./dbutil");
 let connection;
-function addTags(name, success) {
+function addTags(name,herf, success) {
   connection = dbutil.createConnection();
   // let data = "";
   // for (let index = 0; index < nameList.length; index++) {
   //   index === nameList.length - 1 ? (data += "(?)") : (data += "(?),");
   // }
-  let querySql = `insert into category_navigation (tags_name) values (?);`;
+  let querySql = `insert into category_navigation (tags_name,tags_herf) values (?,?);`;
   connection.connect();
-  let queryParams = [name];
+  let queryParams = [name,herf];
   connection.query(querySql, queryParams, (error, result) => {
     if (error == null) {
       success(result);
@@ -66,11 +66,12 @@ function searchChildrenTagsNameIsTrue(name, success) {
     // connection.end();
   });
 }
-function addChildrenTags(name, pid, success) {
+function addChildrenTags(name, herf, pid, success) {
   connection = dbutil.createConnection();
-  let data = "(?," + pid + ")";
-  let querySql = `insert into category_children_nav (children_tags_name,father_id) values ${data};`;
-  let queryParams = name;
+  let data = "(?," + pid + ",?)";
+  let querySql = `insert into category_children_nav (children_tags_name,father_id,tags_c_herf) values ${data};`;
+  let queryParams = [name, herf];
+  console.log(querySql, queryParams);
   connection.query(querySql, queryParams, (error, result) => {
     if (error == null) {
       success(result);
@@ -109,7 +110,7 @@ function searchChildrenTags(success) {
 module.exports = {
   addTags: addTags,
   searchTags: searchTags,
-  searchChildrenTags:searchChildrenTags,
+  searchChildrenTags: searchChildrenTags,
   searchTagsIdWithName: searchTagsIdWithName,
   addChildrenTags: addChildrenTags,
   searchTagsNameIsTrue: searchTagsNameIsTrue,

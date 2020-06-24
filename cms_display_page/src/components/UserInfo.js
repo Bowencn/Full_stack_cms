@@ -95,11 +95,11 @@ export default function UserInfo() {
               <Link key={index} style={{display:'flex',flexDirection:'column',marginLeft:'10px',marginBottom:'5px',color:'#555'}}>
                 {item.name}
                 {item.subclass.map((item2, index2) => (
-                  <Link key={index2} style={{marginLeft:'10px',color:'#555'}}>{"- " + item2.name}</Link>
+                  <Link to={{ pathname: item2.herf, state: {} }} key={index2} style={{marginLeft:'10px',color:'#555'}}>{"- " + item2.name}</Link>
                 ))}
               </Link>
             ) : (
-              <Link to={{ pathname: "/midviews", state: {} }} key={index} style={{marginLeft:'10px',marginBottom:'5px',display:'flex',color:'#555'}}>
+              <Link to={{ pathname: item.herf, state: {} }} key={index} style={{marginLeft:'10px',marginBottom:'5px',display:'flex',color:'#555'}}>
                 {item.name}
               </Link>
             );

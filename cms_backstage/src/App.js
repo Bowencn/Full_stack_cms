@@ -8,7 +8,7 @@ import {
   LikeOutlined,
   PictureOutlined,
   FundProjectionScreenOutlined,
-  PlaySquareOutlined,
+  EyeOutlined,
 } from "@ant-design/icons";
 import Icon from "@ant-design/icons";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
@@ -23,7 +23,7 @@ import AddArticle from "./views/AddArticle";
 import PictureLibrary from "./views/PictureLibrary";
 import WebsiteStatistics from "./views/WebsiteStatistics";
 import Administrators from "./views/Administrators";
-import HomePage from "./views/HomePage";
+import Preview from "./views/Preview";
 const { SubMenu } = Menu;
 const { Content, Footer, Sider } = Layout;
 function App() {
@@ -63,18 +63,18 @@ function App() {
                 icon={<HomeOutlined />}
                 title={
                   <Link to="/" className="navFont">
-                    home page
+                    首页
                   </Link>
                 }
               >
                 <Menu.Item key="1">
                   <Link to="/CustomHead" className="navFont">
-                    Header
+                    路由导航
                   </Link>
                 </Menu.Item>
                 <Menu.Item key="2">
                   <Link to="/BannerBar" className="navFont">
-                    Banner
+                    轮播图
                   </Link>
                 </Menu.Item>
                 <Menu.Item key="3">
@@ -108,7 +108,12 @@ function App() {
                   网站统计
                 </Link>
               </Menu.Item>
-              <Menu.Item key="9" icon={<TeamOutlined />}>
+              <Menu.Item key="9" icon={<EyeOutlined />}>
+                <Link to="/preview" className="navFont">
+                  实时预览
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="10" icon={<TeamOutlined />}>
                 <Link to="/Administrators" className="navFont">
                   管理员
                 </Link>
@@ -128,11 +133,8 @@ function App() {
               {title}
             </Header> */}
             <Content style={{ margin: "20px 16px" }}>
-              <div
-                className="site-layout-background"
-                style={{ padding: 24}}
-              >
-                <Route path="/" exact component={HomePage} />
+              <div className="site-layout-background" style={{ padding: 24 }}>
+                <Route path="/preview" exact component={Preview} />
                 <Route path="/CustomHead" component={CustomHead} />
                 <Route path="/BannerBar" component={BannerBar} />
                 <Route path="/SideInformation" component={SideInformation} />

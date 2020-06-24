@@ -1,12 +1,12 @@
 const tagsDao = require("../dao/tagsDao");
-addTags = (nameList, success) => {
-  tagsDao.addTags(nameList, success);
+addTags = (nameList,herf, success) => {
+  tagsDao.addTags(nameList,herf, success);
 };
 searchTagsIdWithName = (name, success) => {
   tagsDao.searchTagsIdWithName(name, success);
 };
-addChildrenTags = (list, pid, success) => {
-  tagsDao.addChildrenTags(list, pid, success);
+addChildrenTags = (name,herf, pid, success) => {
+  tagsDao.addChildrenTags(name,herf, pid, success);
 };
 searchTagsNameIsTrue = (name, success) => {
   tagsDao.searchTagsNameIsTrue(name, success);

@@ -35,89 +35,88 @@ export default function PictureLibrary() {
     getAllImg();
   }, []);
   const couterRef = useRef();
-  
-  useEffect(() => {
-    const lay = () => {
-      let layout = [];
-      let y = 4;
-      let proportion = 2;
-      let height;
-      let width;
-      imgURL.map((item, index) => {
-        console.log(couterRef.current.firstChild.children[index]);
-        if (couterRef.current.firstChild.children[index]) {
-          width =
-            couterRef.current.firstChild.children[index].children[0].children[0]
-              .children[0].naturalWidth;
-          height =
-            couterRef.current.firstChild.children[index].children[0].children[0]
-              .children[0].naturalHeight;
-          proportion = (2 * Math.round((height / width) * 100)) / 100 + 1;
-        }
-  
-        layout.push({
-          x: ((index * 2) % 8) + 1,
-          //平分
-          // layout[index - y]
-          //   ? layout[index - y].x
-          //   : layout[index - 1]
-          //   ? layout[index - 1].w * index + index
-          //   : 0,
-          y: layout[index - y] ? layout[index - y].h : 0,
-          w: 2,
-          h: proportion, //Math.round(3*proportion)
-          i: index.toString(),
-        });
-  
-        // console.log(index, layout[index]);
-        return true;
-      });
-      return layout;
-    };
-    let layout = lay();
-    setLayouts({ lg: layout });
-    console.log("ready");
-  }, [imgURL]);
+
+  // useEffect(() => {
+  //   const lay = () => {
+  //     let layout = [];
+  //     let y = 4;
+  //     let proportion = 2;
+  //     let height;
+  //     let width;
+  //     imgURL.map((item, index) => {
+  //       console.log(couterRef.current.firstChild.children[index]);
+  //       if (couterRef.current.firstChild.children[index]) {
+  //         width =
+  //           couterRef.current.firstChild.children[index].children[0].children[0]
+  //             .children[0].naturalWidth;
+  //         height =
+  //           couterRef.current.firstChild.children[index].children[0].children[0]
+  //             .children[0].naturalHeight;
+  //         proportion = (2 * Math.round((height / width) * 100)) / 100 + 1;
+  //       }
+
+  //       layout.push({
+  //         x: ((index * 2) % 8) + 1,
+  //         //平分
+  //         // layout[index - y]
+  //         //   ? layout[index - y].x
+  //         //   : layout[index - 1]
+  //         //   ? layout[index - 1].w * index + index
+  //         //   : 0,
+  //         y: layout[index - y] ? layout[index - y].h : 0,
+  //         w: 2,
+  //         h: proportion, //Math.round(3*proportion)
+  //         i: index.toString(),
+  //       });
+
+  //       // console.log(index, layout[index]);
+  //       return true;
+  //     });
+  //     return layout;
+  //   };
+  //   let layout = lay();
+  //   setLayouts({ lg: layout });
+  //   console.log("ready");
+  // }, [imgURL]);
   return (
     <div ref={couterRef}>
-      {layouts ? (
-        <ResponsiveGridLayout
-          className="layout"
-          breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
-          layouts={layouts}
-          cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
-          useCSSTransforms={true}
-          isDraggable={false}
-          isResizable={false}
-          autoSize={true}
-          // containerPadding={[15,15]}
-          // margin={[10,10]}
-        >
-          {imgURL.map((item, index) => (
-            <Card
-              key={index}
-              hoverable
-              // style={{ width: 300 }}
-              cover={
-                <div>
-                  <img
-                    alt={item.original_name}
-                    src={localhost + item.destination + item.filename}
-                    style={{ width: "100%" }}
-                  />
-                </div>
-              }
-            >
-              <Meta
-                title={item.original_name}
-                description={localhost}
-              />
-            </Card>
-          ))}
-        </ResponsiveGridLayout>
-      ) : (
-        <div>wait...</div>
-      )}
+      {
+        // layouts ?
+        // <ResponsiveGridLayout
+        //   className="layout"
+        //   breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
+        //   layouts={layouts}
+        //   cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
+        //   useCSSTransforms={true}
+        //   isDraggable={false}
+        //   isResizable={false}
+        //   autoSize={true}
+        //   // containerPadding={[15,15]}
+        //   // margin={[10,10]}
+        // >
+        imgURL.map((item, index) => (
+          <Card
+            key={index}
+            hoverable
+            style={{ width: 300 }}
+            cover={
+              <div>
+                <img
+                  alt={item.original_name}
+                  src={localhost + item.destination + item.filename}
+                  style={{ width: "100%" }}
+                />
+              </div>
+            }
+          >
+            <Meta title={item.original_name} description={localhost} />
+          </Card>
+        ))
+        // : (
+        //   // </ResponsiveGridLayout>
+        //   <div>wait...</div>
+        // )
+      }
       {/* <Row>
         <Col>图片库：</Col>
       </Row>

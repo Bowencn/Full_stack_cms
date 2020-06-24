@@ -23,6 +23,7 @@ export default function CustomHead() {
   const [isChange, setChange] = useState(false);
   const [currentId, setCurrentId] = useState();
   const [tags, settags] = useState([]);
+  const [btnDisabled, setbtnDisabled] = useState(false);
   const [form] = Form.useForm();
   useEffect(() => {
     const GetTags = async () => {
@@ -69,12 +70,13 @@ export default function CustomHead() {
       )
     );
   };
-  const showEditInput = () => {
+  const showAddInput = () => {
     setinputVisible(true);
+    setbtnDisabled(true);
   };
-  const onChange = (checked) => {
-    console.log(`switch to ${checked}`);
+  const switchOnChange = (checked) => {
     setchildrenInputVisible(checked);
+    setbtnDisabled(true);
   };
   const addTags = () => {
     let tagsForm = form.getFieldsValue();
@@ -111,7 +113,7 @@ export default function CustomHead() {
   const changeTags = (item) => {
     let cName = "";
     let cHerf = "";
-    showEditInput();
+    showAddInput();
     setChange(true);
     console.log(item);
     setCurrentId(item.id);
@@ -170,7 +172,7 @@ export default function CustomHead() {
           );
         })}
         {!inputVisible && (
-          <Tag className="site-tag-plus" onClick={showEditInput}>
+          <Tag className="site-tag-plus" onClick={showAddInput}>
             <PlusOutlined /> 添加新标签
           </Tag>
         )}
@@ -184,7 +186,7 @@ export default function CustomHead() {
           <Form.Item label={"子标签"}>
             <Switch
               checked={childrenInputVisible}
-              onChange={onChange}
+              onChange={switchOnChange}
               style={{ marginTop: "5px", marginBottom: "10px" }}
             />
           </Form.Item>
@@ -196,6 +198,7 @@ export default function CustomHead() {
           <Form.Item
             label={childrenInputVisible ? "子路由" : "路由"}
             name="herf"
+            dependencies={["childrenTagsName"]}
             rules={
               !childrenInputVisible
                 ? [
@@ -203,22 +206,44 @@ export default function CustomHead() {
                       required: true,
                       message: "请输入路由名称",
                     },
+                    ({ getFieldValue }) => ({
+                      validator(rule, value) {
+                        if (value) {
+                          return new Promise((resolve) => {
+                            setbtnDisabled(false);
+                            resolve();
+                          });
+                        }
+                        return new Promise((reject) => {
+                          setbtnDisabled(true);
+                          reject("请输入路由名称");
+                        });
+                      },
+                    }),
                   ]
                 : [
                     {
                       required: true,
-                      message: "请输入路由名称",
+                      message: "请输入路由名称多个路由请用 , 隔开",
                     },
                     ({ getFieldValue }) => ({
                       validator(rule, value) {
                         if (
-                          !value ||
+                          value &&
                           getFieldValue("childrenTagsName").split(",")
                             .length === value.split(",").length
                         ) {
-                          return Promise.resolve();
+                          return new Promise((resolve) => {
+                            console.log("ok");
+                            setbtnDisabled(false);
+                            resolve();
+                          });
                         }
-                        return Promise.reject("请输入与子标签对应的路由名称");
+                        return new Promise((reject) => {
+                          console.log("不ok");
+                          reject("请输入与子标签对应的路由名称");
+                          setbtnDisabled(true);
+                        });
                       },
                     }),
                   ]
@@ -243,7 +268,11 @@ export default function CustomHead() {
       </Row> */}
       <Row>
         <Col offset={2} span={6}>
-          <Button type="primary" onClick={inputVisible ? addTags : submit}>
+          <Button
+            type="primary"
+            onClick={inputVisible ? addTags : submit}
+            disabled={btnDisabled}
+          >
             {inputVisible ? (!isChange ? "添加" : "保存更改") : "保存"}
           </Button>
         </Col>
