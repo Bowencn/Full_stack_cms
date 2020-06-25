@@ -1,9 +1,9 @@
-const studentService = require("../service/studentService");
+const adminService = require("../service/adminService");
 const { request, response } = require("express");
 let path = new Map();
 
 serchAdmin = (request, response) => {
-  studentService.queryAdminInfo((result) => {
+  adminService.queryAdminInfo((result) => {
     let resArr = {};
     for (let index = 0; index < result.length; index++) {
       resArr[index] = result[index];
@@ -26,7 +26,7 @@ addAdmin = (request, response) => {
       let params = JSON.parse(data.toString());
       console.log(params);
       if (params.name && params.jurisdiction && params.pwd) {
-        studentService.addAdminInfo(
+        adminService.addAdminInfo(
           params.name,
           params.jurisdiction,
           params.pwd,
@@ -65,7 +65,7 @@ updateAdmin = (request, response) => {
       let params = JSON.parse(data.toString());
       console.log(params);
       if (params.name && params.jurisdiction && params.pwd) {
-        studentService.updateAdminInfo(
+        adminService.updateAdminInfo(
           params.name,
           params.jurisdiction,
           params.pwd,
@@ -94,7 +94,7 @@ deleteAdminInfo = (request, response) => {
     request.on("data", (data) => {
       let params = JSON.parse(data.toString());
       console.log(params);
-      studentService.deleteAdminInfo(params.name, (result) => {
+      adminService.deleteAdminInfo(params.name, (result) => {
         response.writeHead(200);
         // response.write(params);
         response.end();
@@ -105,7 +105,7 @@ deleteAdminInfo = (request, response) => {
 path.set("/deleteAdminInfo", deleteAdminInfo);
 
 queryAdminNumber=(request,response)=>{
-  studentService.queryAdminNumber((result) => {
+  adminService.queryAdminNumber((result) => {
     // let resArr = {};
     // for (let index = 0; index < result.length; index++) {
     //   resArr[index] = result[index];

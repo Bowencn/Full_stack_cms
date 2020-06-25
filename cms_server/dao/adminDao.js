@@ -58,7 +58,7 @@ function queryAdminInfo(success) {
 }
 function queryAdminNumber(success) {
   connection = dbutil.createConnection();
-  let querySql = "select count(name) from administrators;";
+  let querySql = "select count(name) as userNum from administrators;";
   connection.connect();
   connection.query(querySql, (error, result) => {
     if (error == null) {

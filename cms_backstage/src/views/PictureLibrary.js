@@ -12,6 +12,11 @@ export default function PictureLibrary() {
       const res = await axios.get(`${localhost}queryImageInfo`);
       setImgURL(res.data);
     };
+    const getUserNum = async()=>{
+      const res = await axios.get(`${localhost}queryAdminNumber`)
+      console.log(res)
+    }
+    getUserNum()
     getAllImg();
   }, []);
   const CardTemp = (item, index) => {

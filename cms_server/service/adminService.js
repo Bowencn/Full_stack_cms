@@ -1,4 +1,4 @@
-const studentDao = require('../dao/studentDao');
+const adminDao = require('../dao/adminDao');
 // queryAllStudent=(sucess)=>{
 //     studentDao.queryAllStudent(sucess)
 // }
@@ -9,19 +9,19 @@ const studentDao = require('../dao/studentDao');
 //     studentDao.queryStudentByStuNum(stuNum,success)
 // }
 queryAdminInfo=(success)=>{
-    studentDao.queryAdminInfo(success)
+    adminDao.queryAdminInfo(success)
 }
 addAdminInfo=(name, jurisdiction, pwd,success)=>{
-    studentDao.addAdminInfo(name, jurisdiction, pwd,success)
+    adminDao.addAdminInfo(name, jurisdiction, pwd,success)
 }
 updateAdminInfo=(name, jurisdiction, pwd, success)=>{
-    studentDao.updateAdminInfo(name, jurisdiction, pwd, success)
+    adminDao.updateAdminInfo(name, jurisdiction, pwd, success)
 }
 deleteAdminInfo=(name,success)=>{
-    studentDao.deleteAdminInfo(name,success)
+    adminDao.deleteAdminInfo(name,success)
 }
 queryAdminNumber=(success)=>{
-    studentDao.queryAdminNumber(success)
+    adminDao.queryAdminNumber(success)
 }
 module.exports = {
     // "queryAllStudent":queryAllStudent,
