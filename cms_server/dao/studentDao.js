@@ -56,7 +56,19 @@ function queryAdminInfo(success) {
     connection.end();
   });
 }
-
+function queryAdminNumber(success) {
+  connection = dbutil.createConnection();
+  let querySql = "select count(name) from administrators;";
+  connection.connect();
+  connection.query(querySql, (error, result) => {
+    if (error == null) {
+      success(result);
+    } else {
+      console.log(error);
+    }
+    connection.end();
+  });
+}
 function addAdminInfo(name, jurisdiction, pwd, success) {
   connection = dbutil.createConnection();
   let querySql =
@@ -107,7 +119,7 @@ function deleteAdminInfo(name, success) {
 module.exports = {
   // queryAllStudent: queryAllStudent,
   // queryStudentByClassAndAge: queryStudentByClassAndAge,
-  // queryStudentByStuNum: queryStudentByStuNum,
+  queryAdminNumber: queryAdminNumber,
   queryAdminInfo: queryAdminInfo,
   addAdminInfo: addAdminInfo,
   updateAdminInfo: updateAdminInfo,

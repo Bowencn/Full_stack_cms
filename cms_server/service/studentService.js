@@ -20,9 +20,12 @@ updateAdminInfo=(name, jurisdiction, pwd, success)=>{
 deleteAdminInfo=(name,success)=>{
     studentDao.deleteAdminInfo(name,success)
 }
+queryAdminNumber=(success)=>{
+    studentDao.queryAdminNumber(success)
+}
 module.exports = {
     // "queryAllStudent":queryAllStudent,
-    // "queryStudentByStuNum":queryStudentByStuNum,
+    "queryAdminNumber":queryAdminNumber,
     "queryAdminInfo":queryAdminInfo,
     "addAdminInfo":addAdminInfo,
     "updateAdminInfo":updateAdminInfo,

@@ -1,4 +1,5 @@
 const studentService = require("../service/studentService");
+const { request, response } = require("express");
 let path = new Map();
 
 serchAdmin = (request, response) => {
@@ -103,5 +104,18 @@ deleteAdminInfo = (request, response) => {
 };
 path.set("/deleteAdminInfo", deleteAdminInfo);
 
-
+queryAdminNumber=(request,response)=>{
+  studentService.queryAdminNumber((result) => {
+    // let resArr = {};
+    // for (let index = 0; index < result.length; index++) {
+    //   resArr[index] = result[index];
+    // }
+    console.log(result)
+    // response.writeHead(200);
+    // let resData = JSON.stringify(resArr);
+    // response.write(resData);
+    response.end();
+  });
+}
+path.set("/queryAdminNumber", queryAdminNumber);
 module.exports.path = path;

@@ -26,7 +26,7 @@ import Administrators from "./views/Administrators";
 import Preview from "./views/Preview";
 const { SubMenu } = Menu;
 const { Content, Footer, Sider } = Layout;
-function App() {
+function App(props) {
   const [collapsed, setCollapsed] = useState(false);
   const onCollapse = (collapsed) => {
     console.log(collapsed);
@@ -45,11 +45,22 @@ function App() {
   const HeartIcon = () => (
     <Icon component={logo} style={{ width: 100 }} className="App-logo" />
   );
+  console.log(props);
   return (
     <Router>
       <div className="App">
         <Layout style={{ minHeight: "100vh" }}>
-          <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
+          <Sider
+            collapsible
+            collapsed={collapsed}
+            onCollapse={onCollapse}
+            style={{
+              overflow: "auto",
+              height: "100vh",
+              position: "fixed",
+              left: 0,
+            }}
+          >
             <div
               style={{
                 textAlign: "center",
@@ -109,7 +120,7 @@ function App() {
                 </Link>
               </Menu.Item>
               <Menu.Item key="9" icon={<EyeOutlined />}>
-                <Link to="/preview" className="navFont">
+                <Link to={{ pathname: "/preview" }} className="navFont">
                   实时预览
                 </Link>
               </Menu.Item>
@@ -120,7 +131,7 @@ function App() {
               </Menu.Item>
             </Menu>
           </Sider>
-          <Layout className="site-layout">
+          <Layout className={"site-layout"} style={{ marginLeft: 200 }}>
             {/* <Header
               className="site-layout-background"
               style={{
@@ -133,7 +144,7 @@ function App() {
               {title}
             </Header> */}
             <Content style={{ margin: "20px 16px" }}>
-              <div className="site-layout-background" style={{ padding: 24 }}>
+              <div className="site-layout-background">
                 <Route path="/preview" exact component={Preview} />
                 <Route path="/CustomHead" component={CustomHead} />
                 <Route path="/BannerBar" component={BannerBar} />

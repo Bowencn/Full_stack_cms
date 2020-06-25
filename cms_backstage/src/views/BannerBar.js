@@ -224,8 +224,8 @@ export default function BannerBar() {
     <div>
       <Row>
         <Col>
-          Banner:
-          <Radio.Group
+          轮播图:
+          {/* <Radio.Group
             defaultValue="a"
             buttonStyle="solid"
             size="small"
@@ -251,11 +251,11 @@ export default function BannerBar() {
             >
               多图
             </Radio.Button>
-          </Radio.Group>
+          </Radio.Group> */}
         </Col>
       </Row>
       <Row align="middle">
-        <Col offset={22} span={2}>
+        <Col offset={23} span={1}>
           <Button type="primary" onClick={() => showModal("add")}>
             添加
           </Button>

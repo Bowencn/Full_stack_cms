@@ -27,7 +27,7 @@ function searchArticleInfo(success) {
     } else {
       console.log("dao:", error);
     }
-    connection.end();
+    // connection.end();
   });
 }
 

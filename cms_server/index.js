@@ -50,6 +50,8 @@ app.post(`/addBannerInfo`,loader.get(`/addBannerInfo`))
 app.get(`/searchBannerInfo`,loader.get(`/searchBannerInfo`))
 app.delete(`/deleteBannerInfo`,loader.get(`/deleteBannerInfo`))
 app.post(`/updateBannerInfo`,loader.get(`/updateBannerInfo`))
+//网站统计
+app.get(`/queryAdminNumber`,loader.get(`/queryAdminNumber`))
 //管理员接口
 app.get("/serchAdmin", loader.get("/serchAdmin"));
 app.post("/addAdmin", loader.get("/addAdmin"));

@@ -107,7 +107,7 @@ export default function ArticleList() {
         <Col>文章列表:</Col>
       </Row>
       <Row align="middle">
-        <Col offset={22} span={2}>
+        <Col span={1} style={{marginRight:'20px',textAlign:'right'}}>
           <Button type="primary">
             <Link to="/AddArticle">添加</Link>
           </Button>
