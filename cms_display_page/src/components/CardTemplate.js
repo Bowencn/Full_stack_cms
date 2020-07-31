@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Card, Button, Typography } from "antd";
 const { Title, Paragraph } = Typography;
-const localhost = "http://localhost:10086/";
+const localhost = "http://104.36.67.35:10086/";
 export default function CardTemplate(props) {
   const [data] = useState(props.data);
   const [date, setDate] = useState();

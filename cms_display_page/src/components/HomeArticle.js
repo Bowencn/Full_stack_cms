@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import CardTemplate from "./CardTemplate";
 import axios from "axios";
 import { Spin } from "antd";
-const localhost = "http://localhost:10086/";
+const localhost = "http://104.36.67.35:10086/";
 
 export default function HomeArticle() {
   const [articleList, setArticleList] = useState();

@@ -5,7 +5,7 @@ export default function Preview() {
     <div>
       <iframe
         title="navigation"
-        src="http://localhost:3001/"
+        src="http://bowencn.top/"
         name="prive"
         width="100%"
         height="950"

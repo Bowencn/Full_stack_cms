@@ -25,7 +25,7 @@ import UserInfo from "./components/UserInfo";
 const { Content, Footer } = Layout;
 const { Link } = Anchor;
 const { Text } = Typography;
-const localhost = "http://localhost:10086/";
+const localhost = "http://104.36.67.35:10086/";
 function App(props) {
   // const [articleList, setArticleList] = useState();
   const [userInfo, setUserInfo] = useState();

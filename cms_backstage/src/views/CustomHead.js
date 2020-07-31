@@ -15,7 +15,7 @@ import {
 import { PlusOutlined } from "@ant-design/icons";
 import axios from "axios";
 
-const localhost = "http://localhost:10086/";
+const localhost = "http://104.36.67.35:10086/";
 // import UploadImage from "../components/UploadImage";
 export default function CustomHead() {
   const [inputVisible, setinputVisible] = useState(false);

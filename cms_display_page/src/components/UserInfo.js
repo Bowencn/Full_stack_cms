@@ -15,7 +15,7 @@ import axios from "axios";
 const { Content, Footer } = Layout;
 // const { Link } = Anchor;
 const { Text } = Typography;
-const localhost = "http://localhost:10086/";
+const localhost = "http://104.36.67.35:10086/";
 export default function UserInfo() {
   const [userInfo, setUserInfo] = useState();
 

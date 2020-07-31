@@ -48,7 +48,7 @@ const selectOptions = [
   { label: "Nodejs",value:'green' },
 ];
   const [form] = Form.useForm();
-  const localhost = "http://localhost:10086/";
+  const localhost = "http://104.36.67.35:10086/";
   const controls = [
     "undo",
     "redo",

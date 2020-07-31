@@ -6,17 +6,12 @@ export default function PictureLibrary() {
   const [imgURL, setImgURL] = useState([]);
   const [imgVisible, setimgVisible] = useState(false);
   const [currentImgUrl, setcurrentImgUrl] = useState();
-  const localhost = "http://localhost:10086/";
+  const localhost = "http://104.36.67.35:10086/";
   useEffect(() => {
     const getAllImg = async () => {
       const res = await axios.get(`${localhost}queryImageInfo`);
       setImgURL(res.data);
     };
-    const getUserNum = async()=>{
-      const res = await axios.get(`${localhost}queryAdminNumber`)
-      console.log(res)
-    }
-    getUserNum()
     getAllImg();
   }, []);
   const CardTemp = (item, index) => {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Carousel } from "antd";
 import axios from "axios";
-const localhost = "http://localhost:10086/";
+const localhost = "http://104.36.67.35:10086/";
 export default function Carouselcom() {
   const [imgData, setImgData] = useState([]);
   useEffect(() => {

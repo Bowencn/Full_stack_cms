@@ -4,7 +4,7 @@ import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 export default function UploadImage(props) {
   const [imageUrl, setImageUrl] = useState();
   const [loading, setLoading] = useState(false);
-  const localhost = "http://localhost:10086/";
+  const localhost = "http://104.36.67.35:10086/";
   useEffect(() => {
     props.defaultImg && setImageUrl(localhost + props.defaultImg);
   }, [props]);

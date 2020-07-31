@@ -3,15 +3,22 @@ import "./App.css";
 import { Layout, Menu } from "antd";
 import {
   TeamOutlined,
-  HomeOutlined,
+  UserOutlined,
   FileTextOutlined,
   LikeOutlined,
   PictureOutlined,
   FundProjectionScreenOutlined,
   EyeOutlined,
+  NodeIndexOutlined,
+  FundViewOutlined,
 } from "@ant-design/icons";
 import Icon from "@ant-design/icons";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  // IndexRoute,
+} from "react-router-dom";
 
 import CustomHead from "./views/CustomHead";
 import BannerBar from "./views/BannerBar";
@@ -24,15 +31,23 @@ import PictureLibrary from "./views/PictureLibrary";
 import WebsiteStatistics from "./views/WebsiteStatistics";
 import Administrators from "./views/Administrators";
 import Preview from "./views/Preview";
-const { SubMenu } = Menu;
 const { Content, Footer, Sider } = Layout;
 function App(props) {
   const [collapsed, setCollapsed] = useState(false);
+  const [adminInfo, setAdminInfo] = useState();
   const onCollapse = (collapsed) => {
     console.log(collapsed);
     setCollapsed(collapsed);
   };
-  useEffect(() => {});
+
+  // useEffect(() => {
+  //   if (adminInfo) {
+  //     console.log("true");
+  //   } else {
+  //     console.log("false");
+  //     return <Redirect to="/login" />;
+  //   }
+  // });
   const logo = () => (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 841.9 595.3">
       <g fill="#61DAFB">
@@ -69,31 +84,21 @@ function App(props) {
               <HeartIcon />
             </div>
             <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
-              <SubMenu
-                key="sub1"
-                icon={<HomeOutlined />}
-                title={
-                  <Link to="/" className="navFont">
-                    首页
-                  </Link>
-                }
-              >
-                <Menu.Item key="1">
-                  <Link to="/CustomHead" className="navFont">
-                    路由导航
-                  </Link>
-                </Menu.Item>
-                <Menu.Item key="2">
-                  <Link to="/BannerBar" className="navFont">
-                    轮播图
-                  </Link>
-                </Menu.Item>
-                <Menu.Item key="3">
-                  <Link to="/SideInformation" className="navFont">
-                    个人信息
-                  </Link>
-                </Menu.Item>
-              </SubMenu>
+              <Menu.Item key="1" icon={<NodeIndexOutlined />}>
+                <Link to="/CustomHead" className="navFont">
+                  路由导航
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="2" icon={<FundViewOutlined />}>
+                <Link to="/BannerBar" className="navFont">
+                  轮播图
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="3" icon={<UserOutlined />}>
+                <Link to="/SideInformation" className="navFont">
+                  个人信息
+                </Link>
+              </Menu.Item>
               <Menu.Item key="4" icon={<FileTextOutlined />}>
                 <Link to="/ArticleList" className="navFont">
                   文章列表
@@ -145,21 +150,22 @@ function App(props) {
             </Header> */}
             <Content style={{ margin: "20px 16px" }}>
               <div className="site-layout-background">
-                <Route path="/preview" exact component={Preview} />
+                <Route path="/" exact component={CustomHead} />
                 <Route path="/CustomHead" component={CustomHead} />
                 <Route path="/BannerBar" component={BannerBar} />
                 <Route path="/SideInformation" component={SideInformation} />
+                <Route path="/ArticleList" component={ArticleList} />
+                <Route path="/AddArticle" component={AddArticle} />
                 <Route
                   path="/AppreciatonSettings"
                   component={AppreciatonSettings}
                 />
-                <Route path="/ArticleList" component={ArticleList} />
-                <Route path="/AddArticle" component={AddArticle} />
                 <Route path="/PictureLibrary" component={PictureLibrary} />
                 <Route
                   path="/WebsiteStatistics"
                   component={WebsiteStatistics}
                 />
+                <Route path="/preview" exact component={Preview} />
                 <Route path="/Administrators" component={Administrators} />
               </div>
             </Content>

@@ -113,7 +113,7 @@ queryAdminNumber=(request,response)=>{
     console.log(result)
     // response.writeHead(200);
     // let resData = JSON.stringify(resArr);
-    // response.write(resData);
+    response.write(JSON.stringify(result[0]));
     response.end();
   });
 }

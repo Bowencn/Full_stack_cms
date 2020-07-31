@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Button, Table, ConfigProvider, Row, Col, Tag, Typography } from "antd";
 import { SmileOutlined } from "@ant-design/icons";
 import axios from "axios";
-const localhost = "http://localhost:10086/";
+const localhost = "http://104.36.67.35:10086/";
 const { Text } = Typography;
 export default function ArticleList() {
   const [customize] = useState(false);
@@ -13,8 +13,8 @@ export default function ArticleList() {
     const getArticle = async () => {
       const res = await axios.get(`${localhost}searchArticleInfo`);
       let data = res.data;
-      data.forEach((item,index) => {
-        item.key=index
+      data.forEach((item, index) => {
+        item.key = index;
       });
       console.log(data);
       setArticleList(data);
@@ -107,7 +107,7 @@ export default function ArticleList() {
         <Col>文章列表:</Col>
       </Row>
       <Row align="middle">
-        <Col span={1} style={{marginRight:'20px',textAlign:'right'}}>
+        <Col span={1} offset={22}>
           <Button type="primary">
             <Link to="/AddArticle">添加</Link>
           </Button>

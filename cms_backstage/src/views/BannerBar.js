@@ -20,7 +20,7 @@ import { PlusOutlined } from "@ant-design/icons";
 import { SmileOutlined } from "@ant-design/icons";
 import UploadImage from "../components/UploadImage";
 import axios from "axios";
-const localhost = "http://localhost:10086/";
+const localhost = "http://104.36.67.35:10086/";
 // import { useForm } from "antd/lib/form/util";
 const { Option } = Select;
 const { confirm } = Modal;

@@ -28,7 +28,7 @@ export default function Administrators() {
   const [modalBtn, setModalBtn] = useState();
   const [editAdminInfo, setEditAdminInfo] = useState();
   const { confirm } = Modal;
-  const localhost = "http://localhost:10086/";
+  const localhost = "http://104.36.67.35:10086/";
   useEffect(() => {
     const getAdminInfo = async () => {
       const response = await axios.get(`${localhost}serchAdmin`);

@@ -5,7 +5,8 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import "braft-editor/dist/index.css";
 import "braft-extensions/dist/code-highlighter.css";
-ReactDOM.render(<App />, document.getElementById("root"));
+import Router from "./AppRouter";
+ReactDOM.render(<Router />, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

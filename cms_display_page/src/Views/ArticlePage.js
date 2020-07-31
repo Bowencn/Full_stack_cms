@@ -33,7 +33,7 @@ export default function ArticlePage(props) {
             >
               <img
                 alt="example"
-                src="http://localhost:10086/uploads/06258b520a51e6a9c88e687eb48548b6"
+                src="http://104.36.67.35:10086/uploads/06258b520a51e6a9c88e687eb48548b6"
                 style={{
                   borderRadius: "100%",
                   border: "2px dashed #000",
