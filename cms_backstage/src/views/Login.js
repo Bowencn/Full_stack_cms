@@ -2,10 +2,8 @@ import React from "react";
 import { Form, Input, Button, Checkbox } from "antd";
 export default function Login(props) {
   const layout = {
-    labelCol: {
-      span: 10,
-    },
     wrapperCol: {
+      offset: 10,
       span: 4,
     },
   };
@@ -29,10 +27,10 @@ export default function Login(props) {
       style={{
         width: "100%",
         height: "100%",
-        background: "#ddd",
-        // backgroundImage:
-        //   "url('http://img.netbian.com/file/2019/0426/c1dfac463602581d897d4f13280358f2.jpg')",
-        // backgroundSize: "cover",
+        // background: "#ddd",
+        backgroundImage:
+          "url('http://104.36.67.35:10086/uploads/0561e428b5441841851995446b42af45')",
+        backgroundSize: "cover",
       }}
     >
       <div
@@ -42,6 +40,17 @@ export default function Login(props) {
           transform: "translateY(-50%)",
         }}
       >
+        <div
+          style={{
+            textAlign: "center",
+            color:'#fff',
+            fontSize:64,
+            fontWeight:600,
+            marginBottom:'40px'
+          }}
+        >
+          <span>Blog'CMS</span>
+        </div>
         <Form
           {...layout}
           name="basic"
@@ -53,39 +62,44 @@ export default function Login(props) {
           style={{}}
         >
           <Form.Item
-            label="Username"
+            // label="用户名"
             name="username"
             style={{ color: "#fff" }}
             rules={[
               {
-                required: true,
+                // required: true,
                 message: "Please input your username!",
               },
             ]}
           >
-            <Input />
+            <Input placeholder="用户名" style={{ minHeight: "40px" }} />
           </Form.Item>
 
           <Form.Item
-            label="Password"
+            // label="密码"
             name="password"
             rules={[
               {
-                required: true,
+                // required: true,
                 message: "Please input your password!",
               },
             ]}
           >
-            <Input.Password />
+            <Input.Password placeholder="密码" style={{ minHeight: "40px" }} />
           </Form.Item>
 
-          <Form.Item {...tailLayout} name="remember" valuePropName="checked">
+          {/* <Form.Item {...tailLayout} name="remember" valuePropName="checked">
             <Checkbox>Remember me</Checkbox>
-          </Form.Item>
+          </Form.Item> */}
 
           <Form.Item {...tailLayout}>
-            <Button type="primary" htmlType="submit">
-              Submit
+            <Button
+              type="primary"
+              htmlType="submit"
+              block
+              style={{ minHeight: "40px" }}
+            >
+              登录
             </Button>
           </Form.Item>
         </Form>

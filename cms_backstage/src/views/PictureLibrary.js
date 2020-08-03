@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Card, Modal, Row, Col } from "antd";
 import axios from "axios";
+import {host} from '../conf'
 export default function PictureLibrary() {
   const { Meta } = Card;
   const [imgURL, setImgURL] = useState([]);
   const [imgVisible, setimgVisible] = useState(false);
   const [currentImgUrl, setcurrentImgUrl] = useState();
-  const localhost = "http://104.36.67.35:10086/";
+  // const host = "http://104.36.67.35:10086/";
   useEffect(() => {
     const getAllImg = async () => {
-      const res = await axios.get(`${localhost}queryImageInfo`);
+      const res = await axios.get(`${host}queryImageInfo`);
       setImgURL(res.data);
     };
     getAllImg();
@@ -25,19 +26,19 @@ export default function PictureLibrary() {
           <div>
             <img
               alt={item.original_name}
-              src={localhost + item.destination + item.filename}
+              src={host + item.destination + item.filename}
               style={{ width: "100%" }}
             />
           </div>
         }
         onClick={() => {
-          setcurrentImgUrl(localhost + item.destination + item.filename);
+          setcurrentImgUrl(host + item.destination + item.filename);
           setimgVisible(true);
         }}
       >
         <Meta
           title={index + ":" + item.original_name}
-          description={localhost + item.destination + item.filename}
+          description={host + item.destination + item.filename}
         />
       </Card>
     );

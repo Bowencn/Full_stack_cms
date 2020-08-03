@@ -20,7 +20,8 @@ import { PlusOutlined } from "@ant-design/icons";
 import { SmileOutlined } from "@ant-design/icons";
 import UploadImage from "../components/UploadImage";
 import axios from "axios";
-const localhost = "http://104.36.67.35:10086/";
+import {host} from '../conf'
+// const host = "http://104.36.67.35:10086/";
 // import { useForm } from "antd/lib/form/util";
 const { Option } = Select;
 const { confirm } = Modal;
@@ -44,7 +45,7 @@ export default function BannerBar() {
   };
   useEffect(() => {
     const getAllInfo = async () => {
-      const res = await axios.get(`${localhost}searchBannerInfo`);
+      const res = await axios.get(`${host}searchBannerInfo`);
       const resData = res.data;
       pushKeyInDataCatch(resData);
       console.log(res);
@@ -121,11 +122,11 @@ export default function BannerBar() {
   const submitForm = async () => {
     console.log(dataCache);
     if (state === "add") {
-      const res = await axios.post(`${localhost}addBannerInfo`, dataCache);
+      const res = await axios.post(`${host}addBannerInfo`, dataCache);
       setRendering(res);
       console.log(res);
     } else {
-      const res = await axios.post(`${localhost}updateBannerInfo`, dataCache);
+      const res = await axios.post(`${host}updateBannerInfo`, dataCache);
       setRendering(res);
       console.log(res);
     }
@@ -137,7 +138,7 @@ export default function BannerBar() {
   };
   const deleteAdminInfo = async (serial_number) => {
     console.log(serial_number);
-    const response = await axios.delete(`${localhost}deleteBannerInfo`, {
+    const response = await axios.delete(`${host}deleteBannerInfo`, {
       data: { serial_number },
     });
     setRendering(response);

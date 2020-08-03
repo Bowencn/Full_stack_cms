@@ -21,7 +21,7 @@ import "braft-editor/dist/index.css";
 import "braft-extensions/dist/code-highlighter.css";
 import Markdown from "braft-extensions/dist/markdown";
 import CodeHighlighter from "braft-extensions/dist/code-highlighter";
-
+import {host} from '../conf'
 const options = {
   includeEditors: ["editor"], // 指定该模块对哪些BraftEditor生效，不传此属性则对所有BraftEditor有效
   // excludeEditors: ['editor-id-2'],  // 指定该模块对哪些BraftEditor无效
@@ -30,6 +30,7 @@ BraftEditor.use(Markdown(options));
 BraftEditor.use(HeaderId(options));
 BraftEditor.use(CodeHighlighter(options));
 export default function BarsAndAppreciationnCommonComponents(props) {
+  console.log(host)
   const [name] = useState("");
   const [appreciateInfo, setAppreciateInfo] = useState({});
   const [editorState, setEditorState] = useState(
@@ -48,7 +49,6 @@ const selectOptions = [
   { label: "Nodejs",value:'green' },
 ];
   const [form] = Form.useForm();
-  const localhost = "http://104.36.67.35:10086/";
   const controls = [
     "undo",
     "redo",
@@ -100,7 +100,7 @@ const selectOptions = [
   } = useContext(Context);
   useEffect(() => {
     const getAppreciateInfo = async () => {
-      const res = await axios.get(`${localhost}searchAppreciateInfo`);
+      const res = await axios.get(`${host}searchAppreciateInfo`);
       let data = res.data[0];
       setAppreciateInfo(data);
       form.setFieldsValue({ payName: data.payment_method_name });
@@ -116,7 +116,7 @@ const selectOptions = [
       });
     };
     const getUserInfo = async () => {
-      const res = await axios.get(`${localhost}searchPersonalInfo`);
+      const res = await axios.get(`${host}searchPersonalInfo`);
       setUserInfo(res.data[0]);
       let data = res.data[0];
       if (data) {
@@ -151,10 +151,10 @@ const selectOptions = [
     console.log(editorData.toHTML())
     let uploads = form.getFieldsValue();
     if (headerName === "个人信息") {
-      const res = await axios.post(`${localhost}addPersonalInfo`, uploads);
+      const res = await axios.post(`${host}addPersonalInfo`, uploads);
       res && message.success("上传成功");
     } else if (headerName === "文章赞赏设置") {
-      const res = await axios.post(`${localhost}addAppreciateInfo`, uploads);
+      const res = await axios.post(`${host}addAppreciateInfo`, uploads);
       res && message.success("上传成功");
     } else {
       try {
@@ -165,11 +165,11 @@ const selectOptions = [
         if (headerName === "编辑文章") {
           uploads.modifyTime = new Date().getTime();
           uploads.historyTitle = articleData.article_title;
-          const res = await axios.post(`${localhost}editArticleInfo`, uploads);
+          const res = await axios.post(`${host}editArticleInfo`, uploads);
           res && message.success("上传成功");
         } else {
           uploads.uploadTime = new Date().getTime();
-          const res = await axios.post(`${localhost}addArticleInfo`, uploads);
+          const res = await axios.post(`${host}addArticleInfo`, uploads);
           res && message.success("上传成功");
         }
       } catch (error) {

@@ -14,8 +14,9 @@ import {
 } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import axios from "axios";
+import {host} from '../conf'
 
-const localhost = "http://104.36.67.35:10086/";
+// const host = "http://104.36.67.35:10086/";
 // import UploadImage from "../components/UploadImage";
 export default function CustomHead() {
   const [inputVisible, setinputVisible] = useState(false);
@@ -26,8 +27,9 @@ export default function CustomHead() {
   const [btnDisabled, setbtnDisabled] = useState(false);
   const [form] = Form.useForm();
   useEffect(() => {
+    console.log(host)
     const GetTags = async () => {
-      const res = await axios.get(`${localhost}searchTags`);
+      const res = await axios.get(`${host}searchTags`);
       console.log(res);
       settags(res.data);
     };
@@ -46,7 +48,7 @@ export default function CustomHead() {
   };
   const submit = async () => {
     console.log(tags);
-    const res = await axios.post(`${localhost}addTags`, tags);
+    const res = await axios.post(`${host}addTags`, tags);
     console.log(res);
   };
   const menu = (data) => {
@@ -110,6 +112,10 @@ export default function CustomHead() {
     setChange(false);
     setchildrenInputVisible(false);
   };
+  const cancel = ()=>{
+    setinputVisible(false);
+    setbtnDisabled(false);
+  }
   const changeTags = (item) => {
     let cName = "";
     let cHerf = "";
@@ -142,7 +148,7 @@ export default function CustomHead() {
   return (
     <div>
       <Row style={{ marginBottom: "20px" }}>
-        <Col style={{ paddingRight: 10, textAlign: "right" }} span={1}>
+        <Col style={{ marginRight: 15, textAlign: "right" }} span={1}>
           分类栏目:
         </Col>
         {tags.map((item, index) => {
@@ -179,7 +185,7 @@ export default function CustomHead() {
       </Row>
       {/* <Space> */}
       {inputVisible && (
-        <Form name="tags" form={form} {...layout}>
+        <Form name="tags" form={form} {...layout}  style={{marginLeft:'15px'}}>
           <Form.Item label={"标签名"} name="tagsName">
             <Input />
           </Form.Item>
@@ -267,13 +273,21 @@ export default function CustomHead() {
         </Col>
       </Row> */}
       <Row>
-        <Col offset={2} span={6}>
+        <Col offset={1} span={6}>
           <Button
             type="primary"
             onClick={inputVisible ? addTags : submit}
-            disabled={btnDisabled}
+            disabled={btnDisabled} style={{marginLeft:'15px'}}
           >
             {inputVisible ? (!isChange ? "添加" : "保存更改") : "保存"}
+          </Button>
+          <Button
+            // type="primary"
+            onClick={cancel}
+            // disabled={btnDisabled}
+            style={{marginLeft:'20px'}}
+          >
+            {inputVisible && (!isChange && "取消" )}
           </Button>
         </Col>
       </Row>

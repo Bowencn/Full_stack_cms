@@ -40,9 +40,9 @@ export default function CardTemplate(props) {
             •
           </span>
           <span style={{ color: "#000", fontSize: "12px", marginRight: "3px" }}>
-            字数统计
+            {data&&data.article_tags}
           </span>
-          <span style={{ color: "#000", fontSize: "12px" }}>666</span>
+          {/* <span style={{ color: "#000", fontSize: "12px" }}>666</span> */}
         </span>
       </div>
     </div>

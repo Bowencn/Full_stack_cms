@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { Button, Table, ConfigProvider, Row, Col, Tag, Typography } from "antd";
 import { SmileOutlined } from "@ant-design/icons";
 import axios from "axios";
-const localhost = "http://104.36.67.35:10086/";
+import {host} from '../conf'
+// const host = "http://104.36.67.35:10086/";
 const { Text } = Typography;
 export default function ArticleList() {
   const [customize] = useState(false);
@@ -11,7 +12,7 @@ export default function ArticleList() {
   const [rendering, setRendering] = useState();
   useEffect(() => {
     const getArticle = async () => {
-      const res = await axios.get(`${localhost}searchArticleInfo`);
+      const res = await axios.get(`${host}searchArticleInfo`);
       let data = res.data;
       data.forEach((item, index) => {
         item.key = index;
@@ -28,7 +29,7 @@ export default function ArticleList() {
       title: record.article_title,
       tags: record.article_tags,
     };
-    const res = await axios.delete(`${localhost}deleteArticleInfo`, {
+    const res = await axios.delete(`${host}deleteArticleInfo`, {
       data: { deleteList },
     });
     console.log(res);
@@ -59,8 +60,8 @@ export default function ArticleList() {
       dataIndex: `article_img_url`,
       render: (img) =>
         img ? (
-          <a target="_blank" rel="noopener noreferrer" href={localhost + img}>
-            {localhost + img}
+          <a target="_blank" rel="noopener noreferrer" href={host + img}>
+            {host + img}
           </a>
         ) : (
           <Text>无</Text>

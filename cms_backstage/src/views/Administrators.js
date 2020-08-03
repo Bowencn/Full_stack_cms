@@ -15,6 +15,7 @@ import { SmileOutlined } from "@ant-design/icons";
 import axios from "axios";
 
 import { ExclamationCircleOutlined } from "@ant-design/icons";
+import {host} from '../conf'
 
 export default function Administrators() {
   const [customize] = useState(false);
@@ -28,10 +29,10 @@ export default function Administrators() {
   const [modalBtn, setModalBtn] = useState();
   const [editAdminInfo, setEditAdminInfo] = useState();
   const { confirm } = Modal;
-  const localhost = "http://104.36.67.35:10086/";
+  // const host = "http://104.36.67.35:10086/";
   useEffect(() => {
     const getAdminInfo = async () => {
-      const response = await axios.get(`${localhost}serchAdmin`);
+      const response = await axios.get(`${host}serchAdmin`);
       let adminInfoData = [];
       for (const key in response.data) {
         if (response.data.hasOwnProperty(key)) {
@@ -57,7 +58,7 @@ export default function Administrators() {
   const postAdminInfo = async (method, data) => {
     try {
       const response = await axios.post(
-        `${localhost}${method === "add" ? "addAdmin" : "updateAdmin"}`,
+        `${host}${method === "add" ? "addAdmin" : "updateAdmin"}`,
         data
       );
       setRendering(response);
@@ -72,7 +73,7 @@ export default function Administrators() {
     }
   };
   const deleteAdminInfo = async (name) => {
-    const response = await axios.delete(`${localhost}deleteAdminInfo`, {
+    const response = await axios.delete(`${host}deleteAdminInfo`, {
       data: { name },
     });
     setRendering(response);

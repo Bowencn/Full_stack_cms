@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Upload, message } from "antd";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
+import {host} from '../conf'
 export default function UploadImage(props) {
   const [imageUrl, setImageUrl] = useState();
   const [loading, setLoading] = useState(false);
-  const localhost = "http://104.36.67.35:10086/";
   useEffect(() => {
-    props.defaultImg && setImageUrl(localhost + props.defaultImg);
+    props.defaultImg && setImageUrl(host + props.defaultImg);
   }, [props]);
   function getBase64(img, callback) {
     const reader = new FileReader();
@@ -52,7 +52,7 @@ export default function UploadImage(props) {
       listType="picture-card"
       className="avatar-uploader"
       showUploadList={false}
-      action={`${localhost}uploadImage`}
+      action={`${host}uploadImage`}
       beforeUpload={beforeUpload}
       onChange={handleChange}
     >
