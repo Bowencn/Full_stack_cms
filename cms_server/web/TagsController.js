@@ -6,11 +6,11 @@ addTags = (request, response) => {
   for (let index = 0; index < data.length; index++) {
     const childrenData = data[index];
     const name = data[index].name;
-    const herf = data[index].herf
+    const herf = data[index].herf;
     tagsService.searchTagsNameIsTrue(name, (result) => {
       if (!result[0].count) {
         console.log(name);
-        tagsService.addTags(name,herf, (result) => {
+        tagsService.addTags(name, herf, (result) => {
           console.log("controller:", result);
           if (result && childrenData.subclass) {
             //查询id
@@ -80,6 +80,7 @@ searchTags = (request, response) => {
           for (let i = 0; i < resultC.length; i++) {
             if (data[index].id === resultC[i].father_id) {
               data[index].subclass.push({
+                id: resultC[i].id,
                 name: resultC[i].children_tags_name,
                 herf: resultC[i].herf,
               });
@@ -93,4 +94,41 @@ searchTags = (request, response) => {
   });
 };
 path.set("/searchTags", searchTags);
+deleteTags = (req, res) => {
+  if (req.body.subclass) {
+    tagsService.deleteHasChildrenTags(req.body.id, (result) => {
+      res.json({
+        code: 200,
+        data: {
+          message: "success",
+        },
+      });
+      res.end();
+    });
+  } else {
+    let id = req.body.id;
+    if (req.body.isChildren) {
+      tagsService.deleteChildrenTags(id, (result) => {
+        res.json({
+          code: 200,
+          data: {
+            message: "success",
+          },
+        });
+        res.end();
+      });
+    } else {
+      tagsService.deleteTags(id, (result) => {
+        res.json({
+          code: 200,
+          data: {
+            message: "success",
+          },
+        });
+        res.end();
+      });
+    }
+  }
+};
+path.set("/deleteTags", deleteTags);
 module.exports.path = path;

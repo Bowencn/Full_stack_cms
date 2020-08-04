@@ -20,6 +20,15 @@ searchTags=(success)=>{
 searchChildrenTags=(success)=>{
     tagsDao.searchChildrenTags(success)
 }
+deleteTags=(id,success)=>{
+  tagsDao.deleteTags(id,success)
+}
+deleteChildrenTags=(id,success)=>{
+  tagsDao.deleteChildrenTags(id,success)
+}
+deleteHasChildrenTags=(id,success)=>{
+  tagsDao.deleteHasChildrenTags(id,success)
+}
 module.exports = {
   addChildrenTags: addChildrenTags,
   searchTagsIdWithName: searchTagsIdWithName,
@@ -28,4 +37,7 @@ module.exports = {
   searchChildrenTags:searchChildrenTags,
   searchTagsNameIsTrue: searchTagsNameIsTrue,
   searchChildrenTagsNameIsTrue: searchChildrenTagsNameIsTrue,
+  deleteTags:deleteTags,
+  deleteChildrenTags:deleteChildrenTags,
+  deleteHasChildrenTags,deleteHasChildrenTags
 };

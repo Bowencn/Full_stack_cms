@@ -38,6 +38,7 @@ app.get(`/searchPersonalInfo`,loader.get(`/searchPersonalInfo`))
 //分类标签
 app.post(`/addTags`,loader.get(`/addTags`))
 app.get(`/searchTags`,loader.get(`/searchTags`))
+app.delete(`/tags`,loader.get(`/deleteTags`))
 //文章列表
 app.post(`/addArticleInfo`,loader.get(`/addArticleInfo`))
 app.get(`/searchArticleInfo`,loader.get(`/searchArticleInfo`))

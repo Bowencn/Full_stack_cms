@@ -96,7 +96,7 @@ function searchTags(success) {
 }
 function searchChildrenTags(success) {
   connection = dbutil.createConnection();
-  let querySql = `select father_id,children_tags_name,tags_c_herf as herf from category_children_nav`;
+  let querySql = `select id,father_id,children_tags_name,tags_c_herf as herf from category_children_nav`;
   connection.connect();
   connection.query(querySql, (error, result) => {
     if (error == null) {
@@ -107,6 +107,53 @@ function searchChildrenTags(success) {
     connection.end();
   });
 }
+function deleteTags(id,success){
+  connection = dbutil.createConnection();
+  let querySql = `delete from category_navigation where id=?`;
+  let queryParams = [id];
+  console.log(querySql)
+  connection.connect();
+  connection.query(querySql,queryParams, (error, result) => {
+    if (error == null) {
+      success(result);
+    } else {
+      console.log("dao:", error);
+    }
+    connection.end();
+  });
+
+}
+function deleteChildrenTags(id,success){
+  connection = dbutil.createConnection();
+  let querySql = `delete from category_children_nav where id=?`;
+  let queryParams = [id];
+  connection.connect();
+  connection.query(querySql,queryParams, (error, result) => {
+    if (error == null) {
+      success(result);
+    } else {
+      console.log("dao:", error);
+    }
+    connection.end();
+  });
+
+}
+function deleteHasChildrenTags(id,success){
+  connection = dbutil.createConnection();
+  let querySql = `SET foreign_key_checks = 0;delete category_navigation,category_children_nav from category_navigation INNER JOIN category_children_nav on category_children_nav.father_id=category_navigation.id where category_navigation.id=?;SET foreign_key_checks = 1;`;
+  let queryParams = [id];
+  // console.log(querySql)
+  connection.connect();
+  connection.query(querySql,queryParams, (error, result) => {
+    if (error == null) {
+      success(result);
+    } else {
+      console.log("dao:", error);
+    }
+    connection.end();
+  });
+
+}
 module.exports = {
   addTags: addTags,
   searchTags: searchTags,
@@ -115,4 +162,7 @@ module.exports = {
   addChildrenTags: addChildrenTags,
   searchTagsNameIsTrue: searchTagsNameIsTrue,
   searchChildrenTagsNameIsTrue: searchChildrenTagsNameIsTrue,
+  deleteTags:deleteTags,
+  deleteChildrenTags:deleteChildrenTags,
+  deleteHasChildrenTags:deleteHasChildrenTags
 };

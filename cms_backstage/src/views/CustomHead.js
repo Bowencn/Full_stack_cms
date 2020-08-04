@@ -14,7 +14,7 @@ import {
 } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import axios from "axios";
-import {host} from '../conf'
+import { host } from "../conf";
 
 // const host = "http://104.36.67.35:10086/";
 // import UploadImage from "../components/UploadImage";
@@ -25,9 +25,10 @@ export default function CustomHead() {
   const [currentId, setCurrentId] = useState();
   const [tags, settags] = useState([]);
   const [btnDisabled, setbtnDisabled] = useState(false);
+  const [canelBtnDisabled, setCanelBtnDisabled] = useState(false);
   const [form] = Form.useForm();
   useEffect(() => {
-    console.log(host)
+    console.log(host);
     const GetTags = async () => {
       const res = await axios.get(`${host}searchTags`);
       console.log(res);
@@ -36,7 +37,13 @@ export default function CustomHead() {
     GetTags();
   }, []);
   const handleClose = (removedTag, isChildren) => {
+    console.log(removedTag, isChildren);
     let tag = tags;
+    let data = {
+      ...removedTag,
+      isChildren: false,
+    };
+    isChildren && (data.isChildren = true);
     isChildren
       ? tag.forEach((item, index) => {
           if (item.subclass) {
@@ -44,6 +51,14 @@ export default function CustomHead() {
           }
         })
       : (tag = tag.filter((tag) => tag !== removedTag));
+
+    const deleteTags = async (value) => {
+      const res = await axios.delete(`${host}tags`, {
+        data: data,
+      });
+      console.log(res);
+    };
+    deleteTags(removedTag);
     settags(tag);
   };
   const submit = async () => {
@@ -75,6 +90,7 @@ export default function CustomHead() {
   const showAddInput = () => {
     setinputVisible(true);
     setbtnDisabled(true);
+    setCanelBtnDisabled(true)
   };
   const switchOnChange = (checked) => {
     setchildrenInputVisible(checked);
@@ -108,14 +124,16 @@ export default function CustomHead() {
       }
       settags(newTags);
     }
+    setCanelBtnDisabled(false)
     setinputVisible(false);
     setChange(false);
     setchildrenInputVisible(false);
   };
-  const cancel = ()=>{
+  const cancel = () => {
     setinputVisible(false);
     setbtnDisabled(false);
-  }
+    setCanelBtnDisabled(false)
+  };
   const changeTags = (item) => {
     let cName = "";
     let cHerf = "";
@@ -139,6 +157,8 @@ export default function CustomHead() {
       form.setFieldsValue({ herf: item.herf });
     }
 
+    
+    setCanelBtnDisabled(true)
     console.log(cName, cHerf);
   };
   const layout = {
@@ -185,7 +205,12 @@ export default function CustomHead() {
       </Row>
       {/* <Space> */}
       {inputVisible && (
-        <Form name="tags" form={form} {...layout}  style={{marginLeft:'15px'}}>
+        <Form
+          name="tags"
+          form={form}
+          {...layout}
+          style={{ marginLeft: "15px" }}
+        >
           <Form.Item label={"标签名"} name="tagsName">
             <Input />
           </Form.Item>
@@ -255,7 +280,7 @@ export default function CustomHead() {
                   ]
             }
           >
-            <Input />
+            <Input placeholder={childrenInputVisible&&'添加多个路由请用 , 隔开，且与子标签一一对应'}/>
           </Form.Item>
         </Form>
       )}
@@ -277,18 +302,19 @@ export default function CustomHead() {
           <Button
             type="primary"
             onClick={inputVisible ? addTags : submit}
-            disabled={btnDisabled} style={{marginLeft:'15px'}}
+            disabled={btnDisabled}
+            style={{ marginLeft: "15px" }}
           >
             {inputVisible ? (!isChange ? "添加" : "保存更改") : "保存"}
           </Button>
-          <Button
+          {canelBtnDisabled&&<Button
             // type="primary"
             onClick={cancel}
             // disabled={btnDisabled}
-            style={{marginLeft:'20px'}}
+            style={{ marginLeft: "20px" }}
           >
-            {inputVisible && (!isChange && "取消" )}
-          </Button>
+            取消
+          </Button>}
         </Col>
       </Row>
     </div>
