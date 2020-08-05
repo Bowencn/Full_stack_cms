@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Carousel } from "antd";
 import axios from "axios";
-const localhost = "http://104.36.67.35:10086/";
+import { host } from "../conf";
 export default function Carouselcom() {
   const [imgData, setImgData] = useState([]);
   useEffect(() => {
     const getImgInfo = async () => {
-      const res = await axios.get(`${localhost}searchBannerInfo`);
+      const res = await axios.get(`${host}searchBannerInfo`);
       let data = res.data;
       setImgData(data);
     };
@@ -22,7 +22,7 @@ export default function Carouselcom() {
                 style={{
                   width: "100%",
                   height: 500,
-                  backgroundImage: `url(${localhost + item.image_url_info})`,
+                  backgroundImage: `url(${host + item.image_url_info})`,
                   backgroundSize: "cover",
                   backgroundRepeat: "no-repeat",
                   position:'absolute',

@@ -15,19 +15,19 @@ import axios from "axios";
 const { Content, Footer } = Layout;
 // const { Link } = Anchor;
 const { Text } = Typography;
-const localhost = "http://104.36.67.35:10086/";
+import { host } from "../conf";
 export default function UserInfo() {
   const [userInfo, setUserInfo] = useState();
 
   const [tags, settags] = useState([{ name: "首页" }]);
   useEffect(() => {
     const GetTags = async () => {
-      const res = await axios.get(`${localhost}searchTags`);
+      const res = await axios.get(`${host}searchTags`);
       console.log(res);
       settags(res.data);
     };
     const getUserInfo = async () => {
-      const res = await axios.get(`${localhost}searchPersonalInfo`);
+      const res = await axios.get(`${host}searchPersonalInfo`);
       setUserInfo(res.data[0]);
       console.log(res.data);
     };
@@ -60,7 +60,7 @@ export default function UserInfo() {
           >
             <img
               alt="example"
-              src={userInfo && localhost + userInfo.user_image}
+              src={userInfo && host + userInfo.user_image}
               style={{
                 borderRadius: "100%",
                 border: "2px dashed #000",

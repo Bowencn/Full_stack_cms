@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Card, Button, Typography } from "antd";
 const { Title, Paragraph } = Typography;
-const localhost = "http://104.36.67.35:10086/";
+import { host } from "../conf";
 export default function CardTemplate(props) {
   const [data] = useState(props.data);
   const [date, setDate] = useState();
@@ -60,7 +60,7 @@ export default function CardTemplate(props) {
             ref={refImg}
             alt="example"
             style={imgStyle}
-            src={`${localhost + data.article_img_url}`}
+            src={`${host + data.article_img_url}`}
           />
         </div>
       )}

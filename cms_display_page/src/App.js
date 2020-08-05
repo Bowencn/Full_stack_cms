@@ -25,22 +25,14 @@ import UserInfo from "./components/UserInfo";
 const { Content, Footer } = Layout;
 const { Link } = Anchor;
 const { Text } = Typography;
-const localhost = "http://104.36.67.35:10086/";
+
+import { host } from "../conf";
 function App(props) {
   // const [articleList, setArticleList] = useState();
   const [userInfo, setUserInfo] = useState();
   useEffect(() => {
-    // const getArticle = async () => {
-    //   const res = await axios.get(`${localhost}searchArticleInfo`);
-    //   let data = res.data.reverse();
-    //   data.forEach((item, index) => {
-    //     item.key = index;
-    //   });
-    //   console.log(data);
-    //   setArticleList(data);
-    // };
     const getUserInfo = async () => {
-      const res = await axios.get(`${localhost}searchPersonalInfo`);
+      const res = await axios.get(`${host}searchPersonalInfo`);
       setUserInfo(res.data[0]);
       console.log(res.data);
     };
