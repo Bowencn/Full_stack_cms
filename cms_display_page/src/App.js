@@ -22,11 +22,11 @@ import axios from "axios";
 import HomeArticle from "./components/HomeArticle";
 import Archives from "./Views/Archives";
 import UserInfo from "./components/UserInfo";
+import { host } from "./conf";
 const { Content, Footer } = Layout;
 const { Link } = Anchor;
 const { Text } = Typography;
 
-import { host } from "../conf";
 function App(props) {
   // const [articleList, setArticleList] = useState();
   const [userInfo, setUserInfo] = useState();

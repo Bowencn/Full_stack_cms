@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import { Layout, Menu,Divider  } from "antd";
+import { Layout, Menu, Divider } from "antd";
 import {
   TeamOutlined,
   UserOutlined,
@@ -31,7 +31,7 @@ import PictureLibrary from "./views/PictureLibrary";
 import WebsiteStatistics from "./views/WebsiteStatistics";
 import Administrators from "./views/Administrators";
 import Preview from "./views/Preview";
-import logo from './assets/logo'
+import logo from "./assets/logo";
 const { Content, Footer, Sider } = Layout;
 function App(props) {
   const [collapsed, setCollapsed] = useState(false);
@@ -57,7 +57,7 @@ function App(props) {
   //   //     <path d="M520.5 78.1z" />
   //   //   </g>
   //   // </svg>
-    
+
   // );
   const HeartIcon = () => (
     <Icon component={logo} style={{ width: 100 }} className="App-logo" />
@@ -81,40 +81,52 @@ function App(props) {
             <div
               style={{
                 textAlign: "center",
-                marginTop:'5px'
+                marginTop: "5px",
               }}
             >
               <HeartIcon />
             </div>
-            <Divider plain style={{color:'#fff'}}>admin</Divider>
+            <Divider plain style={{ color: "#fff" }}>
+              admin
+            </Divider>
             <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
-              <Menu.Item key="1" icon={<NodeIndexOutlined />}>
-                <Link to="/CustomHead" className="navFont">
+              <Menu.Item key="1">
+                <Link
+                  to="/custom-head"
+                  className="navFont"
+                  style={{ width: "100%" }}
+                >
+                  <NodeIndexOutlined />
                   路由导航
                 </Link>
               </Menu.Item>
-              <Menu.Item key="2" icon={<FundViewOutlined />}>
-                <Link to="/BannerBar" className="navFont">
+              <Menu.Item key="2">
+                <Link to="/banner-bar" className="navFont">
+                  <FundViewOutlined />
                   轮播图
                 </Link>
               </Menu.Item>
-              <Menu.Item key="3" icon={<UserOutlined />}>
-                <Link to="/SideInformation" className="navFont">
+              <Menu.Item key="3">
+                <Link to="/side-information" className="navFont">
+                  <UserOutlined />
                   个人信息
                 </Link>
               </Menu.Item>
-              <Menu.Item key="4" icon={<FileTextOutlined />}>
-                <Link to="/ArticleList" className="navFont">
+              <Menu.Item key="4">
+                <Link to="/article-list" className="navFont">
+                  <FileTextOutlined />
                   文章列表
                 </Link>
               </Menu.Item>
-              <Menu.Item key="5" icon={<LikeOutlined />}>
-                <Link to="/AppreciatonSettings" className="navFont">
+              <Menu.Item key="5">
+                <Link to="/appreciaton-settings" className="navFont">
+                  <LikeOutlined />
                   赞赏设置
                 </Link>
               </Menu.Item>
-              <Menu.Item key="6" icon={<PictureOutlined />}>
-                <Link to="/PictureLibrary" className="navFont">
+              <Menu.Item key="6">
+                <Link to="/picture-library" className="navFont">
+                  <PictureOutlined />
                   图片管理
                 </Link>
               </Menu.Item>
@@ -123,18 +135,21 @@ function App(props) {
                   视频管理
                 </Link>
               </Menu.Item> */}
-              <Menu.Item key="8" icon={<FundProjectionScreenOutlined />}>
-                <Link to="/WebsiteStatistics" className="navFont">
+              <Menu.Item key="8">
+                <Link to="/website-statistics" className="navFont">
+                  <FundProjectionScreenOutlined />
                   网站统计
                 </Link>
               </Menu.Item>
-              <Menu.Item key="9" icon={<EyeOutlined />}>
+              <Menu.Item key="9">
                 <Link to={{ pathname: "/preview" }} className="navFont">
+                  <EyeOutlined />
                   实时预览
                 </Link>
               </Menu.Item>
-              <Menu.Item key="10" icon={<TeamOutlined />}>
-                <Link to="/Administrators" className="navFont">
+              <Menu.Item key="10">
+                <Link to="/administrators" className="navFont">
+                  <TeamOutlined />
                   管理员
                 </Link>
               </Menu.Item>
@@ -154,23 +169,23 @@ function App(props) {
             </Header> */}
             <Content style={{ margin: "20px 16px" }}>
               <div className="site-layout-background">
-                <Route path="/" exact component={CustomHead} />
-                <Route path="/CustomHead" component={CustomHead} />
-                <Route path="/BannerBar" component={BannerBar} />
-                <Route path="/SideInformation" component={SideInformation} />
-                <Route path="/ArticleList" component={ArticleList} />
-                <Route path="/AddArticle" component={AddArticle} />
+                <Route path="/custom-head" component={CustomHead} />
+                <Route path="/banner-bar" component={BannerBar} />
+                <Route path="/side-information" component={SideInformation} />
+                <Route path="/article-list" component={ArticleList} />
+                <Route path="/add-article" component={AddArticle} />
                 <Route
-                  path="/AppreciatonSettings"
+                  path="/appreciaton-settings"
                   component={AppreciatonSettings}
                 />
-                <Route path="/PictureLibrary" component={PictureLibrary} />
+                <Route path="/picture-library" component={PictureLibrary} />
                 <Route
-                  path="/WebsiteStatistics"
+                  path="/website-statistics"
                   component={WebsiteStatistics}
                 />
                 <Route path="/preview" exact component={Preview} />
-                <Route path="/Administrators" component={Administrators} />
+                <Route path="/administrators" component={Administrators} />
+                <Route path="/" exact component={CustomHead} />
               </div>
             </Content>
             {/* <Footer style={{ textAlign: "center" }}>

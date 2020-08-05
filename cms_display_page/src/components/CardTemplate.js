@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Card, Button, Typography } from "antd";
-const { Title, Paragraph } = Typography;
 import { host } from "../conf";
+const { Title, Paragraph } = Typography;
 export default function CardTemplate(props) {
   const [data] = useState(props.data);
   const [date, setDate] = useState();

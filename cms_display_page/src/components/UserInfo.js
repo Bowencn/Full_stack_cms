@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { host } from "../conf";
 import {
   Layout,
   Affix,
@@ -12,10 +13,8 @@ import {
   Anchor,
 } from "antd";
 import axios from "axios";
-const { Content, Footer } = Layout;
-// const { Link } = Anchor;
 const { Text } = Typography;
-import { host } from "../conf";
+const { Content, Footer } = Layout;
 export default function UserInfo() {
   const [userInfo, setUserInfo] = useState();
 
