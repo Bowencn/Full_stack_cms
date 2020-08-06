@@ -42,7 +42,20 @@ let connection;
 //     connection.end();
 //   });
 // }
-
+function queryAdminLoginInfo(name,success) {
+  connection = dbutil.createConnection();
+  let querySql = "select id,name,jurisdiction,pwd from administrators where name=?;";
+  connection.connect();
+  let queryParams = [name];
+  connection.query(querySql,queryParams, (error, result) => {
+    if (error == null) {
+      success(result);
+    } else {
+      console.log(error);
+    }
+    // connection.end();
+  });
+}
 function queryAdminInfo(success) {
   connection = dbutil.createConnection();
   let querySql = "select name,jurisdiction from administrators;";
@@ -118,7 +131,7 @@ function deleteAdminInfo(name, success) {
 
 module.exports = {
   // queryAllStudent: queryAllStudent,
-  // queryStudentByClassAndAge: queryStudentByClassAndAge,
+  queryAdminLoginInfo: queryAdminLoginInfo,
   queryAdminNumber: queryAdminNumber,
   queryAdminInfo: queryAdminInfo,
   addAdminInfo: addAdminInfo,

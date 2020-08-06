@@ -85,7 +85,7 @@ export default function ArticleList() {
       render: (text, record) => (
         <span>
           <Link
-            to={{ pathname: "/AddArticle", state: { record } }}
+            to={{ pathname: "/add-article", state: { record } }}
             style={{ marginRight: 16 }}
           >
             编辑
@@ -108,9 +108,9 @@ export default function ArticleList() {
         <Col>文章列表:</Col>
       </Row>
       <Row align="middle">
-        <Col span={1} offset={22}>
+        <Col span={1} offset={23}>
           <Button type="primary">
-            <Link to="/AddArticle">添加</Link>
+            <Link to="/add-article">添加</Link>
           </Button>
         </Col>
       </Row>

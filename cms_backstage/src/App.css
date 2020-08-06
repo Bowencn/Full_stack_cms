@@ -36,6 +36,14 @@
     transform: rotate(360deg);
   }
 }
+/* .example {
+  text-align: center;
+  background: rgba(117, 117, 117, 0.295);
+  border-radius: 4px;
+  position: relative;
+  height: 100%;
+  width: 100%;
+} */
 #components-layout-demo-top-side-2 .logo {
   width: 120px;
   height: 31px;

@@ -5,9 +5,9 @@ const adminDao = require('../dao/adminDao');
 // queryStudentByClassAndAge=(classNum,age)=>{
 //     studentDao.queryStudentByClassAndAge(classNum,age)
 // }
-// queryStudentByStuNum=(stuNum,success)=>{
-//     studentDao.queryStudentByStuNum(stuNum,success)
-// }
+queryAdminLoginInfo=(name,success)=>{
+    adminDao.queryAdminLoginInfo(name,success)
+}
 queryAdminInfo=(success)=>{
     adminDao.queryAdminInfo(success)
 }
@@ -24,7 +24,7 @@ queryAdminNumber=(success)=>{
     adminDao.queryAdminNumber(success)
 }
 module.exports = {
-    // "queryAllStudent":queryAllStudent,
+    "queryAdminLoginInfo":queryAdminLoginInfo,
     "queryAdminNumber":queryAdminNumber,
     "queryAdminInfo":queryAdminInfo,
     "addAdminInfo":addAdminInfo,

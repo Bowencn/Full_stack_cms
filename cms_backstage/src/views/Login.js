@@ -1,6 +1,9 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
 import { Form, Input, Button, Checkbox } from "antd";
-export default function Login(props) {
+import axios from "axios";
+import { host } from "../conf";
+export default withRouter(function Login({ history }) {
   const layout = {
     wrapperCol: {
       offset: 10,
@@ -13,10 +16,18 @@ export default function Login(props) {
       span: 4,
     },
   };
-  const onFinish = (values) => {
+  const onFinish = async (values) => {
     console.log("Success:", values);
-    console.log(props);
-    props.history.push("/");
+    // console.log(props);
+    const res = await axios.post(`${host}login`, values);
+    console.log(res);
+    if (res.data.code == 200 && res.data.data.name == values.username) {
+      window.localStorage.setItem("user-id", res.data.data.id);
+      history.push("/custom-head");
+      // setTimeout(()=>{
+      //   window.location.reload()
+      // },0)
+    }
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -43,10 +54,10 @@ export default function Login(props) {
         <div
           style={{
             textAlign: "center",
-            color:'#fff',
-            fontSize:64,
-            fontWeight:600,
-            marginBottom:'40px'
+            color: "#fff",
+            fontSize: 64,
+            fontWeight: 600,
+            marginBottom: "40px",
           }}
         >
           <span>Blog'CMS</span>
@@ -106,4 +117,4 @@ export default function Login(props) {
       </div>
     </div>
   );
-}
+});

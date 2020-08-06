@@ -55,6 +55,7 @@ app.post(`/updateBannerInfo`,loader.get(`/updateBannerInfo`))
 //网站统计
 app.get(`/queryAdminNumber`,loader.get(`/queryAdminNumber`))
 //管理员接口
+app.post("/login", loader.get("/login"));
 app.get("/serchAdmin", loader.get("/serchAdmin"));
 app.post("/addAdmin", loader.get("/addAdmin"));
 app.post("/updateAdmin", loader.get("/updateAdmin"));
