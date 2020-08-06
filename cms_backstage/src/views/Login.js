@@ -3,6 +3,7 @@ import { withRouter } from "react-router-dom";
 import { Form, Input, Button, Checkbox } from "antd";
 import axios from "axios";
 import { host } from "../conf";
+import imgURL from '../assets/moon-4096x2304-planets-clouds-4k-9215.jpg';
 export default withRouter(function Login({ history }) {
   const layout = {
     wrapperCol: {
@@ -40,7 +41,7 @@ export default withRouter(function Login({ history }) {
         height: "100%",
         // background: "#ddd",
         backgroundImage:
-          "url('http://104.36.67.35:10086/uploads/0561e428b5441841851995446b42af45')",
+          `url(${imgURL})`,
         backgroundSize: "cover",
       }}
     >
