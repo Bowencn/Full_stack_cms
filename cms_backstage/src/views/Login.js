@@ -1,9 +1,9 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import { Form, Input, Button, Checkbox } from "antd";
+import { Form, Input, Button, message } from "antd";
 import axios from "axios";
 import { host } from "../conf";
-import imgURL from '../assets/moon-4096x2304-planets-clouds-4k-9215.jpg';
+import imgURL from "../assets/moon-4096x2304-planets-clouds-4k-9215.jpg";
 export default withRouter(function Login({ history }) {
   const layout = {
     wrapperCol: {
@@ -18,16 +18,17 @@ export default withRouter(function Login({ history }) {
     },
   };
   const onFinish = async (values) => {
-    console.log("Success:", values);
-    // console.log(props);
     const res = await axios.post(`${host}login`, values);
-    console.log(res);
     if (res.data.code == 200 && res.data.data.name == values.username) {
-      window.localStorage.setItem("user-id", res.data.data.id);
-      history.push("/custom-head");
-      // setTimeout(()=>{
-      //   window.location.reload()
-      // },0)
+      let setData = JSON.stringify(res.data.data);
+      window.localStorage.setItem("user_info", setData);
+      history.push({ pathname: "/route-navigation", state: setData });
+    } else {
+      if (res.data.data.message == "password_error") {
+        message.warning("密码错误");
+      } else {
+        message.error("用户名错误");
+      }
     }
   };
 
@@ -40,8 +41,7 @@ export default withRouter(function Login({ history }) {
         width: "100%",
         height: "100%",
         // background: "#ddd",
-        backgroundImage:
-          `url(${imgURL})`,
+        backgroundImage: `url(${imgURL})`,
         backgroundSize: "cover",
       }}
     >

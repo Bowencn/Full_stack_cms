@@ -58,7 +58,7 @@ function queryAdminLoginInfo(name,success) {
 }
 function queryAdminInfo(success) {
   connection = dbutil.createConnection();
-  let querySql = "select name,jurisdiction from administrators;";
+  let querySql = "select id,name,jurisdiction from administrators;";
   connection.connect();
   connection.query(querySql, (error, result) => {
     if (error == null) {

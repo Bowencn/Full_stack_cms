@@ -90,7 +90,7 @@ export default function CustomHead() {
   const showAddInput = () => {
     setinputVisible(true);
     setbtnDisabled(true);
-    setCanelBtnDisabled(true)
+    setCanelBtnDisabled(true);
   };
   const switchOnChange = (checked) => {
     setchildrenInputVisible(checked);
@@ -124,7 +124,7 @@ export default function CustomHead() {
       }
       settags(newTags);
     }
-    setCanelBtnDisabled(false)
+    setCanelBtnDisabled(false);
     setinputVisible(false);
     setChange(false);
     setchildrenInputVisible(false);
@@ -132,7 +132,7 @@ export default function CustomHead() {
   const cancel = () => {
     setinputVisible(false);
     setbtnDisabled(false);
-    setCanelBtnDisabled(false)
+    setCanelBtnDisabled(false);
   };
   const changeTags = (item) => {
     let cName = "";
@@ -157,8 +157,7 @@ export default function CustomHead() {
       form.setFieldsValue({ herf: item.herf });
     }
 
-    
-    setCanelBtnDisabled(true)
+    setCanelBtnDisabled(true);
     console.log(cName, cHerf);
   };
   const layout = {
@@ -183,6 +182,7 @@ export default function CustomHead() {
             </Tag>
           ) : (
             <Tag
+              key={index}
               color="blue"
               className="edit-tag"
               closable={index !== 0}
@@ -280,7 +280,12 @@ export default function CustomHead() {
                   ]
             }
           >
-            <Input placeholder={childrenInputVisible&&'添加多个路由请用 , 隔开，且与子标签一一对应'}/>
+            <Input
+              placeholder={
+                childrenInputVisible &&
+                "添加多个路由请用 , 隔开，且与子标签一一对应"
+              }
+            />
           </Form.Item>
         </Form>
       )}
@@ -307,14 +312,16 @@ export default function CustomHead() {
           >
             {inputVisible ? (!isChange ? "添加" : "保存更改") : "保存"}
           </Button>
-          {canelBtnDisabled&&<Button
-            // type="primary"
-            onClick={cancel}
-            // disabled={btnDisabled}
-            style={{ marginLeft: "20px" }}
-          >
-            取消
-          </Button>}
+          {canelBtnDisabled && (
+            <Button
+              // type="primary"
+              onClick={cancel}
+              // disabled={btnDisabled}
+              style={{ marginLeft: "20px" }}
+            >
+              取消
+            </Button>
+          )}
         </Col>
       </Row>
     </div>

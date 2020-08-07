@@ -10,10 +10,9 @@ export default () => (
     width="100px"
     height="100px"
     viewBox="0 0 728 728"
-    enable-background="new 0 0 728 728"
+    // enable-background="new 0 0 728 728"
     // xml:space="preserve"
   >
-    {" "}
     <image
       id="image0"
       width="728"

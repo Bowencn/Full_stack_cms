@@ -15,7 +15,7 @@ import { SmileOutlined } from "@ant-design/icons";
 import axios from "axios";
 
 import { ExclamationCircleOutlined } from "@ant-design/icons";
-import {host} from '../conf'
+import { host } from "../conf";
 
 export default function Administrators() {
   const [customize] = useState(false);
@@ -47,7 +47,7 @@ export default function Administrators() {
     let data2 = [];
     adminInfo.forEach((value, index) => {
       data2.push({
-        key: value.stu_num,
+        key: value.id,
         name: value.name,
         jurisdiction: value.jurisdiction === 0 ? "超级管理员" : "管理员",
       });
@@ -68,8 +68,7 @@ export default function Administrators() {
         : message.success("更新成功");
     } catch (error) {
       console.log(error.response.data);
-      error.response.data === "ER_DUP_ENTRY" &&
-        message.error("用户名已存在");
+      error.response.data === "ER_DUP_ENTRY" && message.error("用户名已存在");
     }
   };
   const deleteAdminInfo = async (name) => {
@@ -82,12 +81,13 @@ export default function Administrators() {
   const showModal = async (name, record) => {
     console.log(record);
     await setEditAdminInfo(record);
+    form.setFieldsValue({
+      jurisdiction: record.jurisdiction == "超级管理员" ? "super" : "admin"
+    });
     await setModalBtn(name);
     setVisible(true);
   };
   const onFinish = async (values) => {
-    // setLoading(true);
-    // setParams(values);
     if (modalBtn === "add") {
       await postAdminInfo("add", values);
     } else {
@@ -165,6 +165,12 @@ export default function Administrators() {
           form={form}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
+          // initialValues={{
+          //   jurisdiction:
+          //     editAdminInfo && editAdminInfo.jurisdiction == "超级管理员"
+          //       ? "super"
+          //       : "admin",
+          // }}
         >
           {modalBtn === "add" ? (
             <Form.Item
@@ -180,8 +186,8 @@ export default function Administrators() {
               <Input />
             </Form.Item>
           ) : (
-            <Form.Item label="名称" name="name" style={{paddingLeft:11}}>
-              <span className="ant-form-text" style={{paddingLeft:5}}>
+            <Form.Item label="名称" name="name" style={{ paddingLeft: 11 }}>
+              <span className="ant-form-text" style={{ paddingLeft: 5 }}>
                 {editAdminInfo && editAdminInfo.name}
               </span>
             </Form.Item>
@@ -193,8 +199,8 @@ export default function Administrators() {
             rules={[{ required: true, message: "请选择权限!" }]}
           >
             <Radio.Group style={{ marginLeft: 5 }}>
-              <Radio value="0">超级管理员</Radio>
-              <Radio value="1">管理员</Radio>
+              <Radio value="super">超级管理员</Radio>
+              <Radio value="admin">管理员</Radio>
             </Radio.Group>
           </Form.Item>
           <Form.Item
@@ -215,7 +221,7 @@ export default function Administrators() {
       key: "name",
       render: (text, record, index) => {
         // console.log(record, index);
-        return <a href="#!">{text}</a>;
+        return text
       },
     },
     {
@@ -250,7 +256,7 @@ export default function Administrators() {
         <Col>管理员列表:</Col>
       </Row>
       <Row align="middle">
-        <Col offset={22} span={2}>
+        <Col offset={23} span={1}>
           <Add />
         </Col>
       </Row>
