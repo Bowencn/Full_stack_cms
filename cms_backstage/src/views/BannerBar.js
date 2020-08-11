@@ -26,7 +26,7 @@ import {host} from '../conf'
 const { Option } = Select;
 const { confirm } = Modal;
 let index = 0;
-export default function BannerBar() {
+export default function BannerBar(props) {
   const [customize] = useState(false);
   const [visible, setVisible] = useState(false);
   const [items, setItems] = useState(["首页"]);
@@ -44,14 +44,24 @@ export default function BannerBar() {
     setVisible(true);
   };
   useEffect(() => {
+    console.log(props)
+    props.router(props.location.pathname)
+  }, [])
+  useEffect(() => {
+    let isUnmounted = false;
     const getAllInfo = async () => {
       const res = await axios.get(`${host}searchBannerInfo`);
       const resData = res.data;
-      pushKeyInDataCatch(resData);
+      if (!isUnmounted) {
+        pushKeyInDataCatch(resData);
+      }
       console.log(res);
     };
     getAllInfo();
-    console.log(1);
+    
+    return () => {
+      isUnmounted = true;
+    };
   }, [rendering]);
   const pushKeyInDataCatch = (data) => {
     let arr = [];

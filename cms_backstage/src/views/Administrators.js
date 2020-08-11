@@ -17,20 +17,21 @@ import axios from "axios";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { host } from "../conf";
 
-export default function Administrators() {
+export default function Administrators(props) {
   const [customize] = useState(false);
-  // const [loading, setLoading] = useState(false);
   const [visible, setVisible] = useState(false);
   const [adminInfo, setAdminInfo] = useState([]);
-  // const [params, setParams] = useState();
   const [data, setData] = useState([]);
   const [rendering, setRendering] = useState({});
   const [form] = Form.useForm();
   const [modalBtn, setModalBtn] = useState();
   const [editAdminInfo, setEditAdminInfo] = useState();
   const { confirm } = Modal;
-  // const host = "http://104.36.67.35:10086/";
   useEffect(() => {
+    props.router(props.location.pathname);
+  }, []);
+  useEffect(() => {
+    let isUnmounted = false;
     const getAdminInfo = async () => {
       const response = await axios.get(`${host}serchAdmin`);
       let adminInfoData = [];
@@ -39,9 +40,14 @@ export default function Administrators() {
           adminInfoData.push(response.data[key]);
         }
       }
-      setAdminInfo(adminInfoData);
+      if (!isUnmounted) {
+        setAdminInfo(adminInfoData);
+      }
     };
     getAdminInfo();
+    return () => {
+      isUnmounted = true;
+    };
   }, [rendering]);
   useEffect(() => {
     let data2 = [];
@@ -82,7 +88,7 @@ export default function Administrators() {
     console.log(record);
     await setEditAdminInfo(record);
     form.setFieldsValue({
-      jurisdiction: record.jurisdiction == "超级管理员" ? "super" : "admin"
+      jurisdiction: record.jurisdiction == "超级管理员" ? "super" : "admin",
     });
     await setModalBtn(name);
     setVisible(true);
@@ -221,7 +227,7 @@ export default function Administrators() {
       key: "name",
       render: (text, record, index) => {
         // console.log(record, index);
-        return text
+        return text;
       },
     },
     {

@@ -18,7 +18,7 @@ import { host } from "../conf";
 
 // const host = "http://104.36.67.35:10086/";
 // import UploadImage from "../components/UploadImage";
-export default function CustomHead() {
+export default function CustomHead(props) {
   const [inputVisible, setinputVisible] = useState(false);
   const [childrenInputVisible, setchildrenInputVisible] = useState(false);
   const [isChange, setChange] = useState(false);
@@ -28,13 +28,18 @@ export default function CustomHead() {
   const [canelBtnDisabled, setCanelBtnDisabled] = useState(false);
   const [form] = Form.useForm();
   useEffect(() => {
-    console.log(host);
+    let isUnmounted = false;
+    props.router(props.location.pathname);
     const GetTags = async () => {
       const res = await axios.get(`${host}searchTags`);
-      console.log(res);
-      settags(res.data);
+      if (!isUnmounted) {
+        settags(res.data);
+      }
     };
     GetTags();
+    return () => {
+      isUnmounted = true;
+    };
   }, []);
   const handleClose = (removedTag, isChildren) => {
     console.log(removedTag, isChildren);

@@ -21,7 +21,7 @@ import "braft-editor/dist/index.css";
 import "braft-extensions/dist/code-highlighter.css";
 import Markdown from "braft-extensions/dist/markdown";
 import CodeHighlighter from "braft-extensions/dist/code-highlighter";
-import {host} from '../conf'
+import { host } from "../conf";
 const options = {
   includeEditors: ["editor"], // 指定该模块对哪些BraftEditor生效，不传此属性则对所有BraftEditor有效
   // excludeEditors: ['editor-id-2'],  // 指定该模块对哪些BraftEditor无效
@@ -30,7 +30,6 @@ BraftEditor.use(Markdown(options));
 BraftEditor.use(HeaderId(options));
 BraftEditor.use(CodeHighlighter(options));
 export default function BarsAndAppreciationnCommonComponents(props) {
-  console.log(host)
   const [name] = useState("");
   const [appreciateInfo, setAppreciateInfo] = useState({});
   const [editorState, setEditorState] = useState(
@@ -41,13 +40,13 @@ export default function BarsAndAppreciationnCommonComponents(props) {
 
   const [userInfo, setUserInfo] = useState();
   // const { Option } = Select;
-  
-const selectOptions = [
-  { label: "首页",value:'gold' },
-  { label: "前端",value:'#f40' },
-  { label: "React",value:'blue' },
-  { label: "Nodejs",value:'green' },
-];
+
+  const selectOptions = [
+    { label: "首页", value: "gold" },
+    { label: "前端", value: "#f40" },
+    { label: "React", value: "blue" },
+    { label: "Nodejs", value: "green" },
+  ];
   const [form] = Form.useForm();
   const controls = [
     "undo",
@@ -86,7 +85,6 @@ const selectOptions = [
     "clear",
   ];
   let index = 0;
-
   let articleProps =
     props.editData &&
     props.editData.location.state &&
@@ -99,37 +97,48 @@ const selectOptions = [
     textArea,
   } = useContext(Context);
   useEffect(() => {
+    let isUnmounted = false;
     const getAppreciateInfo = async () => {
       const res = await axios.get(`${host}searchAppreciateInfo`);
       let data = res.data[0];
-      setAppreciateInfo(data);
-      form.setFieldsValue({ payName: data.payment_method_name });
+      if (!isUnmounted) {
+        setAppreciateInfo(data);
+        form.setFieldsValue({ payName: data.payment_method_name });
+      }
     };
     const setEditArticle = () => {
-      setArticleData(articleProps);
-      form.setFieldsValue({
-        title: articleProps.article_title,
-        tags: articleProps.article_tags,
-        articleContent: BraftEditor.createEditorState(
-          articleProps.article_content_raw
-        ),
-      });
+      if (!isUnmounted) {
+        setArticleData(articleProps);
+        form.setFieldsValue({
+          title: articleProps.article_title,
+          tags: articleProps.article_tags,
+          articleContent: BraftEditor.createEditorState(
+            articleProps.article_content_raw
+          ),
+        });
+      }
     };
     const getUserInfo = async () => {
       const res = await axios.get(`${host}searchPersonalInfo`);
-      setUserInfo(res.data[0]);
-      let data = res.data[0];
-      if (data) {
-        form.setFieldsValue({
-          name: data.name,
-          autograph: data.autograph,
-          imgInfo: { url: data.user_image },
-        });
+
+      if (!isUnmounted) {
+        setUserInfo(res.data[0]);
+        let data = res.data[0];
+        if (data) {
+          form.setFieldsValue({
+            name: data.name,
+            autograph: data.autograph,
+            imgInfo: { url: data.user_image },
+          });
+        }
       }
     };
     requiredBar === "支付方式" && getAppreciateInfo();
     headerName === "编辑文章" && setEditArticle();
     headerName === "个人信息" && getUserInfo();
+    return () => {
+      isUnmounted = true;
+    };
   }, [form, headerName, articleProps, requiredBar]);
 
   const handleEditorChange = (state) => {
@@ -148,7 +157,7 @@ const selectOptions = [
   };
   const submitInfo = async () => {
     let editorData = form.getFieldsValue().articleContent;
-    console.log(editorData.toHTML())
+    console.log(editorData.toHTML());
     let uploads = form.getFieldsValue();
     if (headerName === "个人信息") {
       const res = await axios.post(`${host}addPersonalInfo`, uploads);

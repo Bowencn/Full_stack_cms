@@ -1,6 +1,9 @@
-import React from "react";
+import React,{useEffect} from "react";
 
-export default function Preview() {
+export default function Preview(props) {
+  useEffect(() => {
+    props.router(props.location.pathname);
+  }, []);
   return (
     <div>
       <iframe
@@ -9,7 +12,7 @@ export default function Preview() {
         name="prive"
         width="100%"
         height="950"
-        frameborder="0"
+        frameBorder="0"
       ></iframe>
     </div>
   );

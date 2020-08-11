@@ -3,14 +3,19 @@ import { Link } from "react-router-dom";
 import { Button, Table, ConfigProvider, Row, Col, Tag, Typography } from "antd";
 import { SmileOutlined } from "@ant-design/icons";
 import axios from "axios";
-import {host} from '../conf'
+import { host } from "../conf";
 // const host = "http://104.36.67.35:10086/";
 const { Text } = Typography;
-export default function ArticleList() {
+export default function ArticleList(props) {
   const [customize] = useState(false);
   const [articleList, setArticleList] = useState();
   const [rendering, setRendering] = useState();
+
   useEffect(() => {
+    props.router(props.location.pathname);
+  }, []);
+  useEffect(() => {
+    let isUnmounted = false;
     const getArticle = async () => {
       const res = await axios.get(`${host}searchArticleInfo`);
       let data = res.data;
@@ -18,9 +23,16 @@ export default function ArticleList() {
         item.key = index;
       });
       console.log(data);
-      setArticleList(data);
+
+      if (!isUnmounted) {
+        setArticleList(data);
+      }
     };
+
     getArticle();
+    return () => {
+      isUnmounted = true;
+    };
   }, [rendering]);
   const deleteArticle = async (record) => {
     console.log(record);

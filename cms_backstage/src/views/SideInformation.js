@@ -1,7 +1,11 @@
-import React from "react";
+import React,{useEffect} from "react";
 import Baacc from "../components/BarsAndAppreciationnCommonComponents";
 import {Context} from '../utils/ContextState'
-export default function SideInformation() {
+export default function SideInformation(props) {
+  
+  useEffect(() => {
+    props.router(props.location.pathname)
+  }, [])
   return (
     <div>
       <Context.Provider
