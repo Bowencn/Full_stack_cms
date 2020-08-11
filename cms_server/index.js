@@ -78,6 +78,7 @@ app.post("/uploadImage", upload.single("avatar"), function (req, res, next) {
 });
 app.get("/queryImageInfo", loader.get("/queryImageInfo"));
 //图片在线查看，输入图片名字--->未使用
+app.delete(`/imageInfo`,loader.get(`/deleteImageInfo`))
 app.get(`/uploads/:name`, (req, res, next) => {
   let rs = fs.createReadStream("./uploads/" + req.params.name);
   // console.log(rs);

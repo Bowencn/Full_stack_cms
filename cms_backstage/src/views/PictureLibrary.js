@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Card, Modal, Row, Col } from "antd";
+import { Card, Modal, Row, Col, Tooltip } from "antd";
+import { DeleteOutlined } from "@ant-design/icons";
 import axios from "axios";
 import { host } from "../conf";
 export default function PictureLibrary(props) {
@@ -25,6 +26,12 @@ export default function PictureLibrary(props) {
       isUnmounted = true;
     };
   }, []);
+  const deleteImg = async (params) => {
+    const res = await axios.delete(`${host}imageInfo`, {
+      data: { imgName:params },
+    });
+    console.log(res);
+  };
   const CardTemp = (item, index) => {
     // console.log(index);
     return (
@@ -32,24 +39,36 @@ export default function PictureLibrary(props) {
         key={index}
         hoverable
         style={{ marginBottom: "15px" }}
-        cover={
-          <div>
-            <img
-              alt={item.original_name}
-              src={host + item.destination + item.filename}
-              style={{ width: "100%" }}
-            />
-          </div>
-        }
-        onClick={() => {
-          setcurrentImgUrl(host + item.destination + item.filename);
-          setimgVisible(true);
-        }}
+        bodyStyle={{ padding: 0 }}
+        actions={[
+          <DeleteOutlined
+            key="delete"
+            onClick={() => deleteImg(item.filename)}
+          />,
+        ]}
       >
-        <Meta
-          title={index + ":" + item.original_name}
-          description={host + item.destination + item.filename}
-        />
+        <div
+          onClick={() => {
+            setcurrentImgUrl(host + item.destination + item.filename);
+            setimgVisible(true);
+          }}
+        >
+          <img
+            alt={item.original_name}
+            src={host + item.destination + item.filename}
+            style={{ width: "100%" }}
+          />
+
+          <Meta
+            style={{ padding: "24px" }}
+            title={index + ":" + item.original_name}
+            description={
+              <Tooltip title={host + item.destination + item.filename}>
+                {host + item.destination + item.filename}
+              </Tooltip>
+            }
+          />
+        </div>
       </Card>
     );
   };
