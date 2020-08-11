@@ -5,7 +5,7 @@ let path = new Map();
 login = (req, res) => {
   let data = req.body;
   adminService.queryAdminLoginInfo(data.username, (result) => {
-    console.log(result)
+    console.log(result);
     if (result[0]) {
       let info = result[0];
       console.log(result[0]);
@@ -14,9 +14,9 @@ login = (req, res) => {
           code: 200,
           data: {
             message: "success",
-            id:info.id,
-            name:info.name,
-            jurisdction:info.jurisdiction
+            id: info.id,
+            name: info.name,
+            jurisdction: info.jurisdiction,
           },
         });
         res.end();
@@ -31,7 +31,7 @@ login = (req, res) => {
         res.end();
       }
     } else {
-      console.log('e')
+      console.log("e");
       // res.writeHead(401);
       res.json({
         code: 401,
@@ -60,41 +60,18 @@ serchAdmin = (request, response) => {
 path.set("/serchAdmin", serchAdmin);
 
 addAdmin = (request, response) => {
-  if (request.method === "OPTIONS") {
-    response.writeHead(200);
-    response.write("options");
-    response.end();
-  } else {
-    request.on("data", (data) => {
-      let params = JSON.parse(data.toString());
-      console.log(params);
-      if (params.name && params.jurisdiction && params.pwd) {
-        adminService.addAdminInfo(
-          params.name,
-          params.jurisdiction,
-          params.pwd,
-          (result, errorCode) => {
-            console.log(result, errorCode);
-            if (result === "error") {
-              if (errorCode === "ER_DUP_ENTRY") {
-                response.writeHead(401);
-                response.write(errorCode.toString());
-                response.end();
-              }
-            } else {
-              console.log(result);
-              response.writeHead(200);
-              response.end();
-            }
-          }
-        );
-      } else {
-        response.writeHead(400);
-        response.write(params);
-        response.end();
-      }
-    });
-  }
+  let params = request.body;
+  console.log(params);
+  adminService.addAdminInfo(
+    params.name,
+    params.jurisdiction,
+    params.pwd,
+    (result) => {
+      console.log(result);
+      response.writeHead(200);
+      response.end();
+    }
+  );
 };
 path.set("/addAdmin", addAdmin);
 

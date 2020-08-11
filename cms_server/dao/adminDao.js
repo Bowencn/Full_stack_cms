@@ -92,7 +92,7 @@ function addAdminInfo(name, jurisdiction, pwd, success) {
       if (error == null) {
         success(result);
       } else {
-        success('error',error.code)
+        success('error',error)
         // console.log(1, error);
       }
       connection.end();

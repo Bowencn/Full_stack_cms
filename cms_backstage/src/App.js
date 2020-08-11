@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import { Layout, Menu, Divider, Spin } from "antd";
+import { Layout, Menu, Divider, Spin, Tooltip } from "antd";
 import {
   TeamOutlined,
   UserOutlined,
@@ -146,13 +146,11 @@ function App(props) {
                 <HeartIcon />
               </div>
               <Divider plain style={{ color: "#fff" }}>
-                {adminInfo && adminInfo.name}
+                <Tooltip placement='bottom' title={adminInfo&&adminInfo.jurisdction==1?'管理员':'超级管理员'}>
+                  <span>{adminInfo && adminInfo.name}</span>
+                </Tooltip>
               </Divider>
-              <Menu
-                theme="dark"
-                selectedKeys={routerKey}
-                mode="inline"
-              >
+              <Menu theme="dark" selectedKeys={routerKey} mode="inline">
                 <Menu.Item key="route-navigation">
                   <Link
                     to="/route-navigation"

@@ -42,6 +42,7 @@ export default function Administrators(props) {
       }
       if (!isUnmounted) {
         setAdminInfo(adminInfoData);
+        console.log("set");
       }
     };
     getAdminInfo();
@@ -86,14 +87,20 @@ export default function Administrators(props) {
   };
   const showModal = async (name, record) => {
     console.log(record);
-    await setEditAdminInfo(record);
-    form.setFieldsValue({
-      jurisdiction: record.jurisdiction == "超级管理员" ? "super" : "admin",
-    });
+    if (name != "add") {
+      await setEditAdminInfo(record);
+      form.setFieldsValue({
+        jurisdiction: record.jurisdiction == "超级管理员" ? "super" : "admin",
+      });
+    }
     await setModalBtn(name);
     setVisible(true);
   };
   const onFinish = async (values) => {
+    values.jurisdiction == "super"
+      ? (values.jurisdiction = 0)
+      : (values.jurisdiction = 1);
+    console.log(values);
     if (modalBtn === "add") {
       await postAdminInfo("add", values);
     } else {
@@ -148,15 +155,17 @@ export default function Administrators(props) {
         添加
       </Button>
       <Modal
+        maskClosable={false}
         title={modalBtn === "add" ? "添加管理员" : "编辑管理员"}
         visible={visible}
         onOk={handleOk}
         onCancel={handleCancel}
         footer={[
-          <Button key="back" onClick={handleCancel}>
+          <Button key="back" onClick={handleCancel} key="back">
             返回
           </Button>,
           <Button
+            key="submit"
             type="primary"
             htmlType="submit"
             onClick={handleOk}
@@ -242,16 +251,18 @@ export default function Administrators(props) {
       key: "action",
       render: (text, record) => (
         <span>
-          <a
-            href="#!"
-            style={{ marginRight: 16 }}
+          <span
+            style={{ marginRight: 16, color: "#1890ff", cursor: "pointer" }}
             onClick={() => showModal("edit", record)}
           >
             编辑
-          </a>
-          <a href="#!" onClick={() => showDeleteConfirm(record.name)}>
+          </span>
+          <span
+            style={{ color: "#1890ff", cursor: "pointer" }}
+            onClick={() => showDeleteConfirm(record.name)}
+          >
             删除
-          </a>
+          </span>
         </span>
       ),
     },

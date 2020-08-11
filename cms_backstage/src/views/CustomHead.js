@@ -29,7 +29,7 @@ export default function CustomHead(props) {
   const [form] = Form.useForm();
   useEffect(() => {
     let isUnmounted = false;
-    props.router(props.location.pathname);
+    props.router&&props.router(props.location.pathname);
     const GetTags = async () => {
       const res = await axios.get(`${host}searchTags`);
       if (!isUnmounted) {
