@@ -21,7 +21,7 @@ import {
   Switch,
   // IndexRoute,
 } from "react-router-dom";
-
+import Overview from "./views/Overview";
 import CustomHead from "./views/CustomHead";
 import BannerBar from "./views/BannerBar";
 import SideInformation from "./views/SideInformation";
@@ -40,6 +40,9 @@ function App(props) {
   const [routerKey, setRouterKey] = useState(() => {
     console.log("state:", props.location.pathname);
     switch (props.location.pathname) {
+      
+      case "/overview":
+        return "overview";
       case "/route-navigation":
         return "route-navigation";
       case "/banner-bar":
@@ -65,6 +68,8 @@ function App(props) {
   );
   const judgeTheRoute = (routerName) => {
     switch (routerName) {
+      case "/overview":
+        return "overview";
       case "/route-navigation":
         return "route-navigation";
       case "/banner-bar":
@@ -146,11 +151,28 @@ function App(props) {
                 <HeartIcon />
               </div>
               <Divider plain style={{ color: "#fff" }}>
-                <Tooltip placement='bottom' title={adminInfo&&adminInfo.jurisdction==1?'管理员':'超级管理员'}>
+                <Tooltip
+                  placement="bottom"
+                  title={
+                    adminInfo && adminInfo.jurisdction == 1
+                      ? "管理员"
+                      : "超级管理员"
+                  }
+                >
                   <span>{adminInfo && adminInfo.name}</span>
                 </Tooltip>
               </Divider>
               <Menu theme="dark" selectedKeys={routerKey} mode="inline">
+                <Menu.Item key="overview">
+                  <Link
+                    to="/overview"
+                    className="navFont"
+                    style={{ width: "100%" }}
+                  >
+                    <NodeIndexOutlined />
+                    总览
+                  </Link>
+                </Menu.Item>
                 <Menu.Item key="route-navigation">
                   <Link
                     to="/route-navigation"
@@ -161,12 +183,12 @@ function App(props) {
                     路由导航
                   </Link>
                 </Menu.Item>
-                <Menu.Item key="banner-bar">
+                {/* <Menu.Item key="banner-bar">
                   <Link to="/banner-bar" className="navFont">
                     <FundViewOutlined />
                     轮播图
                   </Link>
-                </Menu.Item>
+                </Menu.Item> */}
                 <Menu.Item key="side-information">
                   <Link to="/side-information" className="navFont">
                     <UserOutlined />
@@ -196,12 +218,12 @@ function App(props) {
                   视频管理
                 </Link>
               </Menu.Item> */}
-                <Menu.Item key="website-statistics">
+                {/* <Menu.Item key="website-statistics">
                   <Link to="/website-statistics" className="navFont">
                     <FundProjectionScreenOutlined />
                     网站统计
                   </Link>
-                </Menu.Item>
+                </Menu.Item> */}
                 <Menu.Item key="preview">
                   <Link to={{ pathname: "/preview" }} className="navFont">
                     <EyeOutlined />
@@ -223,7 +245,15 @@ function App(props) {
               <Content style={{ margin: "20px 16px" }}>
                 <div className="site-layout-background">
                   <Switch>
-                    <Route path="/" exact component={CustomHead} />
+                    {/* <Route path="/" exact component={Overview} /> */}
+                    <Route
+                      path="/overview"
+                      component={(props) => (
+                        <Overview
+                          {...Object.assign({}, { router: getRouter }, props)}
+                        />
+                      )}
+                    />
                     <Route
                       path="/route-navigation"
                       component={(props) => (
