@@ -245,7 +245,7 @@ function App(props) {
               <Content style={{ margin: "20px 16px" }}>
                 <div className="site-layout-background">
                   <Switch>
-                    {/* <Route path="/" exact component={Overview} /> */}
+                    <Route path="/" exact component={Overview} />
                     <Route
                       path="/overview"
                       component={(props) => (
