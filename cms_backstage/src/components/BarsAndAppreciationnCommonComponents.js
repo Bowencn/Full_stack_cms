@@ -189,11 +189,11 @@ export default function BarsAndAppreciationnCommonComponents(props) {
     console.log(uploads);
   };
   const layout = {
-    labelCol: { span: 4 },
-    wrapperCol: { span: 16 },
+    labelCol: { span: 2 },
+    wrapperCol: { span: 10 },
   };
   const tailLayout = {
-    wrapperCol: { offset: 4, span: 16 },
+    wrapperCol: { offset: 2, span: 16 },
   };
   function onNameChange(event) {
     this.setState({
@@ -249,9 +249,6 @@ export default function BarsAndAppreciationnCommonComponents(props) {
           dangerouslySetInnerHTML={{ __html: editorState.toHTML() }}
         ></div>
       </Modal>
-      <Row>
-        <Col>{headerName}</Col>
-      </Row>
       {/* <Row>
         <Col
           xs={{ span: 20, offset: 1 }}

@@ -29,7 +29,7 @@ export default function CustomHead(props) {
   const [form] = Form.useForm();
   useEffect(() => {
     let isUnmounted = false;
-    props.router&&props.router(props.location.pathname);
+    props.router && props.router(props.location.pathname);
     const GetTags = async () => {
       const res = await axios.get(`${host}searchTags`);
       if (!isUnmounted) {
@@ -170,43 +170,57 @@ export default function CustomHead(props) {
     wrapperCol: { span: 6 },
   };
   return (
-    <div>
+    <div style={{ padding: "0 170px 32px 64px" }}>
+      <h1
+        style={{
+          marginTop: "8px",
+          marginBottom: "20px",
+          fontSize: "30px",
+          fontWeight: "500",
+        }}
+      >
+        路由导航
+      </h1>
       <Row style={{ marginBottom: "20px" }}>
-        <Col style={{ marginRight: 15, textAlign: "right" }} span={1}>
-          分类栏目:
-        </Col>
-        {tags.map((item, index) => {
-          return index === 0 ? (
-            <Tag
-              color="blue"
-              className="edit-tag"
-              key={index}
-              closable={index !== 0}
-            >
-              {item.name}
-            </Tag>
-          ) : (
-            <Tag
-              key={index}
-              color="blue"
-              className="edit-tag"
-              closable={index !== 0}
-              onClose={() => handleClose(item)}
-            >
-              <Dropdown
-                overlay={item.subclass && menu(item.subclass)}
-                disabled={!item.subclass}
+        <Col style={{ marginRight: 15, textAlign: "right" }}>分类栏目:</Col>
+        <Col>
+          {tags.map((item, index) => {
+            return index === 0 ? (
+              <Tag
+                color="blue"
+                className="edit-tag"
+                key={index}
+                closable={index !== 0}
               >
-                <span onDoubleClick={() => changeTags(item)}>{item.name}</span>
-              </Dropdown>
+                {item.name}
+              </Tag>
+            ) : (
+              <Tag
+                key={index}
+                color="blue"
+                className="edit-tag"
+                closable={index !== 0}
+                onClose={() => handleClose(item)}
+              >
+                <Dropdown
+                  overlay={item.subclass && menu(item.subclass)}
+                  disabled={!item.subclass}
+                >
+                  <span onDoubleClick={() => changeTags(item)}>
+                    {item.name}
+                  </span>
+                </Dropdown>
+              </Tag>
+            );
+          })}
+        </Col>
+        <Col>
+          {!inputVisible && (
+            <Tag className="site-tag-plus" onClick={showAddInput}>
+              <PlusOutlined /> 添加新标签
             </Tag>
-          );
-        })}
-        {!inputVisible && (
-          <Tag className="site-tag-plus" onClick={showAddInput}>
-            <PlusOutlined /> 添加新标签
-          </Tag>
-        )}
+          )}
+        </Col>
       </Row>
       {/* <Space> */}
       {inputVisible && (

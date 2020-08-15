@@ -1,17 +1,27 @@
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
 
 export default function Preview(props) {
   useEffect(() => {
     props.router(props.location.pathname);
   }, []);
   return (
-    <div>
+    <div style={{ padding: "0 170px 32px 64px" }}>
+      <h1
+        style={{
+          marginTop: "8px",
+          marginBottom: "20px",
+          fontSize: "30px",
+          fontWeight: "500",
+        }}
+      >
+        实时预览
+      </h1>
       <iframe
         title="navigation"
         src="http://bowencn.top/"
         name="prive"
         width="100%"
-        height="950"
+        height="750"
         frameBorder="0"
       ></iframe>
     </div>

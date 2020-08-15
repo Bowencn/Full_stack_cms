@@ -7,20 +7,12 @@ import {
   FileTextOutlined,
   LikeOutlined,
   PictureOutlined,
-  FundProjectionScreenOutlined,
   EyeOutlined,
   NodeIndexOutlined,
-  FundViewOutlined,
   LoadingOutlined,
 } from "@ant-design/icons";
 import Icon from "@ant-design/icons";
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Switch,
-  // IndexRoute,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import Overview from "./views/Overview";
 import CustomHead from "./views/CustomHead";
 import BannerBar from "./views/BannerBar";
@@ -40,7 +32,6 @@ function App(props) {
   const [routerKey, setRouterKey] = useState(() => {
     console.log("state:", props.location.pathname);
     switch (props.location.pathname) {
-      
       case "/overview":
         return "overview";
       case "/route-navigation":
@@ -61,11 +52,18 @@ function App(props) {
         return "preview";
       case "/administrators":
         return "administrators";
+      default:
+        return "overview";
     }
   });
   const [adminInfo] = useState(
     JSON.parse(window.localStorage.getItem("user_info"))
   );
+  useEffect(() => {
+    if (props.location.pathname === "/") {
+      props.history.push("/overview");
+    }
+  }, []);
   const judgeTheRoute = (routerName) => {
     switch (routerName) {
       case "/overview":
@@ -99,10 +97,27 @@ function App(props) {
     await setTimeout(() => {
       setLogOut(false);
       window.localStorage.removeItem("user_info");
-      // window.localStorage.removeItem("sider_menu_key");
       props.history.push("/login");
     }, 1000);
   };
+  const overview = () => (
+    <svg
+      t="1597476052457"
+      viewBox="0 0 1024 1024"
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+      p-id="20090"
+      width="1em"
+      height="1em"
+    >
+      <path
+        d="M430.182912 452.352L24.576512 691.2A496.0256 496.0256 0 0 1 0.000512 536.3712C0.000512 283.5456 188.621312 75.6736 430.182912 51.2v401.152z m27.136 96.6144L870.400512 814.848C784.026112 941.2608 640.512512 1024 477.952512 1024c-176.7424 0-331.1104-97.8944-413.7984-243.456l393.1648-231.5776zM507.238912 237.4656l265.7792-153.8048 50.944 88.4736-265.7792 153.8048zM493.414912 83.712L581.939712 32.4608l51.0464 88.6272-88.5248 51.2512zM800.614912 646.912l88.5248-51.2512 51.0464 88.6272-88.5248 51.2512zM514.150912 416.768l354.4064-205.1072 50.8928 88.3712-354.4064 205.1072zM660.838912 544.6656l265.7792-153.8048 50.944 88.4736-265.7792 153.8048z"
+        fill="#ffffff"
+        p-id="20091"
+      ></path>
+    </svg>
+  );
+  const OverViewIcon = () => <Icon component={overview} />;
   const HeartIcon = () => (
     <Icon component={logo} style={{ width: 100 }} className="App-logo" />
   );
@@ -169,7 +184,7 @@ function App(props) {
                     className="navFont"
                     style={{ width: "100%" }}
                   >
-                    <NodeIndexOutlined />
+                    <OverViewIcon />
                     总览
                   </Link>
                 </Menu.Item>
@@ -241,7 +256,10 @@ function App(props) {
                 </Menu.Item>
               </Menu>
             </Sider>
-            <Layout className={"site-layout"} style={{ marginLeft: 200 }}>
+            <Layout
+              className={"site-layout"}
+              style={{ marginLeft: 200, backgroundColor: "#fff" }}
+            >
               <Content style={{ margin: "20px 16px" }}>
                 <div className="site-layout-background">
                   <Switch>

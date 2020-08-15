@@ -28,7 +28,7 @@ export default function PictureLibrary(props) {
   }, []);
   const deleteImg = async (params) => {
     const res = await axios.delete(`${host}imageInfo`, {
-      data: { imgName:params },
+      data: { imgName: params },
     });
     console.log(res);
   };
@@ -86,7 +86,17 @@ export default function PictureLibrary(props) {
     return resList;
   };
   return (
-    <div>
+    <div style={{ padding: "0 170px 32px 64px" }}>
+      <h1
+        style={{
+          marginTop: "8px",
+          marginBottom: "20px",
+          fontSize: "30px",
+          fontWeight: "500",
+        }}
+      >
+        图片管理
+      </h1>
       <Modal
         visible={imgVisible}
         onCancel={() => setimgVisible(false)}

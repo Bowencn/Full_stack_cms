@@ -268,10 +268,17 @@ export default function Administrators(props) {
     },
   ];
   return (
-    <div>
-      <Row>
-        <Col>管理员列表:</Col>
-      </Row>
+    <div style={{ padding: "0 0px 32px 64px" }}>
+      <h1
+        style={{
+          marginTop: "8px",
+          marginBottom: "20px",
+          fontSize: "30px",
+          fontWeight: "500",
+        }}
+      >
+        管理员列表
+      </h1>
       <Row align="middle">
         <Col offset={23} span={1}>
           <Add />

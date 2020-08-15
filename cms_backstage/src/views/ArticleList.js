@@ -115,10 +115,22 @@ export default function ArticleList(props) {
     },
   ];
   return (
-    <div>
-      <Row>
-        <Col>文章列表:</Col>
-      </Row>
+    <div
+      style={{
+        padding: "0 0px 32px 64px",
+      }}
+    >
+      <h1
+        style={{
+          marginTop: "8px",
+          marginBottom: "20px",
+          fontSize: "30px",
+          fontWeight: "500",
+        }}
+      >
+        文章列表
+      </h1>
+      {/* <div style={{backgroundColor:'#ddd',padding:'15px'}}> */}
       <Row align="middle">
         <Col span={1} offset={23}>
           <Button type="primary">
@@ -135,6 +147,7 @@ export default function ArticleList(props) {
           dataSource={articleList}
         />
       </ConfigProvider>
+      {/* </div> */}
     </div>
   );
 }
