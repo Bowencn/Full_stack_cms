@@ -22,7 +22,7 @@ export default withRouter(function Login({ history }) {
     if (res.data.code === 200 && res.data.data.name === values.username) {
       let setData = JSON.stringify(res.data.data);
       window.localStorage.setItem("user_info", setData);
-      history.push({ pathname: "/route-navigation", state: setData });
+      history.push({ pathname: "/", state: setData });
     } else {
       if (res.data.data.message === "password_error") {
         message.warning("密码错误");

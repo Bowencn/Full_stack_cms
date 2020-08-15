@@ -82,7 +82,7 @@ updateAdmin = (request, response) => {
     response.end();
   } else {
     let data = request.body;
-    if (data.name && data.jurisdiction && data.pwd) {
+    if (data.name && data.jurisdiction.toString() && data.pwd) {
       adminService.updateAdminInfo(
         data.name,
         data.jurisdiction,
