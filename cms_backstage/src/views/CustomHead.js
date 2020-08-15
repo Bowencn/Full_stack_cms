@@ -1,8 +1,6 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Tag,
-  Tooltip,
-  Space,
   Row,
   Col,
   Button,
@@ -27,9 +25,14 @@ export default function CustomHead(props) {
   const [btnDisabled, setbtnDisabled] = useState(false);
   const [canelBtnDisabled, setCanelBtnDisabled] = useState(false);
   const [form] = Form.useForm();
+  
+  const { router } = props;
+  useEffect(() => {
+    router(props.location.pathname);
+  }, [router,props.location.pathname]);
   useEffect(() => {
     let isUnmounted = false;
-    props.router && props.router(props.location.pathname);
+    // props.router && props.router(props.location.pathname);
     const GetTags = async () => {
       const res = await axios.get(`${host}searchTags`);
       if (!isUnmounted) {

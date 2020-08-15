@@ -10,10 +10,10 @@ export default function ArticleList(props) {
   const [customize] = useState(false);
   const [articleList, setArticleList] = useState();
   const [rendering, setRendering] = useState();
-
+  const { router } = props;
   useEffect(() => {
-    props.router(props.location.pathname);
-  }, []);
+    router(props.location.pathname);
+  }, [router, props.location.pathname]);
   useEffect(() => {
     let isUnmounted = false;
     const getArticle = async () => {

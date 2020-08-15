@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 
 export default function Preview(props) {
+  const { router } = props;
   useEffect(() => {
-    props.router(props.location.pathname);
-  }, []);
+    router(props.location.pathname);
+  }, [router,props.location.pathname]);
   return (
     <div style={{ padding: "0 170px 32px 64px" }}>
       <h1

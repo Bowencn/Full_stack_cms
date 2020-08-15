@@ -19,12 +19,12 @@ export default withRouter(function Login({ history }) {
   };
   const onFinish = async (values) => {
     const res = await axios.post(`${host}login`, values);
-    if (res.data.code == 200 && res.data.data.name == values.username) {
+    if (res.data.code === 200 && res.data.data.name === values.username) {
       let setData = JSON.stringify(res.data.data);
       window.localStorage.setItem("user_info", setData);
       history.push({ pathname: "/route-navigation", state: setData });
     } else {
-      if (res.data.data.message == "password_error") {
+      if (res.data.data.message === "password_error") {
         message.warning("密码错误");
       } else {
         message.error("用户名错误");

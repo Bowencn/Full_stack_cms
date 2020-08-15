@@ -3,15 +3,11 @@ import {
   Form,
   Input,
   Button,
-  Row,
-  Col,
   Modal,
   Select,
-  Divider,
   Tag,
   message,
 } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
 import { Context } from "../utils/ContextState";
 import UploadImage from "../components/UploadImage";
 import BraftEditor from "braft-editor";
@@ -30,7 +26,6 @@ BraftEditor.use(Markdown(options));
 BraftEditor.use(HeaderId(options));
 BraftEditor.use(CodeHighlighter(options));
 export default function BarsAndAppreciationnCommonComponents(props) {
-  const [name] = useState("");
   const [appreciateInfo, setAppreciateInfo] = useState({});
   const [editorState, setEditorState] = useState(
     BraftEditor.createEditorState(null)
@@ -84,7 +79,6 @@ export default function BarsAndAppreciationnCommonComponents(props) {
     "separator",
     "clear",
   ];
-  let index = 0;
   let articleProps =
     props.editData &&
     props.editData.location.state &&
@@ -195,20 +189,6 @@ export default function BarsAndAppreciationnCommonComponents(props) {
   const tailLayout = {
     wrapperCol: { offset: 2, span: 16 },
   };
-  function onNameChange(event) {
-    this.setState({
-      name: event.target.value,
-    });
-  }
-
-  function addItem() {
-    console.log("addItem");
-    const { items, name } = this.state;
-    this.setState({
-      items: [...items, name || `New item ${index++}`],
-      name: "",
-    });
-  }
   function tagRender(props) {
     const { label, value, closable, onClose } = props;
     return (

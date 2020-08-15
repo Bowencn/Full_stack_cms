@@ -9,10 +9,10 @@ export default function PictureLibrary(props) {
   const [imgVisible, setimgVisible] = useState(false);
   const [currentImgUrl, setcurrentImgUrl] = useState();
   // const host = "http://104.36.67.35:10086/";
-
+  const { router } = props;
   useEffect(() => {
-    props.router(props.location.pathname);
-  }, []);
+    router(props.location.pathname);
+  }, [router,props.location.pathname]);
   useEffect(() => {
     let isUnmounted = false;
     const getAllImg = async () => {

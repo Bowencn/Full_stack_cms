@@ -3,11 +3,10 @@ import Baacc from "../components/BarsAndAppreciationnCommonComponents";
 import { Context } from "../utils/ContextState";
 
 export default function AppreciationSettings(props) {
-  let router = props.router;
-  let pathName = props.location.pathname;
+  const { router } = props;
   useEffect(() => {
-    router(pathName);
-  }, []);
+    router(props.location.pathname);
+  }, [router,props.location.pathname]);
   return (
     <div style={{ padding: "0 170px 32px 64px" }}>
       <h1

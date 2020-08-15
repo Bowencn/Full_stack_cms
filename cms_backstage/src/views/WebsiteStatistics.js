@@ -1,11 +1,10 @@
 import React, {  useEffect } from "react";
 import { Statistic, Row, Col } from "antd";
-import axios from "axios";
-import { host } from "../conf";
 export default function WebsiteStatistics(props) {
+  const { router } = props;
   useEffect(() => {
-    props.router(props.location.pathname);
-  }, []);
+    router(props.location.pathname);
+  }, [router,props.location.pathname]);
   return (
     <div>
       <h1>待开发...</h1>

@@ -2,9 +2,10 @@ import React, { useEffect } from "react";
 import Baacc from "../components/BarsAndAppreciationnCommonComponents";
 import { Context } from "../utils/ContextState";
 export default function SideInformation(props) {
+  const { router } = props;
   useEffect(() => {
-    props.router(props.location.pathname);
-  }, []);
+    router(props.location.pathname);
+  }, [router,props.location.pathname]);
   return (
     <div style={{ padding: "0 170px 32px 64px" }}>
       <h1

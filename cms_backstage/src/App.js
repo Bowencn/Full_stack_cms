@@ -63,7 +63,7 @@ function App(props) {
     if (props.location.pathname === "/") {
       props.history.push("/overview");
     }
-  }, []);
+  }, [props.history,props.location.pathname]);
   const judgeTheRoute = (routerName) => {
     switch (routerName) {
       case "/overview":
@@ -86,6 +86,8 @@ function App(props) {
         return "preview";
       case "/administrators":
         return "administrators";
+        default:
+          return "overview";
     }
   };
   const getRouter = async (routerName) => {
@@ -169,7 +171,7 @@ function App(props) {
                 <Tooltip
                   placement="bottom"
                   title={
-                    adminInfo && adminInfo.jurisdction == 1
+                    adminInfo && adminInfo.jurisdction === 1
                       ? "管理员"
                       : "超级管理员"
                   }

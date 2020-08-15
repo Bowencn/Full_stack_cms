@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import {
-  Radio,
   Button,
   Table,
   ConfigProvider,
@@ -43,10 +42,10 @@ export default function BannerBar(props) {
     setState(state);
     setVisible(true);
   };
+  const { router } = props;
   useEffect(() => {
-    console.log(props)
-    props.router(props.location.pathname)
-  }, [])
+    router(props.location.pathname);
+  }, [router, props.location.pathname]);
   useEffect(() => {
     let isUnmounted = false;
     const getAllInfo = async () => {

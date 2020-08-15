@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { Card, Row, Col } from "antd";
 import Icon from "@ant-design/icons";
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 export default function Overview(props) {
+  const { router } = props;
   useEffect(() => {
-    props.router && props.router(props.location.pathname);
-  }, []);
+    router&&router(props.location.pathname);
+  }, [router,props.location.pathname]);
   const route = () => (
     <svg
       t="1597473695507"

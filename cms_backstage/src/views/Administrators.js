@@ -27,9 +27,10 @@ export default function Administrators(props) {
   const [modalBtn, setModalBtn] = useState();
   const [editAdminInfo, setEditAdminInfo] = useState();
   const { confirm } = Modal;
+  const { router } = props;
   useEffect(() => {
-    props.router(props.location.pathname);
-  }, []);
+    router(props.location.pathname);
+  }, [router,props.location.pathname]);
   useEffect(() => {
     let isUnmounted = false;
     const getAdminInfo = async () => {
@@ -87,17 +88,17 @@ export default function Administrators(props) {
   };
   const showModal = async (name, record) => {
     console.log(record);
-    if (name != "add") {
+    if (name !== "add") {
       await setEditAdminInfo(record);
       form.setFieldsValue({
-        jurisdiction: record.jurisdiction == "超级管理员" ? "super" : "admin",
+        jurisdiction: record.jurisdiction === "超级管理员" ? "super" : "admin",
       });
     }
     await setModalBtn(name);
     setVisible(true);
   };
   const onFinish = async (values) => {
-    values.jurisdiction == "super"
+    values.jurisdiction === "super"
       ? (values.jurisdiction = 0)
       : (values.jurisdiction = 1);
     console.log(values);
@@ -161,7 +162,7 @@ export default function Administrators(props) {
         onOk={handleOk}
         onCancel={handleCancel}
         footer={[
-          <Button key="back" onClick={handleCancel} key="back">
+          <Button key="back" onClick={handleCancel}>
             返回
           </Button>,
           <Button
