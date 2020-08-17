@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, {  useState,useEffect } from "react";
 import CardTemplate from "../components/CardTemplate";
 import {
   Row,
@@ -7,7 +7,9 @@ import {
 } from "antd";
 export default function ArticlePage(props) {
   const [data] = useState(props.location.state.data)
-  console.log(props.location.state)
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
   return (
     <div className="main-wrapper" style={{ padding: "30px 10%" }}>
       <Row>
