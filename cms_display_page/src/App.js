@@ -1,35 +1,15 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect,
-} from "react-router-dom";
-import {
-  Layout,
-  Affix,
-  Divider,
-  Row,
-  Col,
-  BackTop,
-  Typography,
-  Card,
-  Anchor,
-} from "antd";
+import { Layout, Row, Col, BackTop } from "antd";
 import Icon from "@ant-design/icons";
 import axios from "axios";
 import HomeArticle from "./components/HomeArticle";
-import Archives from "./Views/Archives";
+// import Archives from "./Views/Archives";
 import UserInfo from "./components/UserInfo";
 import { host } from "./conf";
-const { Content, Footer } = Layout;
-const { Link } = Anchor;
-const { Text } = Typography;
+const { Content } = Layout;
 
 function App(props) {
-  // const [articleList, setArticleList] = useState();
   const [userInfo, setUserInfo] = useState();
   useEffect(() => {
     const getUserInfo = async () => {
@@ -37,14 +17,13 @@ function App(props) {
       setUserInfo(res.data[0]);
       console.log(res.data);
     };
-    // getArticle();
     getUserInfo();
   }, []);
   console.log(props);
   const svg = () => (
     <svg
       t="1597660169622"
-      class="icon"
+      className="icon"
       viewBox="0 0 1024 1024"
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
@@ -77,7 +56,7 @@ function App(props) {
           <div id="banner_wave_1"></div>
           <div id="banner_wave_2"></div>
         </div>
-        <div class="focusinfo">
+        <div className="focusinfo">
           {userInfo && (
             <div>
               <img
@@ -93,15 +72,16 @@ function App(props) {
                 className={"App-logo"}
               />
               <h1
-                class="center-text glitch is-glitching Ubuntu-font"
+                className="center-text glitch is-glitching Ubuntu-font"
                 data-text={`Hey,${userInfo.name}!`}
               >
                 Hey,{userInfo.name}!
               </h1>
-              <h2 class="glitch is-glitching Ubuntu-font">
+              <h2 className="glitch is-glitching Ubuntu-font">
                 <li id="bg-pre">
                   <img
-                    class="flipx"
+                    className="flipx"
+                    art="left"
                     src="https://cdn.jsdelivr.net/gh/moezx/cdn@3.1.9/img/Sakura/images/next-b.svg"
                   />
                 </li>
@@ -111,7 +91,10 @@ function App(props) {
                 </span>
                 <QuotationMarksIcon />
                 <li id="bg-next">
-                  <img src="https://cdn.jsdelivr.net/gh/moezx/cdn@3.1.9/img/Sakura/images/next-b.svg" />
+                  <img
+                    src="https://cdn.jsdelivr.net/gh/moezx/cdn@3.1.9/img/Sakura/images/next-b.svg"
+                    art="right"
+                  />
                 </li>
               </h2>
             </div>
@@ -137,7 +120,7 @@ function App(props) {
           </Col>
         </Row>
       </Content>
-      <BackTop style={{width:'auto',height:'auto'}}>
+      <BackTop style={{ width: "auto", height: "auto" }}>
         <div
           style={{
             height: 940,

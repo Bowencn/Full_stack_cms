@@ -2,19 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { host } from "../conf";
 import {
-  Layout,
   Affix,
   Divider,
-  Row,
-  Col,
-  BackTop,
   Typography,
   Card,
   Anchor,
 } from "antd";
 import axios from "axios";
 const { Text } = Typography;
-const { Content, Footer } = Layout;
 export default function UserInfo() {
   const [userInfo, setUserInfo] = useState();
 
@@ -33,18 +28,6 @@ export default function UserInfo() {
     GetTags();
     getUserInfo();
   }, []);
-  const headerList = [
-    {
-      name: "实验室",
-      subclass: [
-        { name: "前端" },
-        // { name: "运营" },
-        { name: "React" },
-        { name: "Nodejs" },
-      ],
-    },
-    { name: "归档", herf: "/archives" },
-  ];
   return (
     <Affix offsetTop={180}>
       <div>
@@ -109,7 +92,7 @@ export default function UserInfo() {
           >
             {tags.map((item, index) => {
               return item.subclass ? (
-                <Link
+                <div
                   key={index}
                   style={{
                     display: "flex",
@@ -118,6 +101,7 @@ export default function UserInfo() {
                     marginBottom: "5px",
                     color: "#555",
                   }}
+                  to="undefined"
                 >
                   {item.name}
                   {item.subclass.map((item2, index2) => (
@@ -129,7 +113,7 @@ export default function UserInfo() {
                       {"- " + item2.name}
                     </Link>
                   ))}
-                </Link>
+                </div>
               ) : (
                 <Link
                   to={{ pathname: item.herf, state: {} }}

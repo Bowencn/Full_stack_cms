@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 
 import UserInfo from "../components/UserInfo";
 import { Timeline, Row, Col, Typography, Card } from "antd";
-const { Text, Title, Link } = Typography;
+const { Text, Title } = Typography;
 export default function Archives() {
   return (
     <div className="main-wrapper" style={{ padding: "30px 0" }}>

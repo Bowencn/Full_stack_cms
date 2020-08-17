@@ -1,17 +1,10 @@
 import React, {  useState } from "react";
 import CardTemplate from "../components/CardTemplate";
 import {
-  Divider,
   Row,
   Col,
-  Typography,
-  Card,
-  Anchor,
-  Affix,
   BackTop
 } from "antd";
-const { Link } = Anchor;
-const {  Text } = Typography;
 export default function ArticlePage(props) {
   const [data] = useState(props.location.state.data)
   console.log(props.location.state)

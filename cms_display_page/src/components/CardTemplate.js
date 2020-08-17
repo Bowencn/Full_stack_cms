@@ -27,7 +27,7 @@ export default function CardTemplate(props) {
   const tagsSvg = () => (
     <svg
       t="1597651144411"
-      class="icon"
+      className="icon"
       viewBox="0 0 3413 1024"
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
@@ -55,7 +55,7 @@ export default function CardTemplate(props) {
   const dateSvg = () => (
     <svg
       t="1597652333503"
-      class="icon"
+      className="icon"
       viewBox="0 0 1024 1024"
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
