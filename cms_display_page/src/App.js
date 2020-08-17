@@ -81,7 +81,7 @@ function App(props) {
                 <li id="bg-pre">
                   <img
                     className="flipx"
-                    art="left"
+                    alt="left"
                     src="https://cdn.jsdelivr.net/gh/moezx/cdn@3.1.9/img/Sakura/images/next-b.svg"
                   />
                 </li>
@@ -93,7 +93,7 @@ function App(props) {
                 <li id="bg-next">
                   <img
                     src="https://cdn.jsdelivr.net/gh/moezx/cdn@3.1.9/img/Sakura/images/next-b.svg"
-                    art="right"
+                    alt="right"
                   />
                 </li>
               </h2>
