@@ -20,12 +20,12 @@ export default function AppRouter() {
       <Switch>
         <Route exact path="/" component={App}/>
         <Route exact path="/archives" component={Archives} />
-        <Route exact path="/artclePage" component={ArtclePage} />
+        <Route exact path="/artcle-page" component={ArtclePage} />
         <Route exact path="/react" component={ReactView}/>
         <Route exact path="/vue" component={VueView}/>
         <Route exact path="/nodejs" component={NodejsView}/>
-        <Route exact path="/notFound" component={NotFound}/>
-        <Redirect to="/notFound"/>
+        <Route exact path="/not-found" component={NotFound}/>
+        <Redirect to="/not-found"/>
       </Switch>
     </Router>
   );

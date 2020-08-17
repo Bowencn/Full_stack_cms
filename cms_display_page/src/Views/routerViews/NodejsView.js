@@ -1,9 +1,5 @@
-import React from 'react'
-
+import React from "react";
+import WarningPage from "../WarningPage";
 export default function NodejsView() {
-    return (
-        <div>
-            NodejsView
-        </div>
-    )
+  return <WarningPage />;
 }

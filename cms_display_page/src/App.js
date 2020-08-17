@@ -18,6 +18,7 @@ import {
   Card,
   Anchor,
 } from "antd";
+import Icon from "@ant-design/icons";
 import axios from "axios";
 import HomeArticle from "./components/HomeArticle";
 import Archives from "./Views/Archives";
@@ -39,72 +40,84 @@ function App(props) {
     // getArticle();
     getUserInfo();
   }, []);
-  const headerList = [
-    { name: "前端" },
-    { name: "运营" },
-    { name: "实验室", subclass: [{ name: "React" }, { name: "Nodejs" }] },
-    { name: "归档", herf: "/archives" },
-  ];
   console.log(props);
+  const svg = () => (
+    <svg
+      t="1597660169622"
+      class="icon"
+      viewBox="0 0 1024 1024"
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+      p-id="16371"
+      width="64"
+      height="64"
+    >
+      <path
+        d="M464.655 592H392l50.62-160h63.722l-41.687 160z m125.658 0h-72.655l50.62-160H632l-41.687 160z"
+        fill="#ffffff"
+        p-id="16372"
+      ></path>
+    </svg>
+  );
+  const QuotationMarksIcon = (props) => <Icon component={svg} {...props} />;
   return (
     <Layout className="layout">
-      {/* <header style={{ height: 500, position: "relative", overflow: "hidden" }}>
-        <nav
-          style={{
-            position: "absolute",
-            width: "100%",
-            color: "#fff",
-            fontSize: "18px",
-            fontWeight: "800",
-            backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.3),transparent)",
-            textShadow: "0 1px 1px rgba(0,0,0,.3)",
-            // paddingLeft: "15%",
-            // paddingRight: "30%",
-          }}
-        >
-          <Row align="middle" justify="center">
-            <Col
-              span={2}
-              style={{ lineHeight: "58px", textAlign: "center" }}
-            >
-              首页
-            </Col>
-            <Col span={3} style={{ textAlign: "center" }}>
-              <Dropdown overlay={menu}>
-                <a
-                  className="ant-dropdown-link"
-                  onClick={(e) => e.preventDefault()}
-                  style={{
-                    color: "#fff",
-                    lineHeight: "58px",
-                    textAlign: "center",
-                  }}
-                >
-                  实验室 <DownOutlined />
-                </a>
-              </Dropdown>
-            </Col>
-            <Col offset={1}>
-              <Search
-                placeholder="站内搜索"
-                onSearch={(value) => console.log(value)}
-                style={{ width: 200, borderRadius: "15px" }}
+      <header
+        className="headertop filter-dot"
+        style={{
+          height: 969,
+          position: "relative",
+          overflow: "hidden",
+          backgroundImage:
+            "url(https://zankyo.cc/wp-content/themes/Sakura/cover/index.php?-11)",
+          backgroundSize: "cover",
+        }}
+      >
+        <div id="banner_wave_hide_transition">
+          <div id="banner_wave_1"></div>
+          <div id="banner_wave_2"></div>
+        </div>
+        <div class="focusinfo">
+          {userInfo && (
+            <div>
+              <img
+                alt="example"
+                src={host + userInfo.user_image}
+                style={{
+                  borderRadius: "100%",
+                  border: "2px dashed #fff",
+                  padding: "5px",
+                  width: "200px",
+                  height: "200px",
+                }}
+                className={"App-logo"}
               />
-            </Col>
-          </Row>
-        </nav>
-        <div
-          style={{
-            backgroundImage:
-              "url(http://localhost:10086/uploads/0c50b9236703d0177a36a4da2d6b09cf)",
-            height: 650,
-            width: "100%",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-          }}
-        ></div>
-      </header> */}
+              <h1
+                class="center-text glitch is-glitching Ubuntu-font"
+                data-text={`Hey,${userInfo.name}!`}
+              >
+                Hey,{userInfo.name}!
+              </h1>
+              <h2 class="glitch is-glitching Ubuntu-font">
+                <li id="bg-pre">
+                  <img
+                    class="flipx"
+                    src="https://cdn.jsdelivr.net/gh/moezx/cdn@3.1.9/img/Sakura/images/next-b.svg"
+                  />
+                </li>
+                <QuotationMarksIcon />
+                <span style={{ verticalAlign: "0px" }}>
+                  {userInfo.autograph}
+                </span>
+                <QuotationMarksIcon />
+                <li id="bg-next">
+                  <img src="https://cdn.jsdelivr.net/gh/moezx/cdn@3.1.9/img/Sakura/images/next-b.svg" />
+                </li>
+              </h2>
+            </div>
+          )}
+        </div>
+      </header>
       <Content style={{ padding: "30px 0" }}>
         <Row>
           <Col
@@ -124,21 +137,15 @@ function App(props) {
           </Col>
         </Row>
       </Content>
-      <BackTop>
+      <BackTop style={{width:'auto',height:'auto'}}>
         <div
           style={{
-            height: 40,
-            width: 40,
-            lineHeight: "40px",
-            borderRadius: "100%",
-            backgroundColor: "#fff",
-            color: "#555",
-            textAlign: "center",
-            fontSize: 14,
+            height: 940,
+            width: 100,
+            background:
+              "url('https://cdn.jsdelivr.net/gh/moezx/cdn@3.1.9/img/Sakura/images/scroll.png') no-repeat center",
           }}
-        >
-          Back
-        </div>
+        ></div>
       </BackTop>
       {/* <Footer style={{ textAlign: "center" }}>
           Ant Design ©2018 Created by Ant UED

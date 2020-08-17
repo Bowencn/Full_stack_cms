@@ -7,7 +7,8 @@ import {
   Typography,
   Card,
   Anchor,
-  Affix
+  Affix,
+  BackTop
 } from "antd";
 const { Link } = Anchor;
 const {  Text } = Typography;
@@ -17,10 +18,20 @@ export default function ArticlePage(props) {
   return (
     <div className="main-wrapper" style={{ padding: "30px 10%" }}>
       <Row>
-        <Col span={13} offset={3}>
+        <Col span={14} offset={5}>
           <CardTemplate content data={data}/>
         </Col>
-        <Col span={5} style={{ marginLeft: "30px" }}>
+        <BackTop style={{width:'auto',height:'auto'}}>
+        <div
+          style={{
+            height: 940,
+            width: 100,
+            background:
+              "url('https://cdn.jsdelivr.net/gh/moezx/cdn@3.1.9/img/Sakura/images/scroll.png') no-repeat center",
+          }}
+        ></div>
+      </BackTop>
+        {/* <Col span={5} style={{ marginLeft: "30px" }}>
           <Affix offsetTop={30}>
           <Card hoverable style={{ padding: "16px 20px" }}>
             <div
@@ -33,7 +44,7 @@ export default function ArticlePage(props) {
             >
               <img
                 alt="example"
-                src="http://104.36.67.35:10086/uploads/06258b520a51e6a9c88e687eb48548b6"
+                src="http://localhost:10087/uploads/b6c5307ab3688d45e251a79eaaf17580"
                 style={{
                   borderRadius: "100%",
                   border: "2px dashed #000",
@@ -61,7 +72,7 @@ export default function ArticlePage(props) {
               <Text strong>瓜瓜瓜大魔王</Text>
             </div>
           </Card>
-          {/* <div style={{ marginTop: "20px" }}>
+          <div style={{ marginTop: "20px" }}>
             <Text strong style={{ marginLeft: "15px" }}>
               目录
             </Text>
@@ -76,9 +87,9 @@ export default function ArticlePage(props) {
                 <Link href="/" title="设计资源" />
               </Link>
             </Anchor>
-          </div> */}
+          </div>
           </Affix>
-        </Col>
+        </Col> */}
       </Row>
     </div>
   );

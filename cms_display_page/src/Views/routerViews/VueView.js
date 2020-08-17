@@ -1,9 +1,6 @@
 import React from 'react'
+import WarningPage from "../WarningPage";
 
 export default function VueViews() {
-    return (
-        <div>
-            VueViews
-        </div>
-    )
+    return <WarningPage />;
 }

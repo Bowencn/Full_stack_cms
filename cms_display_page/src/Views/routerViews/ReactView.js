@@ -1,9 +1,6 @@
-import React from 'react'
+import React from "react";
 
+import WarningPage from "../WarningPage";
 export default function ReactView() {
-    return (
-        <div>
-            ReactView
-        </div>
-    )
+  return <WarningPage />;
 }

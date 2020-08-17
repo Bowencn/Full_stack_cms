@@ -46,9 +46,16 @@ export default function UserInfo() {
     { name: "归档", herf: "/archives" },
   ];
   return (
-    <Affix offsetTop={30}>
+    <Affix offsetTop={180}>
       <div>
-        <Card hoverable style={{ padding: "16px 20px" }}>
+        <Card
+          hoverable
+          style={{
+            padding: "16px 20px",
+            boxShadow: "0 1px 20px -8px rgba(0, 0, 0, .5)",
+            borderRadius: "15px",
+          }}
+        >
           <div
             style={{
               textAlign: "center",
@@ -87,22 +94,57 @@ export default function UserInfo() {
             <Text strong>{userInfo && userInfo.name}</Text>
           </div>
         </Card>
-        <Card hoverable style={{ padding: "16px 20px", marginTop: "20px" }}>
-          <Anchor affix={false} style={{display:'flex',flexDirection:'column'}}>
-          {tags.map((item, index) => {
-            return item.subclass ? (
-              <Link key={index} style={{display:'flex',flexDirection:'column',marginLeft:'10px',marginBottom:'5px',color:'#555'}}>
-                {item.name}
-                {item.subclass.map((item2, index2) => (
-                  <Link to={{ pathname: item2.herf, state: {} }} key={index2} style={{marginLeft:'10px',color:'#555'}}>{"- " + item2.name}</Link>
-                ))}
-              </Link>
-            ) : (
-              <Link to={{ pathname: item.herf, state: {} }} key={index} style={{marginLeft:'10px',marginBottom:'5px',display:'flex',color:'#555'}}>
-                {item.name}
-              </Link>
-            );
-          })}
+        <Card
+          hoverable
+          style={{
+            padding: "16px 20px",
+            marginTop: "20px",
+            boxShadow: "0 1px 20px -8px rgba(0, 0, 0, .5)",
+            borderRadius: "15px",
+          }}
+        >
+          <Anchor
+            affix={false}
+            style={{ display: "flex", flexDirection: "column" }}
+          >
+            {tags.map((item, index) => {
+              return item.subclass ? (
+                <Link
+                  key={index}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    marginLeft: "10px",
+                    marginBottom: "5px",
+                    color: "#555",
+                  }}
+                >
+                  {item.name}
+                  {item.subclass.map((item2, index2) => (
+                    <Link
+                      to={{ pathname: item2.herf, state: {} }}
+                      key={index2}
+                      style={{ marginLeft: "10px", color: "#555" }}
+                    >
+                      {"- " + item2.name}
+                    </Link>
+                  ))}
+                </Link>
+              ) : (
+                <Link
+                  to={{ pathname: item.herf, state: {} }}
+                  key={index}
+                  style={{
+                    marginLeft: "10px",
+                    marginBottom: "5px",
+                    display: "flex",
+                    color: "#555",
+                  }}
+                >
+                  {item.name}
+                </Link>
+              );
+            })}
           </Anchor>
         </Card>
       </div>
