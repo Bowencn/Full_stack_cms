@@ -101,7 +101,6 @@ export default function UserInfo() {
                     marginBottom: "5px",
                     color: "#555",
                   }}
-                  to="undefined"
                 >
                   {item.name}
                   {item.subclass.map((item2, index2) => (

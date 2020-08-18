@@ -11,6 +11,7 @@ const { Content } = Layout;
 
 function App(props) {
   const [userInfo, setUserInfo] = useState();
+  const [backTop, setBackTop] = useState(true);
   useEffect(() => {
     const getUserInfo = async () => {
       const res = await axios.get(`${host}searchPersonalInfo`);
@@ -18,6 +19,13 @@ function App(props) {
       console.log(res.data);
     };
     getUserInfo();
+    if (navigator.userAgent.indexOf("Windows") === -1) {
+      alert("PC端浏览最佳");
+      setBackTop(false);
+    } else {
+      setBackTop(true);
+      console.log("windows");
+    }
   }, []);
   console.log(props);
   const svg = () => (
@@ -48,7 +56,8 @@ function App(props) {
           position: "relative",
           overflow: "hidden",
           backgroundImage:
-            "url(https://zankyo.cc/wp-content/themes/Sakura/cover/index.php?-11)",
+            // "url(https://zankyo.cc/wp-content/themes/Sakura/cover/index.php?-11)",
+            "url(https://api.ixiaowai.cn/mcapi/mcapi.php)",
           backgroundSize: "cover",
         }}
       >
@@ -120,16 +129,18 @@ function App(props) {
           </Col>
         </Row>
       </Content>
-      <BackTop style={{ width: "auto", height: "auto" }}>
-        <div
-          style={{
-            height: 940,
-            width: 100,
-            background:
-              "url('https://cdn.jsdelivr.net/gh/moezx/cdn@3.1.9/img/Sakura/images/scroll.png') no-repeat center",
-          }}
-        ></div>
-      </BackTop>
+      {backTop && (
+        <BackTop style={{ width: "auto", height: "auto" }}>
+          <div
+            style={{
+              height: 940,
+              width: 100,
+              background:
+                "url('https://cdn.jsdelivr.net/gh/moezx/cdn@3.1.9/img/Sakura/images/scroll.png') no-repeat center",
+            }}
+          ></div>
+        </BackTop>
+      )}
       {/* <Footer style={{ textAlign: "center" }}>
           Ant Design ©2018 Created by Ant UED
         </Footer> */}
