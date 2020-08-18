@@ -7,7 +7,7 @@ import HomeArticle from "./components/HomeArticle";
 // import Archives from "./Views/Archives";
 import UserInfo from "./components/UserInfo";
 import { host } from "./conf";
-const { Content } = Layout;
+const { Content,Footer } = Layout;
 
 function App(props) {
   const [userInfo, setUserInfo] = useState();
@@ -141,9 +141,9 @@ function App(props) {
           ></div>
         </BackTop>
       )}
-      {/* <Footer style={{ textAlign: "center" }}>
-          Ant Design ©2018 Created by Ant UED
-        </Footer> */}
+      <Footer style={{ textAlign: "center",backgroundColor:'#fff' }}>
+          Blog ©2020 Created by bowen
+        </Footer>
     </Layout>
   );
 }

@@ -9,6 +9,7 @@ export default function CardTemplate(props) {
   const [date, setDate] = useState();
   const [imgStyle, setimgStyle] = useState({ maxWidth: "100%" });
   const refImg = useRef();
+  const [tags] = useState(!props.content);
   useEffect(() => {
     let d = new Date();
     d.setTime(data.article_upload_time);
@@ -76,7 +77,10 @@ export default function CardTemplate(props) {
     <div style={{ textAlign: "center" }}>
       <Title level={3}>{data.article_title}</Title>
       <div style={{ marginTop: "5px", marginBottom: "60px" }}>
-        <span style={{ color: "#00a7e0", fontSize: "12px" }}><DateIcon/>发表于{date}</span>
+        <span style={{ color: "#00a7e0", fontSize: "12px" }}>
+          <DateIcon />
+          发表于{date}
+        </span>
       </div>
     </div>
   );
@@ -88,14 +92,14 @@ export default function CardTemplate(props) {
         marginBottom: "30px",
         textAlign: "left",
         position: "relative",
-        boxShadow: '0 1px 20px -8px rgba(0, 0, 0, .5)',
-        borderRadius:'15px'
+        boxShadow: "0 1px 20px -8px rgba(0, 0, 0, .5)",
+        borderRadius: "15px",
       }}
       bodyStyle={{ padding: "0" }}
     >
       {cardHeader}
       <div style={{ position: "absolute", top: "20px", left: "-10px" }}>
-        <TagsIcon />
+        {tags&&<TagsIcon />}
         <span
           style={{
             position: "absolute",

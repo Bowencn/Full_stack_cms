@@ -1,31 +1,37 @@
-import React, {  useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import CardTemplate from "../components/CardTemplate";
-import {
-  Row,
-  Col,
-  BackTop
-} from "antd";
+import { Row, Col, BackTop } from "antd";
 export default function ArticlePage(props) {
-  const [data] = useState(props.location.state.data)
+  const [backTop, setBackTop] = useState(true);
+  const [data] = useState(props.location.state.data);
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
+    window.scrollTo(0, 0);
+    if (navigator.userAgent.indexOf("Windows") === -1) {
+      alert("PC端浏览最佳");
+      setBackTop(false);
+    } else {
+      setBackTop(true);
+      console.log("windows");
+    }
+  }, []);
   return (
     <div className="main-wrapper" style={{ padding: "30px 10%" }}>
       <Row>
-        <Col span={14} offset={5}>
+        <Col xl={{ span: 14, offset: 5 }}>
           <CardTemplate content data={data}/>
         </Col>
-        <BackTop style={{width:'auto',height:'auto'}}>
-        <div
-          style={{
-            height: 940,
-            width: 100,
-            background:
-              "url('https://cdn.jsdelivr.net/gh/moezx/cdn@3.1.9/img/Sakura/images/scroll.png') no-repeat center",
-          }}
-        ></div>
-      </BackTop>
+        {backTop && (
+          <BackTop style={{ width: "auto", height: "auto" }}>
+            <div
+              style={{
+                height: 940,
+                width: 100,
+                background:
+                  "url('https://cdn.jsdelivr.net/gh/moezx/cdn@3.1.9/img/Sakura/images/scroll.png') no-repeat center",
+              }}
+            ></div>
+          </BackTop>
+        )}
         {/* <Col span={5} style={{ marginLeft: "30px" }}>
           <Affix offsetTop={30}>
           <Card hoverable style={{ padding: "16px 20px" }}>

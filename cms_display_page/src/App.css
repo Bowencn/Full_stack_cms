@@ -15,6 +15,12 @@ html::-webkit-scrollbar-track {
   .headertop {
     width: 1122px;
   }
+  .main-wrapper{
+    padding:0 !important;
+  }
+  /* .ant-col{
+    margin-left: 0;
+  } */
 }
 .App-logo {
   transition: transform 2s;
