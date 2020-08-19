@@ -5,7 +5,8 @@ import axios from "axios";
 import { host } from "../conf";
 export default function ArticlePage(props) {
   const [backTop, setBackTop] = useState(true);
-  const [data] = useState(props.location.state.data);
+  // const [data] = useState(props.location.state.data);
+  const [data, setData] = useState();
   useEffect(() => {
     window.scrollTo(0, 0);
     if (navigator.userAgent.indexOf("Windows") === -1) {
@@ -16,13 +17,17 @@ export default function ArticlePage(props) {
       console.log("windows");
     }
     const getArticle = async () => {
-      const res = await axios.post(`${host}searchArticleContent`,{id:data.article_id});
+      let id = props.match.params.articleId;
+      const res = await axios.post(`${host}searchArticleContent`, { id: id });
+
+      setData(res.data[0]);
       // let data = res.data.data.reverse();
       // data.forEach((item, index) => {
       //   item.key = index;
       // });
-      console.log(res);
-      // setArticleList(data);
+      console.log(props);
+      console.log(data);
+      console.log(res.data[0]);
     };
     getArticle();
   }, []);
@@ -30,7 +35,7 @@ export default function ArticlePage(props) {
     <div className="main-wrapper" style={{ padding: "30px 10%" }}>
       <Row>
         <Col xl={{ span: 14, offset: 5 }}>
-          <CardTemplate content data={data}/>
+          {data && <CardTemplate content data={data} />}
         </Col>
         {backTop && (
           <BackTop style={{ width: "auto", height: "auto" }}>

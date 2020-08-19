@@ -20,7 +20,7 @@ export default function AppRouter() {
       <Switch>
         <Route exact path="/" component={App}/>
         <Route exact path="/archives" component={Archives} />
-        <Route exact path="/artcle-page/:userId" component={ArtclePage}>
+        <Route exact path="/artcle-page/:articleId" component={ArtclePage}>
         </Route>
         <Route exact path="/react" component={ReactView}/>
         <Route exact path="/vue" component={VueView}/>

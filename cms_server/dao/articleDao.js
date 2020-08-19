@@ -51,12 +51,13 @@ function searchArticleInfo(success) {
     connection.end();
   });
 }
-function searchArticleContent(id,success) {
+function searchArticleContent(id, success) {
   connection = dbutil.createConnection();
   let querySql =
-    "select article_content_html article_content_raw from article_content union all select article_upload_time,article_title from article_list;";
+    "select article_title,article_upload_time,article_content_html,article_content_raw from article_content ac right join article_list al on ac.article_uuid = al.article_id where ac.article_uuid=?;";
   connection.connect();
-  connection.query(querySql, (error, result) => {
+  let queryParams = [id];
+  connection.query(querySql, queryParams, (error, result) => {
     if (error == null) {
       success(result);
 
@@ -122,7 +123,7 @@ function deleteArticleInfo(
 module.exports = {
   addArticleInfo: addArticleInfo,
   searchArticleInfo: searchArticleInfo,
-  searchArticleContent:searchArticleContent,
+  searchArticleContent: searchArticleContent,
   deleteArticleInfo: deleteArticleInfo,
   editArticleInfo: editArticleInfo,
 };

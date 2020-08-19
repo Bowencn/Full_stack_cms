@@ -11,6 +11,7 @@ export default function CardTemplate(props) {
   const refImg = useRef();
   const [tags] = useState(!props.content);
   useEffect(() => {
+    console.log(data)
     let d = new Date();
     d.setTime(data.article_upload_time);
     let date = d.toLocaleDateString().replace(/\//g, "-");

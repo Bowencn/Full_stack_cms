@@ -51,7 +51,7 @@ searchArticleContent= (request, response) => {
   articleService.searchArticleContent(id,(result) => {
     console.log('serach1');
     // response.write(JSON.stringify(result));
-    response.json({data:result})
+    response.json(result)
     response.end();
   });
 };
