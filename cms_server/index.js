@@ -42,6 +42,7 @@ app.delete(`/tags`,loader.get(`/deleteTags`))
 //文章列表
 app.post(`/addArticleInfo`,loader.get(`/addArticleInfo`))
 app.get(`/searchArticleInfo`,loader.get(`/searchArticleInfo`))
+app.post(`/searchArticleContent`,loader.get(`/searchArticleContent`))
 app.delete(`/deleteArticleInfo`,loader.get(`/deleteArticleInfo`))
 app.post(`/editArticleInfo`,loader.get(`/editArticleInfo`))
 //slider

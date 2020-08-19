@@ -98,20 +98,22 @@ export default function CardTemplate(props) {
       bodyStyle={{ padding: "0" }}
     >
       {cardHeader}
-      <div style={{ position: "absolute", top: "20px", left: "-10px" }}>
-        {tags&&<TagsIcon />}
-        <span
-          style={{
-            position: "absolute",
-            top: "33px",
-            left: "55px",
-            fontSize: 14,
-            color: "#fff",
-          }}
-        >
-          {data && data.article_tags}
-        </span>
-      </div>
+      {tags && (
+        <div style={{ position: "absolute", top: "20px", left: "-10px" }}>
+          <TagsIcon />
+          <span
+            style={{
+              position: "absolute",
+              top: "33px",
+              left: "55px",
+              fontSize: 14,
+              color: "#fff",
+            }}
+          >
+            {data && data.article_tags}
+          </span>
+        </div>
+      )}
 
       {data.article_img_url && (
         <div style={{ textAlign: "center" }}>
@@ -133,7 +135,7 @@ export default function CardTemplate(props) {
         <Paragraph ellipsis={{ rows: 2 }}>
           <div
             className="braft-output-content"
-            dangerouslySetInnerHTML={{ __html: data.article_content_html }}
+            dangerouslySetInnerHTML={{ __html: data.article_intro }}
           ></div>
         </Paragraph>
       )}
@@ -153,7 +155,12 @@ export default function CardTemplate(props) {
               fontSize: "12px",
             }}
           >
-            <Link to={{ pathname: "/artcle-page", state: { data } }}>
+            <Link
+              to={{
+                pathname: `/artcle-page/${data.article_id}`,
+                state: { data },
+              }}
+            >
               阅读原文 »
             </Link>
           </Button>

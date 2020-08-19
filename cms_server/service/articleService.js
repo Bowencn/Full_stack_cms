@@ -25,6 +25,9 @@ addArticleInfo = (
 deleteArticleInfo=(article_upload_time,article_title,article_tags, success)=>{
   articleDao.deleteArticleInfo(article_upload_time,article_title,article_tags,success)
 }
+searchArticleContent=(id,success)=>{
+  articleDao.searchArticleContent(id,success)
+}
 searchArticleInfo=(success)=>{
     articleDao.searchArticleInfo(success)
 }
@@ -34,6 +37,7 @@ editArticleInfo=(article_modify_time,article_title,article_tags,article_content_
 module.exports = {
   addArticleInfo: addArticleInfo,
   "deleteArticleInfo":deleteArticleInfo,
+  searchArticleContent:searchArticleContent,
   "searchArticleInfo":searchArticleInfo,
   editArticleInfo:editArticleInfo
 };

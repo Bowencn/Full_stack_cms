@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import CardTemplate from "../components/CardTemplate";
 import { Row, Col, BackTop } from "antd";
+import axios from "axios";
+import { host } from "../conf";
 export default function ArticlePage(props) {
   const [backTop, setBackTop] = useState(true);
   const [data] = useState(props.location.state.data);
@@ -13,6 +15,16 @@ export default function ArticlePage(props) {
       setBackTop(true);
       console.log("windows");
     }
+    const getArticle = async () => {
+      const res = await axios.post(`${host}searchArticleContent`,{id:data.article_id});
+      // let data = res.data.data.reverse();
+      // data.forEach((item, index) => {
+      //   item.key = index;
+      // });
+      console.log(res);
+      // setArticleList(data);
+    };
+    getArticle();
   }, []);
   return (
     <div className="main-wrapper" style={{ padding: "30px 10%" }}>

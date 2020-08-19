@@ -9,7 +9,7 @@ export default function HomeArticle() {
   useEffect(() => {
     const getArticle = async () => {
       const res = await axios.get(`${host}searchArticleInfo`);
-      let data = res.data.reverse();
+      let data = res.data.data.reverse();
       data.forEach((item, index) => {
         item.key = index;
       });

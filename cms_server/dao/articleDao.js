@@ -38,7 +38,7 @@ function addArticleInfo(
 function searchArticleInfo(success) {
   connection = dbutil.createConnection();
   let querySql =
-    "select article_upload_time,article_modify_time,article_title,article_tags,article_img_url,article_content_html,article_content_raw from article_list;";
+    "select article_id,article_upload_time,article_modify_time,article_title,article_tags,article_img_url,article_intro from article_list;";
   connection.connect();
   connection.query(querySql, (error, result) => {
     if (error == null) {
@@ -51,7 +51,22 @@ function searchArticleInfo(success) {
     connection.end();
   });
 }
+function searchArticleContent(id,success) {
+  connection = dbutil.createConnection();
+  let querySql =
+    "select article_content_html article_content_raw from article_content union all select article_upload_time,article_title from article_list;";
+  connection.connect();
+  connection.query(querySql, (error, result) => {
+    if (error == null) {
+      success(result);
 
+      // connection.release();
+    } else {
+      console.log("dao:", error);
+    }
+    connection.end();
+  });
+}
 function editArticleInfo(
   article_modify_time,
   article_title,
@@ -107,6 +122,7 @@ function deleteArticleInfo(
 module.exports = {
   addArticleInfo: addArticleInfo,
   searchArticleInfo: searchArticleInfo,
+  searchArticleContent:searchArticleContent,
   deleteArticleInfo: deleteArticleInfo,
   editArticleInfo: editArticleInfo,
 };
