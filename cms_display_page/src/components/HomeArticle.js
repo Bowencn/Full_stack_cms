@@ -13,7 +13,6 @@ export default function HomeArticle() {
       data.forEach((item, index) => {
         item.key = index;
       });
-      console.log(data);
       setArticleList(data);
     };
     getArticle();

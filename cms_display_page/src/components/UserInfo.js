@@ -17,13 +17,11 @@ export default function UserInfo() {
   useEffect(() => {
     const GetTags = async () => {
       const res = await axios.get(`${host}searchTags`);
-      console.log(res);
       settags(res.data);
     };
     const getUserInfo = async () => {
       const res = await axios.get(`${host}searchPersonalInfo`);
       setUserInfo(res.data[0]);
-      console.log(res.data);
     };
     GetTags();
     getUserInfo();

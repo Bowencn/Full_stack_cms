@@ -11,19 +11,16 @@ export default function CardTemplate(props) {
   const refImg = useRef();
   const [tags] = useState(!props.content);
   useEffect(() => {
-    console.log(data)
     let d = new Date();
     d.setTime(data.article_upload_time);
     let date = d.toLocaleDateString().replace(/\//g, "-");
     setDate(date);
     if (refImg.current !== undefined) {
-      refImg.current.onload = () => {
-        let height = refImg.current.naturalHeight;
-        let width = refImg.current.naturalWidth;
-        if (width && height && height > width) {
-          setimgStyle({ maxWidth: "300px" });
-        }
-      };
+      let height = refImg.current.naturalHeight;
+      let width = refImg.current.naturalWidth;
+      if (width && height && height > width) {
+        setimgStyle({ maxWidth: "300px" });
+      }
     }
   }, [data]);
   const tagsSvg = () => (

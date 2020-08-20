@@ -6,27 +6,26 @@ import {
   Redirect,
 } from "react-router-dom";
 import App from "./App";
-import ArtclePage from "./Views/ArticlePage";
+// import ArticlePage from "./Views/ArticlePage";
 // import HomeArticle from "./components/HomeArticle";
 import Archives from "./Views/Archives";
 // import UserInfo from './components/UserInfo'
-import ReactView from './Views/routerViews/ReactView'
-import VueView from './Views/routerViews/VueView'
-import NodejsView from './Views/routerViews/NodejsView'
-import NotFound from './Views/NotFound'
+import ReactView from "./Views/routerViews/ReactView";
+import VueView from "./Views/routerViews/VueView";
+import NodejsView from "./Views/routerViews/NodejsView";
+import NotFound from "./Views/NotFound";
 export default function AppRouter() {
   return (
     <Router>
       <Switch>
-        <Route exact path="/" component={App}/>
-        <Route exact path="/archives" component={Archives} />
-        <Route exact path="/artcle-page/:articleId" component={ArtclePage}>
+        <Route path="/" component={App}>
         </Route>
-        <Route exact path="/react" component={ReactView}/>
-        <Route exact path="/vue" component={VueView}/>
-        <Route exact path="/nodejs" component={NodejsView}/>
-        <Route exact path="/not-found" component={NotFound}/>
-        {/* <Redirect to="/not-found"/> */}
+        <Route exact path="/archives" component={Archives} />
+        <Route exact path="/react" component={ReactView} />
+        <Route exact path="/vue" component={VueView} />
+        <Route exact path="/nodejs" component={NodejsView} />
+        <Route exact path="/not-found" component={NotFound} />
+        <Redirect to="/not-found"/>
       </Switch>
     </Router>
   );

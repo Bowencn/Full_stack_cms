@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
+import { Route } from "react-router-dom";
 import { Layout, Row, Col, BackTop } from "antd";
 import Icon from "@ant-design/icons";
 import axios from "axios";
 import HomeArticle from "./components/HomeArticle";
-// import Archives from "./Views/Archives";
 import UserInfo from "./components/UserInfo";
 import { host } from "./conf";
-const { Content,Footer } = Layout;
+import ArticlePage from "./Views/ArticlePage";
+const { Content, Footer } = Layout;
 
 function App(props) {
   const [userInfo, setUserInfo] = useState();
@@ -16,7 +17,6 @@ function App(props) {
     const getUserInfo = async () => {
       const res = await axios.get(`${host}searchPersonalInfo`);
       setUserInfo(res.data[0]);
-      console.log(res.data);
     };
     getUserInfo();
     if (navigator.userAgent.indexOf("Windows") === -1) {
@@ -24,10 +24,8 @@ function App(props) {
       setBackTop(false);
     } else {
       setBackTop(true);
-      console.log("windows");
     }
   }, []);
-  console.log(props);
   const svg = () => (
     <svg
       t="1597660169622"
@@ -47,6 +45,29 @@ function App(props) {
     </svg>
   );
   const QuotationMarksIcon = (props) => <Icon component={svg} {...props} />;
+  const Home = () => (
+    <Row>
+      <Col
+        xxl={{ offset: 5 }}
+        xl={{ offset: 3 }}
+        lg={{ offset: 0 }}
+        style={{ width: "772px", minWidth: "700px" }}
+      >
+        <HomeArticle />
+      </Col>
+      <Col
+        style={{
+          width: "320px",
+          position: "absolute",
+          left: "802px",
+        }}
+        xxl={{ offset: 5 }}
+        xl={{ offset: 3 }}
+      >
+        <UserInfo />
+      </Col>
+    </Row>
+  );
   return (
     <Layout className="layout">
       <header
@@ -111,23 +132,8 @@ function App(props) {
         </div>
       </header>
       <Content style={{ padding: "30px 0" }}>
-        <Row>
-          <Col
-            xxl={{ offset: 5 }}
-            xl={{ offset: 3 }}
-            lg={{ offset: 0 }}
-            style={{ width: "772px", minWidth: "700px" }}
-          >
-            <HomeArticle />
-          </Col>
-          <Col
-            style={{ width: "320px", position: "absolute", left: "802px" }}
-            xxl={{ offset: 5 }}
-            xl={{ offset: 3 }}
-          >
-            <UserInfo />
-          </Col>
-        </Row>
+        <Route path="/artcle-page/:articleId" exact component={ArticlePage} />
+        <Route exact path={`${props.match.url}`} component={Home} />
       </Content>
       {backTop && (
         <BackTop style={{ width: "auto", height: "auto" }}>
@@ -141,9 +147,9 @@ function App(props) {
           ></div>
         </BackTop>
       )}
-      <Footer style={{ textAlign: "center",backgroundColor:'#fff' }}>
-          Blog ©2020 Created by bowen
-        </Footer>
+      <Footer style={{ textAlign: "center", backgroundColor: "#fff" }}>
+        Blog ©2020 Created by bowen
+      </Footer>
     </Layout>
   );
 }

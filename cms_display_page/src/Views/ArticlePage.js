@@ -5,32 +5,22 @@ import axios from "axios";
 import { host } from "../conf";
 export default function ArticlePage(props) {
   const [backTop, setBackTop] = useState(true);
-  // const [data] = useState(props.location.state.data);
   const [data, setData] = useState();
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
     if (navigator.userAgent.indexOf("Windows") === -1) {
       alert("PC端浏览最佳");
       setBackTop(false);
     } else {
       setBackTop(true);
-      console.log("windows");
     }
     const getArticle = async () => {
       let id = props.match.params.articleId;
       const res = await axios.post(`${host}searchArticleContent`, { id: id });
-
       setData(res.data[0]);
-      // let data = res.data.data.reverse();
-      // data.forEach((item, index) => {
-      //   item.key = index;
-      // });
-      console.log(props);
-      console.log(data);
-      console.log(res.data[0]);
     };
     getArticle();
-  }, []);
+  }, [data,props]);
   return (
     <div className="main-wrapper" style={{ padding: "30px 10%" }}>
       <Row>
@@ -49,65 +39,6 @@ export default function ArticlePage(props) {
             ></div>
           </BackTop>
         )}
-        {/* <Col span={5} style={{ marginLeft: "30px" }}>
-          <Affix offsetTop={30}>
-          <Card hoverable style={{ padding: "16px 20px" }}>
-            <div
-              style={{
-                textAlign: "center",
-                display: "flex",
-                flexDirection: "row ",
-                justifyContent: "center",
-              }}
-            >
-              <img
-                alt="example"
-                src="http://localhost:10087/uploads/b6c5307ab3688d45e251a79eaaf17580"
-                style={{
-                  borderRadius: "100%",
-                  border: "2px dashed #000",
-                  padding: "5px",
-                  width: "100px",
-                  height: "100px",
-                }}
-                className={"App-logo"}
-              />
-              <Text strong style={{ writingMode: "vertical-lr" }}>
-                •
-              </Text>
-              <Text
-                strong
-                style={{
-                  writingMode: "vertical-lr",
-                  letterSpacing: "1px",
-                }}
-              >
-                云想衣裳花想容
-              </Text>
-            </div>
-            <Divider />
-            <div style={{ textAlign: "center" }}>
-              <Text strong>瓜瓜瓜大魔王</Text>
-            </div>
-          </Card>
-          <div style={{ marginTop: "20px" }}>
-            <Text strong style={{ marginLeft: "15px" }}>
-              目录
-            </Text>
-            <Anchor
-              showInkInFixed={true}
-              style={{ paddingLeft: "25px", paddingTop: "10px" }}
-            >
-              <Link href="/" title="介绍" style={{ fontWeight: "600" }} />
-              <Link href="/" title="设计资源" style={{ fontWeight: "600" }}>
-                <Link href="/" title="设计原则" />
-                <Link href="/" title="设计模式" />
-                <Link href="/" title="设计资源" />
-              </Link>
-            </Anchor>
-          </div>
-          </Affix>
-        </Col> */}
       </Row>
     </div>
   );
