@@ -1,7 +1,5 @@
 import React from "react";
-
-import { Layout, Row, Col, BackTop } from "antd";
-
+import { Row, Col,  } from "antd";
 import HomeArticle from "./HomeArticle";
 import UserInfo from "./UserInfo";
 export default function Content() {

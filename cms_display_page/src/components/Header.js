@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from "react";
-
 import axios from "axios";
 import { host } from "../conf";
 import Icon from "@ant-design/icons";
 export default function Header() {
-    const [userInfo, setUserInfo] = useState();
-    useEffect(() => {
-      const getUserInfo = async () => {
-        const res = await axios.get(`${host}searchPersonalInfo`);
-        setUserInfo(res.data[0]);
-      };
-      getUserInfo();
-    }, []);
+  const [userInfo, setUserInfo] = useState();
+  useEffect(() => {
+    const getUserInfo = async () => {
+      const res = await axios.get(`${host}searchPersonalInfo`);
+      setUserInfo(res.data[0]);
+    };
+    getUserInfo();
+  }, []);
   const svg = () => (
     <svg
       t="1597660169622"
@@ -38,9 +37,7 @@ export default function Header() {
         height: 969,
         position: "relative",
         overflow: "hidden",
-        backgroundImage:
-          // "url(https://zankyo.cc/wp-content/themes/Sakura/cover/index.php?-11)",
-          "url(https://api.ixiaowai.cn/mcapi/mcapi.php)",
+        backgroundImage: "url(https://api.ixiaowai.cn/mcapi/mcapi.php)",
         backgroundSize: "cover",
       }}
     >
@@ -52,7 +49,7 @@ export default function Header() {
         {userInfo && (
           <div>
             <img
-              alt="example"
+              alt="user_image"
               src={host + userInfo.user_image}
               style={{
                 borderRadius: "100%",

@@ -1,34 +1,17 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect,
-} from "react-router-dom";
-import { Layout, Row, Col, BackTop } from "antd";
-import Icon from "@ant-design/icons";
-import axios from "axios";
+import { Route, Switch, Redirect } from "react-router-dom";
+import { Layout, BackTop } from "antd";
 import HomePage from "./Views/HomePage";
-import UserInfo from "./components/UserInfo";
-import { host } from "./conf";
-import ArticlePage from "./Views/ArticlePage";
-
 import ReactView from "./Views/routerViews/ReactView";
 import VueView from "./Views/routerViews/VueView";
 import NodejsView from "./Views/routerViews/NodejsView";
 import NotFound from "./Views/NotFound";
-const { Content, Footer } = Layout;
+const { Footer } = Layout;
 
 function App(props) {
-  const [userInfo, setUserInfo] = useState();
   const [backTop, setBackTop] = useState(true);
   useEffect(() => {
-    const getUserInfo = async () => {
-      const res = await axios.get(`${host}searchPersonalInfo`);
-      setUserInfo(res.data[0]);
-    };
-    getUserInfo();
     if (navigator.userAgent.indexOf("Windows") === -1) {
       alert("PC端浏览最佳");
       setBackTop(false);
@@ -36,17 +19,16 @@ function App(props) {
       setBackTop(true);
     }
   }, []);
-  
   useEffect(() => {
     if (props.location.pathname === "/") {
       props.history.push("/index");
+      window.scrollTo(0, 0);
     }
-    window.scrollTo(0,0)
-  }, [props.history,props.location.pathname]);
+  }, [props.history, props.location.pathname]);
   return (
     <Layout className="layout">
       <Switch>
-        <Route path="/index" component={HomePage}/>
+        <Route path="/index" component={HomePage} />
         <Route path="/react" exact component={ReactView} />
         <Route path="/vue" exact component={VueView} />
         <Route path="/nodejs" exact component={NodejsView} />

@@ -72,7 +72,7 @@ export default withRouter(function CardTemplate(props) {
   );
   const TagsIcon = (props) => <Icon component={tagsSvg} {...props} />;
   const DateIcon = (props) => <Icon component={dateSvg} {...props} />;
-  const cardHeader = (
+  const CardHeader = () => (
     <div style={{ textAlign: "center" }}>
       <Title level={3}>{data.article_title}</Title>
       <div style={{ marginTop: "5px", marginBottom: "60px" }}>
@@ -96,7 +96,7 @@ export default withRouter(function CardTemplate(props) {
       }}
       bodyStyle={{ padding: "0" }}
     >
-      {cardHeader}
+      <CardHeader />
       {tags && (
         <div style={{ position: "absolute", top: "20px", left: "-10px" }}>
           <TagsIcon />
@@ -154,7 +154,6 @@ export default withRouter(function CardTemplate(props) {
               fontSize: "12px",
             }}
           >
-            {console.log(props)}
             <Link
               to={{
                 pathname: `${props.match.url}/artcle-page/${data.article_id}`,

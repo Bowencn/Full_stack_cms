@@ -1,17 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { host } from "../conf";
 import { Affix, Divider, Typography, Card, Anchor } from "antd";
 import axios from "axios";
-import { withRouter } from "react-router";
 const { Text } = Typography;
-// const { Link } = Anchor;
-export default withRouter(function UserInfo(props) {
+export default function UserInfo() {
   const [userInfo, setUserInfo] = useState();
-
   const [tags, settags] = useState([{ name: "首页" }]);
   useEffect(() => {
-    console.log(props);
     const GetTags = async () => {
       const res = await axios.get(`${host}searchTags`);
       settags(res.data);
@@ -43,7 +39,7 @@ export default withRouter(function UserInfo(props) {
             }}
           >
             <img
-              // alt="example"
+              alt="user_image"
               src={userInfo && host + userInfo.user_image}
               style={{
                 borderRadius: "100%",
@@ -110,7 +106,7 @@ export default withRouter(function UserInfo(props) {
                 </div>
               ) : (
                 <Link
-                  to={item.herf}
+                  to={item.herf||'/'}
                   key={index}
                   style={{
                     marginLeft: "10px",
@@ -128,4 +124,4 @@ export default withRouter(function UserInfo(props) {
       </div>
     </Affix>
   );
-});
+}

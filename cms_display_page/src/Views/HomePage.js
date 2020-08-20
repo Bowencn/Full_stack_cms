@@ -1,17 +1,14 @@
 import React from "react";
 import {
-  BrowserRouter as Router,
   Route,
   Switch,
-  Redirect,
 } from "react-router-dom";
 import Header from "../components/Header";
 import ContentPage from "../components/Content";
 import ArticlePage from "./ArticlePage";
-import { Layout, Row, Col, BackTop } from "antd";
-const { Content, Footer } = Layout;
+import { Layout} from "antd";
+const { Content } = Layout;
 export default function HomePage(props) {
-  console.log(props);
   return (
     <>
       <Header />
