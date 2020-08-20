@@ -4,6 +4,7 @@ import {
   Route,
   Switch,
   Redirect,
+  withRouter
 } from "react-router-dom";
 import App from "./App";
 // import ArticlePage from "./Views/ArticlePage";
@@ -15,17 +16,20 @@ import VueView from "./Views/routerViews/VueView";
 import NodejsView from "./Views/routerViews/NodejsView";
 import NotFound from "./Views/NotFound";
 export default function AppRouter() {
+  
   return (
     <Router>
       <Switch>
-        <Route path="/" component={App}>
-        </Route>
-        <Route exact path="/archives" component={Archives} />
-        <Route exact path="/react" component={ReactView} />
-        <Route exact path="/vue" component={VueView} />
-        <Route exact path="/nodejs" component={NodejsView} />
-        <Route exact path="/not-found" component={NotFound} />
-        <Redirect to="/not-found"/>
+        {/* <Route path="/archives" component={Archives} /> */}
+        {/* <Route path></Route> */}
+        <Route path="/"  component={App}></Route>
+        {/* <Route path="/react" exact component={ReactView} />
+        <Route path="/vue" exact component={VueView} />
+        <Route path="/nodejs" exact component={NodejsView} />
+        <Route path="/not-found" component={NotFound} /> */}
+        {/* <Route path="/index" exact component={App}></Route> */}
+        {/* <Redirect from="/" to="/index"/>
+        <Redirect to="/not-found"/> */}
       </Switch>
     </Router>
   );

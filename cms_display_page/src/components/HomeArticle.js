@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import CardTemplate from "./CardTemplate";
+
+import { withRouter } from "react-router";
 import axios from "axios";
 import { Spin } from "antd";
 import { host } from "../conf";
 
-export default function HomeArticle() {
+export default withRouter(function HomeArticle(props) {
   const [articleList, setArticleList] = useState();
   useEffect(() => {
     const getArticle = async () => {
@@ -28,4 +30,4 @@ export default function HomeArticle() {
       )}
     </div>
   );
-}
+});

@@ -20,7 +20,7 @@ export default function ArticlePage(props) {
       setData(res.data[0]);
     };
     getArticle();
-  }, [data,props]);
+  }, [props]);
   return (
     <div className="main-wrapper" style={{ padding: "30px 10%" }}>
       <Row>

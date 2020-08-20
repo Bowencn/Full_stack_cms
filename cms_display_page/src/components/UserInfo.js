@@ -1,20 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { host } from "../conf";
-import {
-  Affix,
-  Divider,
-  Typography,
-  Card,
-  Anchor,
-} from "antd";
+import { Affix, Divider, Typography, Card, Anchor } from "antd";
 import axios from "axios";
+import { withRouter } from "react-router";
 const { Text } = Typography;
-export default function UserInfo() {
+// const { Link } = Anchor;
+export default withRouter(function UserInfo(props) {
   const [userInfo, setUserInfo] = useState();
 
   const [tags, settags] = useState([{ name: "首页" }]);
   useEffect(() => {
+    console.log(props);
     const GetTags = async () => {
       const res = await axios.get(`${host}searchTags`);
       settags(res.data);
@@ -46,7 +43,7 @@ export default function UserInfo() {
             }}
           >
             <img
-              alt="example"
+              // alt="example"
               src={userInfo && host + userInfo.user_image}
               style={{
                 borderRadius: "100%",
@@ -103,7 +100,7 @@ export default function UserInfo() {
                   {item.name}
                   {item.subclass.map((item2, index2) => (
                     <Link
-                      to={{ pathname: item2.herf, state: {} }}
+                      to={item2.herf}
                       key={index2}
                       style={{ marginLeft: "10px", color: "#555" }}
                     >
@@ -113,7 +110,7 @@ export default function UserInfo() {
                 </div>
               ) : (
                 <Link
-                  to={{ pathname: item.herf, state: {} }}
+                  to={item.herf}
                   key={index}
                   style={{
                     marginLeft: "10px",
@@ -131,4 +128,4 @@ export default function UserInfo() {
       </div>
     </Affix>
   );
-}
+});

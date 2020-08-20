@@ -19,7 +19,7 @@ export default function Preview(props) {
       </h1>
       <iframe
         title="navigation"
-        src="http://bowencn.top/"
+        src="https://bowencn.top/"
         name="prive"
         width="100%"
         height="750"

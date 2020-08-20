@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import { withRouter } from "react-router";
 import { Card, Button, Typography } from "antd";
 import { host } from "../conf";
 import Icon from "@ant-design/icons";
 const { Title, Paragraph } = Typography;
-export default function CardTemplate(props) {
+export default withRouter(function CardTemplate(props) {
   const [data] = useState(props.data);
   const [date, setDate] = useState();
   const [imgStyle, setimgStyle] = useState({ maxWidth: "100%" });
@@ -153,9 +154,10 @@ export default function CardTemplate(props) {
               fontSize: "12px",
             }}
           >
+            {console.log(props)}
             <Link
               to={{
-                pathname: `/artcle-page/${data.article_id}`,
+                pathname: `${props.match.url}/artcle-page/${data.article_id}`,
                 state: { data },
               }}
             >
@@ -166,4 +168,4 @@ export default function CardTemplate(props) {
       )}
     </Card>
   );
-}
+});

@@ -1,13 +1,23 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import { Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 import { Layout, Row, Col, BackTop } from "antd";
 import Icon from "@ant-design/icons";
 import axios from "axios";
-import HomeArticle from "./components/HomeArticle";
+import HomePage from "./Views/HomePage";
 import UserInfo from "./components/UserInfo";
 import { host } from "./conf";
 import ArticlePage from "./Views/ArticlePage";
+
+import ReactView from "./Views/routerViews/ReactView";
+import VueView from "./Views/routerViews/VueView";
+import NodejsView from "./Views/routerViews/NodejsView";
+import NotFound from "./Views/NotFound";
 const { Content, Footer } = Layout;
 
 function App(props) {
@@ -26,115 +36,23 @@ function App(props) {
       setBackTop(true);
     }
   }, []);
-  const svg = () => (
-    <svg
-      t="1597660169622"
-      className="icon"
-      viewBox="0 0 1024 1024"
-      version="1.1"
-      xmlns="http://www.w3.org/2000/svg"
-      p-id="16371"
-      width="64"
-      height="64"
-    >
-      <path
-        d="M464.655 592H392l50.62-160h63.722l-41.687 160z m125.658 0h-72.655l50.62-160H632l-41.687 160z"
-        fill="#ffffff"
-        p-id="16372"
-      ></path>
-    </svg>
-  );
-  const QuotationMarksIcon = (props) => <Icon component={svg} {...props} />;
-  const Home = () => (
-    <Row>
-      <Col
-        xxl={{ offset: 5 }}
-        xl={{ offset: 3 }}
-        lg={{ offset: 0 }}
-        style={{ width: "772px", minWidth: "700px" }}
-      >
-        <HomeArticle />
-      </Col>
-      <Col
-        style={{
-          width: "320px",
-          position: "absolute",
-          left: "802px",
-        }}
-        xxl={{ offset: 5 }}
-        xl={{ offset: 3 }}
-      >
-        <UserInfo />
-      </Col>
-    </Row>
-  );
+  
+  useEffect(() => {
+    if (props.location.pathname === "/") {
+      props.history.push("/index");
+    }
+    window.scrollTo(0,0)
+  }, [props.history,props.location.pathname]);
   return (
     <Layout className="layout">
-      <header
-        className="headertop filter-dot"
-        style={{
-          height: 969,
-          position: "relative",
-          overflow: "hidden",
-          backgroundImage:
-            // "url(https://zankyo.cc/wp-content/themes/Sakura/cover/index.php?-11)",
-            "url(https://api.ixiaowai.cn/mcapi/mcapi.php)",
-          backgroundSize: "cover",
-        }}
-      >
-        <div id="banner_wave_hide_transition">
-          <div id="banner_wave_1"></div>
-          <div id="banner_wave_2"></div>
-        </div>
-        <div className="focusinfo">
-          {userInfo && (
-            <div>
-              <img
-                alt="example"
-                src={host + userInfo.user_image}
-                style={{
-                  borderRadius: "100%",
-                  border: "2px dashed #fff",
-                  padding: "5px",
-                  width: "200px",
-                  height: "200px",
-                }}
-                className={"App-logo"}
-              />
-              <h1
-                className="center-text glitch is-glitching Ubuntu-font"
-                data-text={`Hey,${userInfo.name}!`}
-              >
-                Hey,{userInfo.name}!
-              </h1>
-              <h2 className="glitch is-glitching Ubuntu-font">
-                <li id="bg-pre">
-                  <img
-                    className="flipx"
-                    alt="left"
-                    src="https://cdn.jsdelivr.net/gh/moezx/cdn@3.1.9/img/Sakura/images/next-b.svg"
-                  />
-                </li>
-                <QuotationMarksIcon />
-                <span style={{ verticalAlign: "0px" }}>
-                  {userInfo.autograph}
-                </span>
-                <QuotationMarksIcon />
-                <li id="bg-next">
-                  <img
-                    src="https://cdn.jsdelivr.net/gh/moezx/cdn@3.1.9/img/Sakura/images/next-b.svg"
-                    alt="right"
-                  />
-                </li>
-              </h2>
-            </div>
-          )}
-        </div>
-      </header>
-      <Content style={{ padding: "30px 0" }}>
-        <Route path="/artcle-page/:articleId" exact component={ArticlePage} />
-        <Route exact path={`${props.match.url}`} component={Home} />
-      </Content>
+      <Switch>
+        <Route path="/index" component={HomePage}/>
+        <Route path="/react" exact component={ReactView} />
+        <Route path="/vue" exact component={VueView} />
+        <Route path="/nodejs" exact component={NodejsView} />
+        <Route path="/not-found" component={NotFound} />
+        <Redirect to="/not-found" />
+      </Switch>
       {backTop && (
         <BackTop style={{ width: "auto", height: "auto" }}>
           <div
