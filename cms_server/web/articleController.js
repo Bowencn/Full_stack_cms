@@ -1,27 +1,32 @@
 const articleService = require("../service/articleService");
 let path = new Map();
-const uuid = require('node-uuid');
+const uuid = require("node-uuid");
 addArticleInfo = async (request, response) => {
   console.log("addArticleInfo");
   let dataList = request.body;
-  // console.log(dataList);
   let imgInfo_fileName;
   let imgInfo_url;
   if (dataList.imgInfo) {
     imgInfo_fileName = dataList.imgInfo.fileName;
     imgInfo_url = dataList.imgInfo.url;
   }
-  const creatuuid= uuid.v1()
-  console.log(creatuuid)
+  let tags = dataList.tags.toString();
+  var introReg = /<(?<p>[^\s>]+)[^>]*>(.|\n)*?<\/\k<p>>/g;
+  let intro = dataList.articleContent.html.match(introReg);
+  console.log(dataList);
+  // console.log(dataList);
+  const article_uuid = uuid.v1();
   articleService.addArticleInfo(
-    dataList.uploadTime,
-    dataList.uploadTime,
     dataList.title,
-    dataList.tags,
+    tags,
+    intro[0],
+    dataList.uploadTime,
+    dataList.modifyTime || dataList.uploadTime,
+    article_uuid,
     imgInfo_fileName,
     imgInfo_url,
-    // dataList.articleContent.html,
-    // dataList.articleContent.raw,
+    dataList.articleContent.html,
+    dataList.articleContent.raw,
     (result) => {
       console.log("controller:result");
       response.write(JSON.stringify(result));
@@ -35,59 +40,63 @@ searchArticleInfo = (request, response) => {
   console.log("searchArticleInfo");
 
   articleService.searchArticleInfo((result) => {
-    console.log('serach');
+    console.log("serach");
     // response.write(JSON.stringify(result));
-    response.json({data:result})
+    response.json({ data: result });
     response.end();
   });
 };
 
 path.set("/searchArticleInfo", searchArticleInfo);
 
-searchArticleContent= (request, response) => {
+searchArticleContent = (request, response) => {
   console.log("searchArticleContent");
-  let id = request.body.id
-  console.log(id)
-  articleService.searchArticleContent(id,(result) => {
-    console.log('serach1');
+  let id = request.body.id;
+  console.log(id);
+  articleService.searchArticleContent(id, (result) => {
+    console.log("serach1");
     // response.write(JSON.stringify(result));
-    response.json(result)
+    response.json(result);
     response.end();
   });
 };
 
 path.set("/searchArticleContent", searchArticleContent);
 
-
-
-
 deleteArticleInfo = (request, response) => {
   console.log("deleteArticleInfo");
-  let data = request.body.deleteList;
+  let data = request.body;
   console.log(data);
-  articleService.deleteArticleInfo(
-    data.uploadTime,
-    data.title,
-    data.tags,
-    (result) => {
-      console.log("deleteArticleInfo---->result");
-      response.write(JSON.stringify(result));
-      response.end();
-    }
-  );
+  articleService.deleteArticleInfo(data.article_id, (result) => {
+    console.log("deleteArticleInfo---->result");
+    response.write(JSON.stringify(result));
+    response.end();
+  });
 };
 path.set("/deleteArticleInfo", deleteArticleInfo);
 
 editArticleInfo = (request, response) => {
   let data = request.body;
-  // console.log(data);
+  console.log(1,data);
+  let tags = data.tags.toString();
+  var introReg = /<(?<p>[^\s>]+)[^>]*>(.|\n)*?<\/\k<p>>/g;
+  let intro = data.articleContent.html.match(introReg);
+  let imgInfo_fileName;
+  let imgInfo_url;
+  if (data.imgInfo) {
+    imgInfo_fileName = data.imgInfo.fileName;
+    imgInfo_url = data.imgInfo.url;
+  }
   articleService.editArticleInfo(
     data.modifyTime,
     data.title,
-    data.tags,
-    // data.articleContent.html,
-    // data.articleContent.raw,
-    data.historyTitle,
+    tags,
+    data.articleContent.html,
+    data.articleContent.raw,
+    data.article_id,
+    intro,
+    imgInfo_fileName || null,
+    imgInfo_url || null,
     (result) => {
       console.log("editArticleInfo---->result");
       response.write(JSON.stringify(result));

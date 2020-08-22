@@ -18,7 +18,7 @@ export default function ArticleList(props) {
     let isUnmounted = false;
     const getArticle = async () => {
       const res = await axios.get(`${host}searchArticleInfo`);
-      let data = res.data;
+      let data = res.data.data;
       data.forEach((item, index) => {
         item.key = index;
       });
@@ -41,11 +41,12 @@ export default function ArticleList(props) {
       title: record.article_title,
       tags: record.article_tags,
     };
+    // console.log(deleteList)
     const res = await axios.delete(`${host}deleteArticleInfo`, {
-      data: { deleteList },
+      data: { article_id:record.article_id },
     });
     console.log(res);
-    setRendering(res);
+    // setRendering(res);
   };
   const customizeRenderEmpty = () => (
     <div

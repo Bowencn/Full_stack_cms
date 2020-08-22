@@ -1,13 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import {
-  Form,
-  Input,
-  Button,
-  Modal,
-  Select,
-  Tag,
-  message,
-} from "antd";
+import { Form, Input, Button, Modal, Select, Tag, message } from "antd";
 import { Context } from "../utils/ContextState";
 import UploadImage from "../components/UploadImage";
 import BraftEditor from "braft-editor";
@@ -35,13 +27,8 @@ export default function BarsAndAppreciationnCommonComponents(props) {
 
   const [userInfo, setUserInfo] = useState();
   // const { Option } = Select;
-
-  const selectOptions = [
-    { label: "首页", value: "gold" },
-    { label: "前端", value: "#f40" },
-    { label: "React", value: "blue" },
-    { label: "Nodejs", value: "green" },
-  ];
+  const [selectOptions, setselectOptions] = useState();
+  // const [tags, settags] = useState([]);
   const [form] = Form.useForm();
   const controls = [
     "undo",
@@ -92,6 +79,17 @@ export default function BarsAndAppreciationnCommonComponents(props) {
   } = useContext(Context);
   useEffect(() => {
     let isUnmounted = false;
+    const GetTags = async () => {
+      const res = await axios.get(`${host}searchTags`);
+      let tags = [];
+      res.data.forEach((item) => {
+        tags.push({ value: item.name });
+      });
+      if (!isUnmounted) {
+        setselectOptions(tags);
+      }
+    };
+    GetTags();
     const getAppreciateInfo = async () => {
       const res = await axios.get(`${host}searchAppreciateInfo`);
       let data = res.data[0];
@@ -101,16 +99,21 @@ export default function BarsAndAppreciationnCommonComponents(props) {
       }
     };
     const setEditArticle = () => {
-      if (!isUnmounted) {
-        setArticleData(articleProps);
-        form.setFieldsValue({
-          title: articleProps.article_title,
-          tags: articleProps.article_tags,
-          articleContent: BraftEditor.createEditorState(
-            articleProps.article_content_raw
-          ),
-        });
-      }
+      const getArticle = async () => {
+        let id = props.editData.location.state.record.article_id;
+        const res = await axios.post(`${host}searchArticleContent`, { id: id });
+        if (!isUnmounted) {
+          setArticleData(articleProps);
+          form.setFieldsValue({
+            title: articleProps.article_title,
+            tags: articleProps.article_tags.split(','),
+            articleContent: BraftEditor.createEditorState(
+              res.data[0].article_content_raw
+            ),
+          });
+        }
+      };
+      getArticle();
     };
     const getUserInfo = async () => {
       const res = await axios.get(`${host}searchPersonalInfo`);
@@ -139,20 +142,12 @@ export default function BarsAndAppreciationnCommonComponents(props) {
     setEditorState(state);
   };
   const submitContent = async () => {
-    // 在编辑器获得焦点时按下ctrl+s会执行此方法
-    // 编辑器内容提交到服务端之前，可直接调用editorState.toHTML()来获取HTML格式的内容,
-    // const htmlContent = editorState.toHTML();
-    // console.log(htmlContent);
-    // 将editorState数据转换成RAW字符串
-    //editorState.toRAW()方法接收一个布尔值参数，用于决定是否返回RAW JSON对象，默认是false
-    // const rawString = editorState.toRAW(true);
-    // console.log(rawString);
-    // const result = await saveEditorContent(htmlContent)
   };
   const submitInfo = async () => {
     let editorData = form.getFieldsValue().articleContent;
     console.log(editorData.toHTML());
     let uploads = form.getFieldsValue();
+    console.log(uploads,articleProps);
     if (headerName === "个人信息") {
       const res = await axios.post(`${host}addPersonalInfo`, uploads);
       res && message.success("上传成功");
@@ -168,6 +163,7 @@ export default function BarsAndAppreciationnCommonComponents(props) {
         if (headerName === "编辑文章") {
           uploads.modifyTime = new Date().getTime();
           uploads.historyTitle = articleData.article_title;
+          uploads.article_id = articleProps.article_id
           const res = await axios.post(`${host}editArticleInfo`, uploads);
           res && message.success("上传成功");
         } else {
@@ -190,15 +186,10 @@ export default function BarsAndAppreciationnCommonComponents(props) {
     wrapperCol: { offset: 2, span: 16 },
   };
   function tagRender(props) {
-    const { label, value, closable, onClose } = props;
+    const { color, value, closable, onClose } = props;
     return (
-      <Tag
-        color={value}
-        closable={closable}
-        onClose={onClose}
-        style={{ marginRight: 3 }}
-      >
-        {label}
+      <Tag closable={closable} onClose={onClose} style={{ marginRight: 3 }}>
+        {value}
       </Tag>
     );
   }
@@ -229,12 +220,6 @@ export default function BarsAndAppreciationnCommonComponents(props) {
           dangerouslySetInnerHTML={{ __html: editorState.toHTML() }}
         ></div>
       </Modal>
-      {/* <Row>
-        <Col
-          xs={{ span: 20, offset: 1 }}
-          md={{ span: 15, offset: 3 }}
-          lg={{ span: 15, offset: 2 }}
-        > */}
       {requiredBar && (
         <Form.Item
           label={requiredBar}
@@ -260,68 +245,16 @@ export default function BarsAndAppreciationnCommonComponents(props) {
           <Input />
         </Form.Item>
       )}
-      {/* </Col>
-      </Row> */}
       {CategoryBar && (
-        // <Row>
-        //   <Col
-        //     xs={{ span: 20, offset: 1 }}
-        //     md={{ span: 15, offset: 3 }}
-        //     lg={{ span: 15, offset: 2 }}
-        //   >
         <Form.Item label={CategoryBar} required={true} name="tags">
           <Select
-            mode="multiple"
+            mode="tags"
             tagRender={tagRender}
-            // defaultValue={[{label:"首页",value:'gold'}]}
             style={{ width: "100%" }}
             options={selectOptions}
           />
-          {/* <Select
-            style={{ width: 240 }}
-            // placeholder="custom dropdown render"
-            dropdownRender={(menu) => (
-              <div>
-                {menu}
-                <Divider style={{ margin: "4px 0" }} />
-                <div
-                  style={{
-                    display: "flex",
-                    flexWrap: "nowrap",
-                    padding: 8,
-                  }}
-                >
-                  <Input
-                    style={{ flex: "auto" }}
-                    value={name}
-                    onChange={onNameChange}
-                  />
-                  <a
-                    href="#!"
-                    style={{
-                      flex: "none",
-                      padding: "8px",
-                      display: "block",
-                      cursor: "pointer",
-                    }}
-                    onClick={addItem}
-                  >
-                    <PlusOutlined /> Add item
-                  </a>
-                </div>
-              </div>
-            )}
-          >
-            {items.map((item) => (
-              <Option key={item}>{item}</Option>
-            ))}
-          </Select> */}
         </Form.Item>
-        //    </Col>
-        // </Row>
       )}
-      {/* <Row>
-        <Col offset={5}> */}
       <Form.Item label="图片" name="imgInfo">
         <UploadImage
           getImgName={(data) => {
@@ -338,19 +271,10 @@ export default function BarsAndAppreciationnCommonComponents(props) {
           }
         />
       </Form.Item>
-      {/* </Col>
-      </Row> */}
       {textArea && (
-        // <Row>
-        //   <Col
-        //     xs={{ span: 20, offset: 1 }}
-        //     md={{ span: 20, offset: 1 }}
-        //     lg={{ span: 15, offset: 2 }}
-        //   >
         <Form.Item
           label="内容"
           name="articleContent"
-          // {...inpout}
           rules={[
             {
               required: true,
@@ -379,19 +303,13 @@ export default function BarsAndAppreciationnCommonComponents(props) {
             extendControls={extendControls}
           />
         </Form.Item>
-        //   </Col>
-        // </Row>
       )}
-      {/* <Row>
-        <Col xs={{ offset: 18 }} md={{ offset: 7 }} xl={{ offset: 6 }}> */}
       <Form.Item {...tailLayout}>
         <Button
           type="primary"
           onClick={
             submitInfo
             //   () => {
-            //   form.submit();
-
             //   console.log(form.getFieldsValue());
             // }
           }
@@ -399,8 +317,6 @@ export default function BarsAndAppreciationnCommonComponents(props) {
           保存
         </Button>
       </Form.Item>
-      {/* </Col>
-      </Row> */}
     </Form>
   );
 }

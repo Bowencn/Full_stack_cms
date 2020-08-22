@@ -107,6 +107,8 @@ export default withRouter(function CardTemplate(props) {
               left: "55px",
               fontSize: 14,
               color: "#fff",
+              height:23,
+              overflow:'hidden',
             }}
           >
             {data && data.article_tags}
