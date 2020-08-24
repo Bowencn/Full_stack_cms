@@ -1,11 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Baacc from "../components/BarsAndAppreciationnCommonComponents";
 import { Context } from "../utils/ContextState";
 
 export default function AddArticle(props) {
-  console.log(props)
+  const { router } = props;
+  useEffect(() => {
+    router(props.location.pathname);
+  }, [router,props.location.pathname]);
   return (
-    <div>
+    <div style={{ padding: "0 170px 32px 64px" }}>
+      <h1
+        style={{
+          marginTop: "8px",
+          marginBottom: "20px",
+          fontSize: "30px",
+          fontWeight: "500",
+        }}
+      >
+       { props.location.state?"编辑文章":"添加文章"}
+      </h1>
       <Context.Provider
         value={{
           headerName: props.location.state?"编辑文章":"添加文章",

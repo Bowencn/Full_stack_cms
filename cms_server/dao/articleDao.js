@@ -115,7 +115,7 @@ function editArticleInfo(
 function deleteArticleInfo(article_id, success) {
   connection = dbutil.createConnection();
   let querySql =
-    "delete from article_list where article_id= ?;delete from article_content where article_uuid= ?;";
+    "delete from article_list where article_id= ?;delete from article_content where article_uuid= '"+article_id+"';";
   connection.connect();
   let queryParams = [article_id];
   connection.query(querySql, queryParams, (error, result) => {

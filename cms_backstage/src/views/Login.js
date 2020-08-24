@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom";
 import { Form, Input, Button, message } from "antd";
 import axios from "axios";
 import { host } from "../conf";
-import imgURL from "../assets/moon-4096x2304-planets-clouds-4k-9215.jpg";
+import imgURL from "../assets/moon.jpg";
 export default withRouter(function Login({ history }) {
   const layout = {
     wrapperCol: {

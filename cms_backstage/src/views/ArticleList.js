@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Button, Table, ConfigProvider, Row, Col, Tag, Typography } from "antd";
+import { Button, Table, ConfigProvider, Row, Col, Tag, Typography,message } from "antd";
 import { SmileOutlined } from "@ant-design/icons";
 import axios from "axios";
 import { host } from "../conf";
-// const host = "http://104.36.67.35:10086/";
 const { Text } = Typography;
 export default function ArticleList(props) {
   const [customize] = useState(false);
@@ -35,18 +34,11 @@ export default function ArticleList(props) {
     };
   }, [rendering]);
   const deleteArticle = async (record) => {
-    console.log(record);
-    let deleteList = {
-      uploadTime: record.article_upload_time,
-      title: record.article_title,
-      tags: record.article_tags,
-    };
-    // console.log(deleteList)
     const res = await axios.delete(`${host}deleteArticleInfo`, {
-      data: { article_id:record.article_id },
+      data: { article_id: record.article_id },
     });
-    console.log(res);
-    // setRendering(res);
+    setRendering(res);
+    message.success("删除成功");
   };
   const customizeRenderEmpty = () => (
     <div
@@ -103,14 +95,14 @@ export default function ArticleList(props) {
           >
             编辑
           </Link>
-          <a
-            href="#!"
+          <span
+            style={{ color: "#1890ff", cursor: "pointer" }}
             onClick={() => {
               deleteArticle(record);
             }}
           >
             删除
-          </a>
+          </span>
         </span>
       ),
     },

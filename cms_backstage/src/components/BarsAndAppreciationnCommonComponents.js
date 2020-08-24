@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Form, Input, Button, Modal, Select, Tag, message } from "antd";
+import { Form, Input, Button, Modal, Select, message } from "antd";
 import { Context } from "../utils/ContextState";
 import UploadImage from "../components/UploadImage";
 import BraftEditor from "braft-editor";
@@ -11,8 +11,7 @@ import Markdown from "braft-extensions/dist/markdown";
 import CodeHighlighter from "braft-extensions/dist/code-highlighter";
 import { host } from "../conf";
 const options = {
-  includeEditors: ["editor"], // 指定该模块对哪些BraftEditor生效，不传此属性则对所有BraftEditor有效
-  // excludeEditors: ['editor-id-2'],  // 指定该模块对哪些BraftEditor无效
+  includeEditors: ["editor"],
 };
 BraftEditor.use(Markdown(options));
 BraftEditor.use(HeaderId(options));
@@ -24,11 +23,9 @@ export default function BarsAndAppreciationnCommonComponents(props) {
   );
   const [articleData, setArticleData] = useState();
   const [visible, setVisible] = useState(false);
-
   const [userInfo, setUserInfo] = useState();
-  // const { Option } = Select;
+  const { Option } = Select;
   const [selectOptions, setselectOptions] = useState();
-  // const [tags, settags] = useState([]);
   const [form] = Form.useForm();
   const controls = [
     "undo",
@@ -82,8 +79,8 @@ export default function BarsAndAppreciationnCommonComponents(props) {
     const GetTags = async () => {
       const res = await axios.get(`${host}searchTags`);
       let tags = [];
-      res.data.forEach((item) => {
-        tags.push({ value: item.name });
+      res.data.forEach((item, index) => {
+        tags.push(<Option key={index}>{item.name}</Option>);
       });
       if (!isUnmounted) {
         setselectOptions(tags);
@@ -106,7 +103,7 @@ export default function BarsAndAppreciationnCommonComponents(props) {
           setArticleData(articleProps);
           form.setFieldsValue({
             title: articleProps.article_title,
-            tags: articleProps.article_tags.split(','),
+            tags: articleProps.article_tags.split(","),
             articleContent: BraftEditor.createEditorState(
               res.data[0].article_content_raw
             ),
@@ -141,13 +138,12 @@ export default function BarsAndAppreciationnCommonComponents(props) {
   const handleEditorChange = (state) => {
     setEditorState(state);
   };
-  const submitContent = async () => {
-  };
+  const submitContent = async () => {};
   const submitInfo = async () => {
     let editorData = form.getFieldsValue().articleContent;
     console.log(editorData.toHTML());
     let uploads = form.getFieldsValue();
-    console.log(uploads,articleProps);
+    console.log(uploads, articleProps);
     if (headerName === "个人信息") {
       const res = await axios.post(`${host}addPersonalInfo`, uploads);
       res && message.success("上传成功");
@@ -163,7 +159,7 @@ export default function BarsAndAppreciationnCommonComponents(props) {
         if (headerName === "编辑文章") {
           uploads.modifyTime = new Date().getTime();
           uploads.historyTitle = articleData.article_title;
-          uploads.article_id = articleProps.article_id
+          uploads.article_id = articleProps.article_id;
           const res = await axios.post(`${host}editArticleInfo`, uploads);
           res && message.success("上传成功");
         } else {
@@ -182,17 +178,13 @@ export default function BarsAndAppreciationnCommonComponents(props) {
     labelCol: { span: 2 },
     wrapperCol: { span: 10 },
   };
+  const contentLayout = {
+    labelCol: { span: 2 },
+    wrapperCol: { span: 22},
+  };
   const tailLayout = {
     wrapperCol: { offset: 2, span: 16 },
   };
-  function tagRender(props) {
-    const { color, value, closable, onClose } = props;
-    return (
-      <Tag closable={closable} onClose={onClose} style={{ marginRight: 3 }}>
-        {value}
-      </Tag>
-    );
-  }
   const preview = () => {
     if (visible) {
       setVisible(false);
@@ -248,11 +240,12 @@ export default function BarsAndAppreciationnCommonComponents(props) {
       {CategoryBar && (
         <Form.Item label={CategoryBar} required={true} name="tags">
           <Select
-            mode="tags"
-            tagRender={tagRender}
+            mode="multiple"
+            placeholder="请选择标签"
             style={{ width: "100%" }}
-            options={selectOptions}
-          />
+          >
+            {selectOptions}
+          </Select>
         </Form.Item>
       )}
       <Form.Item label="图片" name="imgInfo">
@@ -287,6 +280,7 @@ export default function BarsAndAppreciationnCommonComponents(props) {
               },
             },
           ]}
+          {...contentLayout}
         >
           <BraftEditor
             id="editor"
@@ -305,15 +299,7 @@ export default function BarsAndAppreciationnCommonComponents(props) {
         </Form.Item>
       )}
       <Form.Item {...tailLayout}>
-        <Button
-          type="primary"
-          onClick={
-            submitInfo
-            //   () => {
-            //   console.log(form.getFieldsValue());
-            // }
-          }
-        >
+        <Button type="primary" onClick={submitInfo}>
           保存
         </Button>
       </Form.Item>
