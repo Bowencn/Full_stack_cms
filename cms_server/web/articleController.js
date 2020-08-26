@@ -26,7 +26,6 @@ addArticleInfo = async (request, response) => {
     imgInfo_fileName,
     imgInfo_url,
     dataList.articleContent.html,
-    dataList.articleContent.raw,
     (result) => {
       console.log("controller:result");
       response.write(JSON.stringify(result));
@@ -80,19 +79,19 @@ editArticleInfo = (request, response) => {
   console.log(1,data);
   let tags = data.tags.toString();
   var introReg = /<(?<p>[^\s>]+)[^>]*>(.|\n)*?<\/\k<p>>/g;
-  let intro = data.articleContent.html.match(introReg);
+  let intro = data.articleContent.html.match(introReg)[0];
   let imgInfo_fileName;
   let imgInfo_url;
   if (data.imgInfo) {
     imgInfo_fileName = data.imgInfo.fileName;
     imgInfo_url = data.imgInfo.url;
   }
+  // console.log(intro)
   articleService.editArticleInfo(
     data.modifyTime,
     data.title,
     tags,
     data.articleContent.html,
-    data.articleContent.raw,
     data.article_id,
     intro,
     imgInfo_fileName || null,

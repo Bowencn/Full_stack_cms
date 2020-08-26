@@ -8,7 +8,7 @@ export default function AddArticle(props) {
     router(props.location.pathname);
   }, [router,props.location.pathname]);
   return (
-    <div style={{ padding: "0 170px 32px 64px" }}>
+    <div className="add-article">
       <h1
         style={{
           marginTop: "8px",

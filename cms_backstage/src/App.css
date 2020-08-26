@@ -74,3 +74,11 @@
 /* .ant-card>.ant-card-head>.ant-card-head-wrapper>.ant-card-head-title {
   padding: 8px 0 ;
 } */
+/* .add-article{
+  padding: "0 170px 32px 64px"
+}
+@media screen and (max-width:1400px){
+  .add-article{
+    padding: "0"
+  }
+} */

@@ -9,7 +9,6 @@ addArticleInfo = (
   article_img_fileName,
   article_img_url,
   article_content_html,
-  article_content_raw,
   success
 ) => {
   articleDao.addArticleInfo(
@@ -22,7 +21,6 @@ addArticleInfo = (
     article_img_fileName,
     article_img_url,
     article_content_html,
-    article_content_raw,
     success
   );
 };
@@ -40,7 +38,6 @@ editArticleInfo = (
   article_title,
   article_tags,
   article_content_html,
-  article_content_raw,
   article_id,
   intro,
   article_img_fileName,
@@ -52,7 +49,6 @@ editArticleInfo = (
     article_title,
     article_tags,
     article_content_html,
-    article_content_raw,
     article_id,
     intro,
     article_img_fileName,

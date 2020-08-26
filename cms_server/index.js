@@ -1,10 +1,6 @@
-const http = require("http");
-const url = require("url");
 const globalConfig = require("./globalConfig");
 const fs = require("fs");
 const loader = require("./loader");
-const filterSet = require("./filterLoader");
-const log = require("./log");
 const express = require("express");
 const multer = require("multer");
 const app = express();
@@ -22,14 +18,12 @@ app.use(bodyParser.json({limit: '50mb'}));
 //跨域
 app.all("*", function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
-  //Access-Control-Allow-Headers ,可根据浏览器的F12查看,把对应的粘贴在这里就行
   res.header(
     "Access-Control-Allow-Headers",
     "Content-type,Content-Length,Authorization,Accept,x-requested-with"
   );
   res.header("Access-Control-Allow-Methods", "*");
   res.header("Content-Type", "application/json;charset=utf-8");
-  // console.log('kuayu')
   next();
 });
 //个人信息
@@ -78,11 +72,9 @@ app.post("/uploadImage", upload.single("avatar"), function (req, res, next) {
   res.status(200).json({fileName: file.filename ,url: file.destination+file.filename});
 });
 app.get("/queryImageInfo", loader.get("/queryImageInfo"));
-//图片在线查看，输入图片名字--->未使用
 app.delete(`/imageInfo`,loader.get(`/deleteImageInfo`))
 app.get(`/uploads/:name`, (req, res, next) => {
   let rs = fs.createReadStream("./uploads/" + req.params.name);
-  // console.log(rs);
   res.set("Content-Type", "image/jpeg");
   rs.pipe(res);
 });

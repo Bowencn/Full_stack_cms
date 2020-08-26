@@ -110,7 +110,7 @@ export default function ArticleList(props) {
   return (
     <div
       style={{
-        padding: "0 0px 32px 64px",
+        padding: "0 0 32px 64px",
       }}
     >
       <h1

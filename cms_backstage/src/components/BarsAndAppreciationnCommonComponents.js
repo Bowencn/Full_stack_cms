@@ -31,37 +31,15 @@ export default function BarsAndAppreciationnCommonComponents(props) {
     "undo",
     "redo",
     "separator",
-    "font-size",
-    "line-height",
-    "letter-spacing",
-    "separator",
     "text-color",
     "bold",
-    "italic",
     "underline",
     "strike-through",
     "separator",
-    "superscript",
-    "subscript",
-    "remove-styles",
     "emoji",
     "separator",
-    "text-indent",
-    "text-align",
-    "separator",
-    "headings",
-    "list-ul",
-    "list-ol",
     "blockquote",
     "code",
-    "separator",
-    "link",
-    "separator",
-    "hr",
-    "separator",
-    "media",
-    "separator",
-    "clear",
   ];
   let articleProps =
     props.editData &&
@@ -104,9 +82,7 @@ export default function BarsAndAppreciationnCommonComponents(props) {
           form.setFieldsValue({
             title: articleProps.article_title,
             tags: articleProps.article_tags.split(","),
-            articleContent: BraftEditor.createEditorState(
-              res.data[0].article_content_raw
-            ),
+            articleContent: BraftEditor.createEditorState(res.data[0].article_content_html),
           });
         }
       };
@@ -153,7 +129,6 @@ export default function BarsAndAppreciationnCommonComponents(props) {
     } else {
       try {
         uploads.articleContent = {
-          raw: editorData.toRAW(),
           html: editorData.toHTML(),
         };
         if (headerName === "编辑文章") {
@@ -180,7 +155,7 @@ export default function BarsAndAppreciationnCommonComponents(props) {
   };
   const contentLayout = {
     labelCol: { span: 2 },
-    wrapperCol: { span: 22},
+    wrapperCol: { span: 22 },
   };
   const tailLayout = {
     wrapperCol: { offset: 2, span: 16 },
