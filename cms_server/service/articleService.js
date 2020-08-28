@@ -27,6 +27,9 @@ addArticleInfo = (
 deleteArticleInfo = (article_id, success) => {
   articleDao.deleteArticleInfo(article_id, success);
 };
+searchArticleInfoWithTag=(tag,success)=>{
+  articleDao.searchArticleInfoWithTag(tag,success)
+}
 searchArticleContent = (id, success) => {
   articleDao.searchArticleContent(id, success);
 };
@@ -59,6 +62,7 @@ editArticleInfo = (
 module.exports = {
   addArticleInfo: addArticleInfo,
   deleteArticleInfo: deleteArticleInfo,
+  searchArticleInfoWithTag:searchArticleInfoWithTag,
   searchArticleContent: searchArticleContent,
   searchArticleInfo: searchArticleInfo,
   editArticleInfo: editArticleInfo,

@@ -1,6 +1,6 @@
-import React from 'react'
-import WarningPage from "../WarningPage";
+import React from "react";
+import BaseView from "./BaseView";
 
 export default function VueViews() {
-    return <WarningPage />;
+  return <BaseView page="Vue" />;
 }

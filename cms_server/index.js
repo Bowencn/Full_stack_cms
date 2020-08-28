@@ -39,6 +39,7 @@ app.get(`/searchArticleInfo`,loader.get(`/searchArticleInfo`))
 app.post(`/searchArticleContent`,loader.get(`/searchArticleContent`))
 app.delete(`/deleteArticleInfo`,loader.get(`/deleteArticleInfo`))
 app.post(`/editArticleInfo`,loader.get(`/editArticleInfo`))
+app.post(`/searchArticleInfoWithTag`,loader.get(`/searchArticleInfoWithTag`))
 //slider
 app.post(`/addSliderInfo`,loader.get(`/addSliderInfo`))
 

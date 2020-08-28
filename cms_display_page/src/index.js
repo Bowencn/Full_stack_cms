@@ -4,6 +4,8 @@ import "./index.css";
 import * as serviceWorker from "./serviceWorker";
 import "antd/dist/antd.css";
 import Router from "./AppRouter";
+// import "./theme/prism.js"
+// import "./theme/prism.css"
 // import 'braft-editor/dist/output.css'
 ReactDOM.render(<Router />, document.getElementById("root"));
 

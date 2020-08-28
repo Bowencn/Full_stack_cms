@@ -1,21 +1,27 @@
+import "braft-editor/dist/index.css";
+import "braft-extensions/dist/code-highlighter.css";
+
 import React, { useState, useContext, useEffect } from "react";
 import { Form, Input, Button, Modal, Select, message } from "antd";
 import { Context } from "../utils/ContextState";
 import UploadImage from "../components/UploadImage";
 import BraftEditor from "braft-editor";
-import axios from "axios";
-import HeaderId from "braft-extensions/dist/header-id";
-import "braft-editor/dist/index.css";
-import "braft-extensions/dist/code-highlighter.css";
-import Markdown from "braft-extensions/dist/markdown";
 import CodeHighlighter from "braft-extensions/dist/code-highlighter";
+import axios from "axios";
+// import HeaderId from "braft-extensions/dist/header-id";
+// import Markdown from "braft-extensions/dist/markdown";
 import { host } from "../conf";
-const options = {
-  includeEditors: ["editor"],
-};
-BraftEditor.use(Markdown(options));
-BraftEditor.use(HeaderId(options));
-BraftEditor.use(CodeHighlighter(options));
+// const options = {
+//   includeEditors: ["editor-with-code-highlighter"],
+// }; 
+// BraftEditor.use(Markdown(options));
+// BraftEditor.use(HeaderId(options));
+
+BraftEditor.use(
+  CodeHighlighter({
+    includeEditors: ["editor-with-code-highlighter"],
+  })
+);
 export default function BarsAndAppreciationnCommonComponents(props) {
   const [appreciateInfo, setAppreciateInfo] = useState({});
   const [editorState, setEditorState] = useState(
@@ -26,21 +32,8 @@ export default function BarsAndAppreciationnCommonComponents(props) {
   const [userInfo, setUserInfo] = useState();
   const { Option } = Select;
   const [selectOptions, setselectOptions] = useState();
+ 
   const [form] = Form.useForm();
-  const controls = [
-    "undo",
-    "redo",
-    "separator",
-    "text-color",
-    "bold",
-    "underline",
-    "strike-through",
-    "separator",
-    "emoji",
-    "separator",
-    "blockquote",
-    "code",
-  ];
   let articleProps =
     props.editData &&
     props.editData.location.state &&
@@ -82,8 +75,13 @@ export default function BarsAndAppreciationnCommonComponents(props) {
           form.setFieldsValue({
             title: articleProps.article_title,
             tags: articleProps.article_tags.split(","),
-            articleContent: BraftEditor.createEditorState(res.data[0].article_content_html),
+            articleContent: BraftEditor.createEditorState(
+              res.data[0].article_content_html
+            ),
           });
+          setEditorState(
+            BraftEditor.createEditorState(res.data[0].article_content_html)
+          );
         }
       };
       getArticle();
@@ -113,13 +111,12 @@ export default function BarsAndAppreciationnCommonComponents(props) {
 
   const handleEditorChange = (state) => {
     setEditorState(state);
+    form.setFieldsValue({ articleContent: state });
   };
-  const submitContent = async () => {};
   const submitInfo = async () => {
     let editorData = form.getFieldsValue().articleContent;
-    console.log(editorData.toHTML());
     let uploads = form.getFieldsValue();
-    console.log(uploads, articleProps);
+    console.log(uploads, selectOptions);
     if (headerName === "个人信息") {
       const res = await axios.post(`${host}addPersonalInfo`, uploads);
       res && message.success("上传成功");
@@ -138,6 +135,7 @@ export default function BarsAndAppreciationnCommonComponents(props) {
           const res = await axios.post(`${host}editArticleInfo`, uploads);
           res && message.success("上传成功");
         } else {
+          uploads.tags = selectOptions[uploads.tags[0]].props.children;
           uploads.uploadTime = new Date().getTime();
           const res = await axios.post(`${host}addArticleInfo`, uploads);
           res && message.success("上传成功");
@@ -180,8 +178,20 @@ export default function BarsAndAppreciationnCommonComponents(props) {
     },
   ];
   return (
-    <Form name="bacc" form={form} {...layout}>
-      <Modal visible={visible} onCancel={handleCancel} footer={null}>
+    <Form
+      name="bacc"
+      form={form}
+      {...layout}
+      onValuesChange={(a, b) => {
+        console.log(a, b);
+      }}
+    >
+      <Modal
+        visible={visible}
+        onCancel={handleCancel}
+        footer={null}
+        width="900px"
+      >
         <div
           className="braft-output-content"
           dangerouslySetInnerHTML={{ __html: editorState.toHTML() }}
@@ -257,20 +267,18 @@ export default function BarsAndAppreciationnCommonComponents(props) {
           ]}
           {...contentLayout}
         >
-          <BraftEditor
-            id="editor"
-            className="my-editor"
-            controls={controls}
-            placeholder="请输入正文内容"
-            style={{
-              border: "1px solid rgb(217,217,217)",
-              borderRadius: "5px",
-            }}
-            value={editorState}
-            onChange={handleEditorChange}
-            onSave={submitContent}
-            extendControls={extendControls}
-          />
+          <div className="editor-container">
+            <BraftEditor
+              id="editor-with-code-highlighter"
+              style={{
+                border: "1px solid rgb(217,217,217)",
+                borderRadius: "5px",
+              }}
+              value={editorState}
+              onChange={handleEditorChange}
+              extendControls={extendControls}
+            />
+          </div>
         </Form.Item>
       )}
       <Form.Item {...tailLayout}>

@@ -1,6 +1,5 @@
 import React from "react";
-
-import WarningPage from "../WarningPage";
+import BaseView from "./BaseView"
 export default function ReactView() {
-  return <WarningPage />;
+  return <BaseView page="React"/>;
 }

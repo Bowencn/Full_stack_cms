@@ -48,6 +48,18 @@ searchArticleInfo = (request, response) => {
 
 path.set("/searchArticleInfo", searchArticleInfo);
 
+searchArticleInfoWithTag = (request, response) => {
+  console.log("searchArticleInfoWithTag");
+  let data = request.body
+  console.log(data)
+  articleService.searchArticleInfoWithTag(data.tags,(result) => {
+    console.log(result)
+    response.json({ data: result });
+    response.end();
+  });
+};
+
+path.set("/searchArticleInfoWithTag", searchArticleInfoWithTag);
 searchArticleContent = (request, response) => {
   console.log("searchArticleContent");
   let id = request.body.id;

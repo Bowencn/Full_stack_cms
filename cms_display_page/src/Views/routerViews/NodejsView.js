@@ -1,5 +1,5 @@
-import React from "react";
-import WarningPage from "../WarningPage";
+import React, { useState, useEffect } from "react";
+import BaseView from "./BaseView";
 export default function NodejsView() {
-  return <WarningPage />;
+  return <BaseView page="Nodejs" />;
 }
