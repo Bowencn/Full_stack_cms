@@ -7,21 +7,25 @@ import Icon from "@ant-design/icons";
 const { Title, Paragraph } = Typography;
 export default withRouter(function CardTemplate(props) {
   const [data] = useState(props.data);
-  const [date, setDate] = useState();
-  const [imgStyle, setimgStyle] = useState({ maxWidth: "100%" });
-  const refImg = useRef();
   const [tags] = useState(!props.content);
+  const [date, setDate] = useState();
+  const refImg = useRef();
+  const [imgStyle, setimgStyle] = useState({ maxWidth: "100%" });
   useEffect(() => {
     let d = new Date();
     d.setTime(data.article_upload_time);
     let date = d.toLocaleDateString().replace(/\//g, "-");
     setDate(date);
     if (refImg.current !== undefined) {
-      let height = refImg.current.naturalHeight;
-      let width = refImg.current.naturalWidth;
-      if (width && height && height > width) {
-        setimgStyle({ maxWidth: "300px" });
-      }
+      let isImgStyle;
+      refImg.current.onload = () => {
+        let height = refImg.current.naturalHeight;
+        let width = refImg.current.naturalWidth;
+        if (height > width) {
+          isImgStyle = { maxWidth: "300px" };
+        }
+        setimgStyle(isImgStyle || imgStyle);
+      };
     }
   }, [data]);
   const tagsSvg = () => (
@@ -107,8 +111,8 @@ export default withRouter(function CardTemplate(props) {
               left: "55px",
               fontSize: 14,
               color: "#fff",
-              height:23,
-              overflow:'hidden',
+              height: 23,
+              overflow: "hidden",
             }}
           >
             {data && data.article_tags}

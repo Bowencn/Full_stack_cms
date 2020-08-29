@@ -8,16 +8,16 @@ export default function UserInfo() {
   const [userInfo, setUserInfo] = useState();
   const [tags, settags] = useState([{ name: "首页" }]);
   useEffect(() => {
-    const GetTags = async () => {
-      const res = await axios.get(`${host}searchTags`);
-      settags(res.data);
-    };
     const getUserInfo = async () => {
       const res = await axios.get(`${host}searchPersonalInfo`);
       setUserInfo(res.data[0]);
     };
-    GetTags();
+    const GetTags = async () => {
+      const res = await axios.get(`${host}searchTags`);
+      settags(res.data);
+    };
     getUserInfo();
+    GetTags();
   }, []);
   return (
     <Affix offsetTop={180}>

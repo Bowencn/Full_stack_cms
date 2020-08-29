@@ -12,12 +12,14 @@ const { Footer } = Layout;
 function App(props) {
   const [backTop, setBackTop] = useState(true);
   useEffect(() => {
+    let backTop;
     if (navigator.userAgent.indexOf("Windows") === -1) {
       alert("PC端浏览最佳");
-      setBackTop(false);
+      backTop=false;
     } else {
-      setBackTop(true);
+      backTop=true;
     }
+    setBackTop(backTop);
   }, []);
   useEffect(() => {
     if (props.location.pathname === "/") {

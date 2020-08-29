@@ -17,10 +17,16 @@ export default function NodejsView(props) {
         data.forEach((item, index) => {
           item.key = index;
         });
-        setArticleList(data);
+        setList(data);
       } else {
-        setwarning(true);
+        setWarn(true);
       }
+    };
+    const setList = (data) => {
+      setArticleList(data);
+    };
+    const setWarn = (boolean) => {
+      setwarning(boolean);
     };
     search();
   }, []);
