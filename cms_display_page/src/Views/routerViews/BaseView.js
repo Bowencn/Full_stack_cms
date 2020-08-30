@@ -29,7 +29,7 @@ export default function NodejsView(props) {
       setwarning(boolean);
     };
     search();
-  }, []);
+  }, [props.page]);
   return (
     <main style={{ margin: "20px auto" }}>
       {!warning ? (
